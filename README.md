@@ -1,81 +1,162 @@
 # AGRA
 
-**AGRA** significa **Aplicativo de Gestão Rural e Agrícola**: um assistente inteligente para administrar propriedades rurais com produtividade e sustentabilidade.
+### Aplicativo de Gestão Rural e Agrícola
 
-## O que já existe
+O **AGRA** é uma plataforma de gestão e inteligência para propriedades rurais. Ele transforma dados de produção, solo, água, clima, geografia e conhecimento técnico em decisões práticas para produzir melhor, gastar menos e preservar os recursos naturais.
 
-- Dashboard responsivo em português.
-- Indicadores de produção, área cultivada, umidade do solo e atividades pendentes.
-- Resumo de produção por cultura.
-- Condições climáticas atuais e previsão curta.
-- Saúde dos talhões com índice visual.
-- Lista de atividades próximas.
-- Navegação preparada para os módulos de produção, talhões, solo, clima, atividades, estoque e equipe.
-- Interações locais para navegação, seletor de propriedade e registro de atividade.
+> **Do dado no campo à decisão de manejo.**
 
-## Propósito do produto
+## Visão de produto
 
-O AGRA ajuda produtores a decidir **o que fazer, quando fazer e por quê**, cruzando geografia da propriedade, previsão do tempo, qualidade do solo, disponibilidade de água, cultura plantada e histórico de produção. A proposta é reduzir desperdícios e melhorar o resultado sem tratar fertilizantes, irrigação ou defensivos como respostas automáticas.
+O produtor não precisa de mais um painel cheio de números. Precisa saber:
 
-O produto também transforma conhecimento técnico autorizado em **trilhas de manejo** para a agricultura familiar: entender o problema, preparar materiais, executar em passos simples, acompanhar o resultado e registrar o que foi feito. A especificação está em [KNOWLEDGE_GUIDANCE.md](KNOWLEDGE_GUIDANCE.md).
+- o que está acontecendo em cada talhão;
+- qual ação merece atenção agora;
+- por que essa ação foi sugerida;
+- quanto ela pode custar ou economizar;
+- como executar e registrar o resultado;
+- quando é necessário chamar um técnico.
 
-As recomendações devem sempre mostrar os dados usados, o nível de confiança, o impacto esperado e a alternativa de não agir. Doses e aplicações precisam respeitar legislação, receituário agronômico e validação de um responsável técnico.
+O AGRA organiza esse ciclo em uma experiência simples, acessível e funcional mesmo com conectividade limitada.
 
-O AGRA pode usar bibliotecas e dados abertos comercialmente, desde que mantenha atribuições, respeite quotas e não dependa de endpoints públicos para operação crítica. A política de licenças e fornecedores está em [ARCHITECTURE.md](ARCHITECTURE.md).
+## O problema econômico
 
-## Monetização
+Na agricultura familiar e em operações rurais menores, decisões importantes ainda ficam espalhadas em cadernos, mensagens, planilhas, memória da equipe e orientação difícil de consultar. Isso aumenta o risco de:
 
-O modelo será gratuito no núcleo operacional e pago apenas nas inovações do AGRA: recomendações explicáveis, cenários, análises de satélite, automações, colaboração, auditoria e API. O produtor mantém acesso e exportação dos próprios dados em qualquer plano.
+- desperdício de água e insumos;
+- aplicação fora da janela adequada;
+- perda de produtividade por falta de acompanhamento;
+- decisões sem histórico ou evidência;
+- dependência de conectividade e ferramentas pouco adaptadas ao campo.
 
-Os serviços externos ficam desacoplados e opcionais. O cliente poderá usar dados abertos, informar sua própria credencial ou contratar uma integração específica. Detalhes de planos, capacidades e cobrança estão em [MONETIZATION.md](MONETIZATION.md).
+O custo não é apenas financeiro: manejo inadequado reduz a resiliência do solo, pressiona a água e dificulta a continuidade da propriedade.
 
-## Direção multiplataforma
+## Proposta de valor
 
-O objetivo é manter os mesmos dados e fluxos no Android e Linux, com uma interface adequada a cada dispositivo. A arquitetura recomendada é:
+O AGRA combina cinco capacidades em um produto único:
 
-- TypeScript para o núcleo de domínio e contratos compartilhados.
-- Backend multiplataforma em TypeScript, com API e sincronização.
-- Kotlin + Jetpack Compose ou Capacitor para o cliente Android.
-- PWA responsiva, a partir desta base, para Linux e acesso rápido em qualquer navegador.
-- Funcionamento offline com fila de operações e sincronização incremental.
-- Motor de recomendações explicáveis para irrigação, adubação, janela de plantio e alertas de risco.
-- Mapas operacionais baseados em coordenadas reais, com imagens de satélite quando houver fonte configurada.
+1. **Gestão operacional:** propriedades, talhões, culturas, safras, tarefas e produção.
+2. **Inteligência agronômica assistida:** recomendações explicáveis, com fonte, confiança e limites.
+3. **Conhecimento aplicado:** manuais autorizados e trilhas passo a passo para o agricultor familiar.
+4. **Leitura territorial:** mapas reais, clima, solo, água e imagens de satélite quando configuradas.
+5. **Continuidade no campo:** PWA instalável, Android, operação offline e sincronização segura.
 
-O mapa atualmente exibido no dashboard é uma visualização demonstrativa. Ele não representa limites reais de propriedade até que sejam importados um GeoJSON/KML ou coordenadas levantadas no campo.
+## Clientes iniciais
 
-O projeto detalhado está em [ARCHITECTURE.md](ARCHITECTURE.md). A prioridade passa a ser uma base web instalável e um cliente Android com os mesmos contratos e dados.
+### Agricultor familiar
 
-O plano de catálogo e tamanho do acervo técnico da Embrapa está em [EMBRAPA_DATA_PLAN.md](EMBRAPA_DATA_PLAN.md), com o esquema inicial em [database/embrapa_schema.sql](database/embrapa_schema.sql). A ingestão começa por metadados e só baixa documentos quando a licença permitir.
+Precisa de orientação clara, baixo custo, funcionamento offline e registro simples de atividades, fotos e medições.
 
-O plano de execução está em [ROADMAP.md](ROADMAP.md), o fluxo operacional em [WORKFLOW.md](WORKFLOW.md) e os critérios de liberação em [ALPHA_BETA.md](ALPHA_BETA.md).
+### Técnico e extensão rural
 
-O primeiro corte vertical da API está em [API_ALPHA.md](API_ALPHA.md), com contratos TypeScript em `src/domain` e execução via `npm run dev`.
+Precisa acompanhar propriedades, revisar recomendações, orientar equipes e transformar conhecimento em trilhas reutilizáveis.
 
-## Executar
+### Cooperativas e associações
 
-Para uma visualização rápida, abra `index.html` diretamente no navegador.
+Precisam de visão agregada sem retirar a autonomia do produtor, com indicadores de produção, sustentabilidade e assistência.
 
-Para ativar a instalação como PWA e o cache offline, execute na pasta `AMA`:
+### Pequenas e médias operações
+
+Precisam reduzir desperdícios, organizar equipes e tomar decisões com histórico sem adotar um ERP complexo.
+
+## Diferenciais defensáveis
+
+- Recomendações conectadas a evidências e fontes técnicas, não apenas a texto gerado.
+- Conhecimento convertido em ações de campo, com acompanhamento do resultado.
+- Arquitetura offline-first para regiões com conectividade irregular.
+- Dados de propriedade preservados, exportáveis e controlados pelo produtor.
+- Camada de provedores substituíveis para mapas, satélite, clima e sensores.
+- Sustentabilidade medida por recursos usados, produtividade e evolução do solo.
+- Produto modular: começa simples e cresce conforme o produtor comprova valor.
+
+## Modelo de negócio
+
+O núcleo operacional é gratuito ou acessível. A receita vem das capacidades que geram valor adicional:
+
+| Oferta | Valor entregue | Modelo sugerido |
+| --- | --- | --- |
+| AGRA Base | Cadastro, operação offline, dashboard e exportação | Gratuito |
+| AGRA Inteligência | Recomendações, cenários, alertas e análises | Assinatura |
+| AGRA Operação | Equipe, aprovação técnica, auditoria e múltiplas propriedades | Assinatura por organização |
+| AGRA API | Integrações com cooperativas, ERPs, laboratórios e sensores | Uso/contrato |
+| Serviços profissionais | Implantação, configuração, treinamento e revisão técnica | Projeto ou pacote |
+
+O produtor nunca perde acesso aos próprios dados por cancelar uma assinatura. Custos de serviços externos ficam explícitos, opcionais e desacoplados do valor criado pelo AGRA. Detalhes em [MONETIZATION.md](MONETIZATION.md).
+
+## Produto e tecnologia
+
+- **PWA:** acesso imediato em Linux, Windows e navegadores móveis.
+- **Android:** cliente instalável quando recursos nativos forem necessários.
+- **Backend:** TypeScript, API versionada e sincronização idempotente.
+- **Dados:** PostgreSQL, armazenamento de objetos e histórico de operações.
+- **Mapas:** GeoJSON/KML/GPS, base cartográfica configurável e satélite com metadados.
+- **Conhecimento:** catálogo Embrapa autorizado, trilhas, citações e busca.
+- **Offline:** cache do app, fila local, retry e resolução explícita de conflitos.
+
+O mapa da tela atual ainda é demonstrativo. Limites e imagens reais só serão exibidos após importação ou configuração de fontes oficiais. Veja [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Estado atual
+
+Já existe uma fundação visual responsiva com dashboard de produção, clima, talhões, água e atividades, além de PWA, cache offline, fila local, catálogo de monetização, esquema de banco e API Alpha em memória.
+
+O próximo corte conecta a PWA à API, troca o armazenamento em memória por PostgreSQL e inicia o primeiro conjunto de trilhas de manejo autorizadas.
+
+## Roadmap comercial
+
+1. **Fundação:** contratos, persistência, sincronização, segurança e dados de teste.
+2. **MVP operacional:** propriedade, talhões, atividades, solo, água e exportação.
+3. **Biblioteca guiada:** catálogo Embrapa, trilhas revisadas e uso offline.
+4. **Inteligência:** recomendações explicáveis e indicadores de sustentabilidade.
+5. **Alpha fechada:** 5 a 15 propriedades de uma região e poucas culturas.
+6. **Beta controlada:** 30 a 100 propriedades, Android, mapas reais e planos em teste.
+
+Critérios completos em [ROADMAP.md](ROADMAP.md), [WORKFLOW.md](WORKFLOW.md) e [ALPHA_BETA.md](ALPHA_BETA.md).
+
+## Métricas de negócio e impacto
+
+- tempo até o primeiro talhão cadastrado;
+- atividades registradas offline e sincronizadas sem duplicação;
+- trilhas iniciadas e concluídas;
+- recomendações aceitas, editadas ou recusadas;
+- economia estimada de água e insumos;
+- retenção de propriedades ativas;
+- custo de infraestrutura por propriedade;
+- receita recorrente por organização;
+- incidentes de privacidade, licença ou segurança.
+
+As métricas de economia e produtividade serão apresentadas como estimativas até serem confirmadas por dados de campo.
+
+## Executar localmente
+
+### Dashboard PWA
+
+Abra `index.html` diretamente para uma visualização rápida. Para ativar PWA e cache offline:
 
 ```powershell
 python -m http.server 8080
 ```
 
-Depois acesse `http://localhost:8080`. O service worker só pode ser registrado em `localhost` ou HTTPS, como medida de segurança do navegador.
+Acesse `http://localhost:8080`.
 
-## Resiliência atual
+### API Alpha
 
-- O estado local e as atividades pendentes são preservados no navegador.
-- O indicador informa quando a aplicação está offline.
-- O service worker mantém o shell do app disponível sem rede após o primeiro acesso.
-- Operações registradas offline entram em uma fila local para futura sincronização com a API.
-- O próximo passo é implementar o consumidor dessa fila, com retry, idempotência e resolução de conflitos no backend.
+Requer Node.js 20 ou superior:
 
-## Próximos passos sugeridos
+```powershell
+npm install
+npm run check
+npm run dev
+```
 
-1. Definir os contratos de domínio e API descritos em [ARCHITECTURE.md](ARCHITECTURE.md).
-2. Criar o pacote TypeScript compartilhado com modelos, validações e testes.
-3. Criar a API Node.js com autenticação por propriedade e usuário.
-4. Substituir os dados demonstrativos por consultas reais na PWA.
-5. Transformar a PWA em aplicativo instalável com cache, IndexedDB e sincronização.
-6. Adicionar o cliente Android depois que os contratos estiverem estáveis.
+Detalhes dos endpoints em [API_ALPHA.md](API_ALPHA.md). A API atual usa memória e não deve ser exposta publicamente.
+
+## Documentação
+
+- [Arquitetura](ARCHITECTURE.md)
+- [Roadmap](ROADMAP.md)
+- [Workflow](WORKFLOW.md)
+- [Preparação Alpha/Beta](ALPHA_BETA.md)
+- [Conhecimento e trilhas de manejo](KNOWLEDGE_GUIDANCE.md)
+- [Plano de dados Embrapa](EMBRAPA_DATA_PLAN.md)
+- [Monetização](MONETIZATION.md)
+- [Estado de implementação](IMPLEMENTATION_STATUS.md)
