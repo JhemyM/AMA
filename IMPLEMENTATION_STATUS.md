@@ -1,3 +1,6 @@
+- Backup local JSON com exportação e importação entre dispositivos.
+- Canal de feedback offline com categoria, nota, mensagem e consentimento.
+- Cliente nativo Android em Kotlin/Compose preparado em `android-native/`.
 # Estado de implementação do AGRA
 
 ## Concluído neste corte
@@ -18,6 +21,9 @@
 - A API Alpha usa memória e perde dados ao reiniciar.
 - Ainda não existe PostgreSQL, autenticação ou autorização.
 - A PWA ainda não consome os endpoints da API.
+- A troca entre dispositivos ainda depende de backup manual quando não há servidor.
+- APK debug compilado com SDK 35 e OpenJDK 21.
+- Executável Windows portable compilado com Electron em `dist/desktop/`.
 - O mapa real e a ingestão Embrapa ainda dependem de fontes e licenças configuradas.
 
 ## Próxima sessão de implementação

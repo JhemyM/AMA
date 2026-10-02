@@ -10,6 +10,8 @@
     "build:api": "tsc -p tsconfig.json",
     "build:web": "node scripts/build.mjs",
     "build:all": "npm run build",
+    "desktop:dev": "npm run build:all && electron .",
+    "desktop:win": "npm run build:all && electron-builder --win portable",
     "embrapa:normalize": "node scripts/ingest-embrapa.mjs data/embrapa/catalog.example.json normalize",
     "embrapa:download": "node scripts/ingest-embrapa.mjs data/embrapa/catalog.normalized.json download",
     "start": "node dist/server.js",
@@ -18,9 +20,29 @@
   "engines": {
     "node": ">=20"
   },
+  "main": "desktop/main.cjs",
+  "build": {
+    "appId": "br.com.agra.desktop",
+    "productName": "AGRA",
+    "directories": {
+      "output": "dist/desktop"
+    },
+    "files": [
+      "desktop/**/*",
+      "dist/web/**/*",
+      "dist/server.js",
+      "dist/domain/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": ["portable"]
+    }
+  },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
   }
 }

@@ -41,7 +41,7 @@
       </nav>
 
       <div class="sidebar-footer">
-        <div class="help-card"><span class="help-icon">?</span><div><strong>Precisa de ajuda?</strong><small>Veja o guia de operação</small></div></div>
+        <button class="help-card" id="feedbackButton" type="button"><span class="help-icon">?</span><span><strong>Enviar feedback</strong><small>Ajude a melhorar o AGRA</small></span></button>
         <div class="user-row"><div class="avatar">MS</div><div><strong>Marina Souza</strong><small>Administradora</small></div><span class="more">•••</span></div>
       </div>
     </aside>
@@ -53,7 +53,7 @@
       </header>
 
       <section class="page-content" id="dashboardSection">
-        <div class="page-heading"><div><p class="eyebrow">Quarta-feira, 02 de outubro de 2026</p><h1>Bom dia, Marina <span>🌱</span></h1><p class="muted">Decisões mais inteligentes para produzir mais, preservando a terra.</p></div><button class="primary-button" id="newActivityButton" type="button"><span>＋</span> Registrar atividade</button></div>
+        <div class="page-heading"><div><p class="eyebrow">Quarta-feira, 02 de outubro de 2026</p><h1>Bom dia, Marina <span>🌱</span></h1><p class="muted">Decisões mais inteligentes para produzir mais, preservando a terra.</p></div><div class="heading-actions"><button class="secondary-button" id="exportDataButton" type="button">⇩ Exportar dados</button><button class="primary-button" id="newActivityButton" type="button"><span>＋</span> Registrar atividade</button><input id="importDataInput" type="file" accept="application/json" hidden></div></div>
 
         <div class="metric-grid">
           <article class="metric-card accent-green"><div class="metric-top"><span class="metric-label">Produção estimada</span><span class="metric-symbol">↗</span></div><strong>248,6 <small>t</small></strong><div class="metric-foot"><span class="trend up">↑ 8,4%</span><span>vs. safra anterior</span></div></article>
@@ -80,8 +80,23 @@
       <section class="placeholder-section" id="placeholderSection" hidden><div class="placeholder-icon">⌘</div><p class="eyebrow">Módulo em preparação</p><h1 id="placeholderTitle">Produção</h1><p class="muted">A estrutura deste módulo está pronta para receber seus registros, filtros e relatórios.</p><button class="primary-button" id="backButton" type="button">← Voltar ao dashboard</button></section>
     </main>
   </div>
+  <dialog class="feedback-dialog" id="feedbackDialog" aria-labelledby="feedbackTitle">
+    <form method="dialog" id="feedbackForm">
+      <div class="dialog-heading"><div><p class="eyebrow">Canal do piloto</p><h2 id="feedbackTitle">Como podemos melhorar?</h2></div><button class="dialog-close" value="cancel" aria-label="Fechar">×</button></div>
+      <label for="feedbackType">Tipo de retorno</label>
+      <select id="feedbackType" required><option value="idea">Tenho uma ideia</option><option value="problem">Encontrei um problema</option><option value="guidance">Não entendi uma orientação</option><option value="praise">Algo funcionou bem</option></select>
+      <label for="feedbackRating">Como foi a experiência?</label>
+      <select id="feedbackRating" required><option value="5">Muito boa</option><option value="4">Boa</option><option value="3">Regular</option><option value="2">Difícil</option><option value="1">Muito difícil</option></select>
+      <label for="feedbackMessage">Conte o que aconteceu</label>
+      <textarea id="feedbackMessage" rows="4" required placeholder="Escreva com suas palavras..."></textarea>
+      <label class="consent-line"><input id="feedbackContact" type="checkbox"> Posso ser contatado para esclarecer este retorno.</label>
+      <div class="feedback-actions"><button class="secondary-button" id="emailFeedbackButton" value="cancel" type="button">Preparar e-mail</button><button class="primary-button" value="submit" type="submit">Salvar feedback offline</button></div>
+    </form>
+  </dialog>
   <div class="toast" id="toast" role="status">Atividade registrada com sucesso.</div>
   <script defer src="storage.js"></script>
+  <script defer src="feedback-config.js"></script>
+  <script defer src="feedback-config.local.js"></script>
   <script defer src="app.js"></script>
 </body>
 </html>

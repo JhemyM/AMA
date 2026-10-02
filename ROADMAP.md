@@ -74,7 +74,7 @@ Entregar um aplicativo offline-first para agricultura familiar que ajude o produ
 
 ### Fase 5 — Alpha fechada
 
-**Público:** 5 a 15 produtores, técnicos e pessoas de suporte.
+**Público:** 5 a 15 produtores, técnicos e pessoas de suporte, começando por Delmiro Gouveia, no Sertão de Alagoas.
 
 - Uma região e poucas culturas bem atendidas.
 - Convite e suporte direto.

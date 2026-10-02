@@ -101,6 +101,8 @@ Já existe uma fundação visual responsiva com dashboard de produção, clima, 
 
 O próximo corte conecta a PWA à API, troca o armazenamento em memória por PostgreSQL e inicia o primeiro conjunto de trilhas de manejo autorizadas.
 
+O primeiro território de validação será Delmiro Gouveia, no Sertão de Alagoas. O plano de pesquisa, público inicial e métricas está em [PILOT_DELMIRO_GOUVEIA.md](PILOT_DELMIRO_GOUVEIA.md).
+
 ## Roadmap comercial
 
 1. **Fundação:** contratos, persistência, sincronização, segurança e dados de teste.
@@ -138,6 +140,12 @@ python -m http.server 8080
 
 Acesse `http://localhost:8080`.
 
+### Modo totalmente local
+
+O AGRA também pode ser usado sem API, banco ou hospedagem: abra `index.html` diretamente ou copie `dist/web/` para o dispositivo. Os dados ficam no armazenamento local do navegador. Use **Exportar dados** para criar um backup JSON e importe esse arquivo em outro dispositivo quando necessário.
+
+Sem servidor, a transferência entre dispositivos é manual e não há sincronização automática. A PWA e a API hospedadas serão necessárias apenas quando o piloto precisar compartilhar dados em tempo real.
+
 ### API Alpha
 
 Requer Node.js 20 ou superior:
@@ -149,6 +157,14 @@ npm run dev
 ```
 
 Detalhes dos endpoints em [API_ALPHA.md](API_ALPHA.md). A API atual usa memória e não deve ser exposta publicamente.
+
+O AGRA será distribuído como produto instalável e hospedado, não como arquivo preso ao computador de desenvolvimento. O plano de PWA, Android e executável desktop está em [APP_DISTRIBUTION_PLAN.md](APP_DISTRIBUTION_PLAN.md).
+
+O canal inicial de publicação será o GitHub: [GITHUB_DISTRIBUTION.md](GITHUB_DISTRIBUTION.md) explica Pages, artefatos APK, Releases e atualização por versão.
+
+O canal de feedback funciona offline e entra na fila local para manutenção do proprietário. O fluxo está especificado em [FEEDBACK_SYSTEM.md](FEEDBACK_SYSTEM.md).
+
+Para uso sem servidor permanente, o AGRA terá sincronização por proximidade e o dispositivo do proprietário poderá atuar como relay autorizado. O desenho está em [LOCAL_NETWORK_SYNC.md](LOCAL_NETWORK_SYNC.md); atualizações verificadas estão em [UPDATE_SYSTEM.md](UPDATE_SYSTEM.md).
 
 ### Build multiplataforma
 
@@ -171,3 +187,9 @@ npm run build:all
 - [Implementação do acervo Embrapa](EMBRAPA_IMPLEMENTATION.md)
 - [Monetização](MONETIZATION.md)
 - [Estado de implementação](IMPLEMENTATION_STATUS.md)
+- [Apresentação do produto](PRESENTATION.md)
+- [Distribuição](DISTRIBUTION.md)
+- [Plano de aplicativo distribuível](APP_DISTRIBUTION_PLAN.md)
+- [Cliente nativo Android](ANDROID_NATIVE.md)
+- [Sincronização por rede local](LOCAL_NETWORK_SYNC.md)
+- [Sistema de atualização](UPDATE_SYSTEM.md)

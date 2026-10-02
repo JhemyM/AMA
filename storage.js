@@ -31,6 +31,22 @@
     },
     pendingCount() {
       return readJson(queueKey, []).length;
+    },
+    exportBackup() {
+      return {
+        format: 'agra-local-backup',
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        state: this.getState(),
+        pendingOperations: readJson(queueKey, [])
+      };
+    },
+    importBackup(backup) {
+      if (!backup || backup.format !== 'agra-local-backup' || backup.version !== 1) {
+        throw new Error('Arquivo de backup AGRA inválido.');
+      }
+      writeJson(stateKey, backup.state ?? { lastOpenedAt: null, activitiesRegistered: 0 });
+      writeJson(queueKey, Array.isArray(backup.pendingOperations) ? backup.pendingOperations : []);
     }
   };
 })();

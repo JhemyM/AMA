@@ -6,8 +6,9 @@ const port = Number(process.env.PORT ?? 8787);
 const property: Property = {
   id: 'property-santa-clara',
   name: 'Fazenda Santa Clara',
-  municipality: 'A definir',
-  timezone: 'America/Sao_Paulo',
+  municipality: 'Delmiro Gouveia',
+  region: 'Sertao de Alagoas',
+  timezone: 'America/Maceio',
   areaHectares: 220
 };
 const fields: Field[] = [
@@ -17,8 +18,8 @@ const fields: Field[] = [
   { id: 'field-low', propertyId: property.id, name: 'Talhao Baixada', crop: 'trigo', areaHectares: 18.4, soilMoisturePercent: 28, healthScore: 42, geometryGeoJson: null }
 ];
 const trails: GuidanceTrail[] = [
-  { id: 'trail-soil-cover', title: 'Cobertura do solo com baixo custo', cropTags: ['milho', 'soja', 'cafe', 'trigo'], regionTags: [], difficulty: 'basic', sourcePublicationIds: [], offlineAvailable: true },
-  { id: 'trail-irrigation-check', title: 'Verificar necessidade de irrigacao', cropTags: ['milho', 'soja', 'cafe', 'trigo'], regionTags: [], difficulty: 'basic', sourcePublicationIds: [], offlineAvailable: true }
+  { id: 'trail-soil-cover', title: 'Cobertura do solo com baixo custo', cropTags: ['milho', 'soja', 'cafe', 'trigo'], regionTags: ['Sertao de Alagoas'], difficulty: 'basic', sourcePublicationIds: [], offlineAvailable: true },
+  { id: 'trail-irrigation-check', title: 'Verificar necessidade de irrigacao', cropTags: ['milho', 'soja', 'cafe', 'trigo'], regionTags: ['Sertao de Alagoas'], difficulty: 'basic', sourcePublicationIds: [], offlineAvailable: true }
 ];
 const appliedOperations = new Set<string>();
 

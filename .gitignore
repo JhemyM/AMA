@@ -1,6 +1,13 @@
 node_modules/
+.gradle/
+android-native/.gradle/
+android-native/app/build/
+android-native/local.properties
 dist/
+executables/*.exe
+executables/*.apk
 data/embrapa/catalog.normalized.json
 data/embrapa/documents/
 .env
+feedback-config.local.js
 .DS_Store

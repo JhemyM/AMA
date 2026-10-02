@@ -5,6 +5,7 @@
 ### Produto
 
 - PWA instalável em Android, Linux e Windows.
+- Piloto definido para Delmiro Gouveia, no Sertão de Alagoas.
 - Dashboard com propriedade, talhões, produção, solo, água e clima.
 - Cadastro e importação de limites reais.
 - Registro offline de atividade, foto, GPS e medição.

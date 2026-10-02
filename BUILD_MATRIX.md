@@ -8,8 +8,9 @@ O AGRA não precisa de um único executável idêntico em todas as plataformas. 
 | --- | --- | --- | --- |
 | Linux/Windows/navegador | PWA estática | `npm run build:web` | preparado |
 | Linux/Windows servidor | API Node compilada | `npm run build:api` | Alpha |
-| Android | APK/AAB | Capacitor ou cliente Compose | preparar depois da API |
-| Linux desktop | pacote Tauri opcional | Tauri | depois da PWA validada |
+| Android | APK/AAB | Cliente nativo Kotlin/Compose | esqueleto criado em `android-native/` |
+| Windows desktop | executável portable | Electron | Alpha local gerada |
+| Linux desktop | pacote desktop futuro | Electron/Tauri | depois da PWA validada |
 | Sincronização | API HTTPS + outbox | TypeScript | contrato preparado |
 
 ## Build atual
@@ -56,4 +57,4 @@ O protocolo está em [SYNC_PROTOCOL.md](SYNC_PROTOCOL.md).
 
 ## Android e desktop
 
-O build Android não deve ser iniciado antes de a API, autenticação e sincronização estarem estáveis. A primeira distribuição móvel pode usar Capacitor para reaproveitar a PWA; um cliente Compose só vale o custo quando câmera, GPS, sensores, notificações ou desempenho exigirem uma camada nativa.
+O cliente nativo Android está documentado em [ANDROID_NATIVE.md](ANDROID_NATIVE.md). O build Android não deve ser distribuído publicamente antes de a API, autenticação e sincronização estarem estáveis.

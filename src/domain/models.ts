@@ -5,6 +5,7 @@ export interface Property {
   id: string;
   name: string;
   municipality: string;
+  region: string;
   timezone: string;
   areaHectares: number;
 }

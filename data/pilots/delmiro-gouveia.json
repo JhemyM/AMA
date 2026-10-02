@@ -1,0 +1,18 @@
+{
+  "id": "pilot-delmiro-gouveia",
+  "name": "Piloto Delmiro Gouveia",
+  "region": "Sertao de Alagoas",
+  "municipality": "Delmiro Gouveia",
+  "country": "BR",
+  "timezone": "America/Maceio",
+  "status": "research-ready",
+  "candidateSystems": [
+    "milho-feijao-sequeiro",
+    "mandioca",
+    "palma-forrageira-e-criacao",
+    "horta-irrigada"
+  ],
+  "requiresLocalValidation": true,
+  "coordinates": null,
+  "notes": "Candidatos de pesquisa; nao sao recomendacoes agronomicas automaticas."
+}
