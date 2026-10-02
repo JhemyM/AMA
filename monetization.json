@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "currency": "BRL",
+  "plans": [
+    {
+      "id": "base",
+      "name": "AGRA Base",
+      "billing": "free",
+      "features": [
+        "core.dashboard",
+        "core.fields",
+        "core.offline",
+        "core.data-export"
+      ],
+      "limits": {
+        "properties": 1,
+        "users": 1,
+        "satelliteAnalyses": 0
+      }
+    },
+    {
+      "id": "intelligence",
+      "name": "AGRA Inteligencia",
+      "billing": "subscription",
+      "features": [
+        "core.dashboard",
+        "core.fields",
+        "core.offline",
+        "core.data-export",
+        "innovation.recommendations",
+        "innovation.scenarios",
+        "innovation.satellite-analysis"
+      ],
+      "limits": {
+        "properties": 3,
+        "users": 5,
+        "satelliteAnalyses": 30
+      }
+    },
+    {
+      "id": "operation",
+      "name": "AGRA Operacao",
+      "billing": "subscription",
+      "features": [
+        "core.dashboard",
+        "core.fields",
+        "core.offline",
+        "core.data-export",
+        "innovation.recommendations",
+        "innovation.scenarios",
+        "innovation.satellite-analysis",
+        "operation.team",
+        "operation.audit",
+        "integration.api"
+      ],
+      "limits": {
+        "properties": 20,
+        "users": 50,
+        "satelliteAnalyses": 200
+      }
+    }
+  ],
+  "externalServices": {
+    "defaultMode": "open-data-or-customer-credentials",
+    "passThroughCosts": false,
+    "requiresExplicitConsent": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "AGRA | Gestão rural inteligente",
+  "short_name": "AGRA",
+  "description": "Gestão de produção, talhões, solo, clima e atividades rurais.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f7f4",
+  "theme_color": "#193b2d",
+  "lang": "pt-BR",
+  "icons": []
+}
