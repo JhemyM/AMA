@@ -1,3 +1,6 @@
 node_modules/
+dist/
+data/embrapa/catalog.normalized.json
+data/embrapa/documents/
 .env
 .DS_Store

@@ -150,6 +150,16 @@ npm run dev
 
 Detalhes dos endpoints em [API_ALPHA.md](API_ALPHA.md). A API atual usa memória e não deve ser exposta publicamente.
 
+### Build multiplataforma
+
+O mapa de compilação está em [BUILD_MATRIX.md](BUILD_MATRIX.md) e o protocolo de comunicação em [SYNC_PROTOCOL.md](SYNC_PROTOCOL.md). Para gerar a API e a PWA:
+
+```powershell
+npm install
+npm run check
+npm run build:all
+```
+
 ## Documentação
 
 - [Arquitetura](ARCHITECTURE.md)
@@ -158,5 +168,6 @@ Detalhes dos endpoints em [API_ALPHA.md](API_ALPHA.md). A API atual usa memória
 - [Preparação Alpha/Beta](ALPHA_BETA.md)
 - [Conhecimento e trilhas de manejo](KNOWLEDGE_GUIDANCE.md)
 - [Plano de dados Embrapa](EMBRAPA_DATA_PLAN.md)
+- [Implementação do acervo Embrapa](EMBRAPA_IMPLEMENTATION.md)
 - [Monetização](MONETIZATION.md)
 - [Estado de implementação](IMPLEMENTATION_STATUS.md)

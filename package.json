@@ -6,7 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "tsx src/server.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "tsc -p tsconfig.json",
+    "build:web": "node scripts/build.mjs",
+    "build:all": "npm run build",
+    "embrapa:normalize": "node scripts/ingest-embrapa.mjs data/embrapa/catalog.example.json normalize",
+    "embrapa:download": "node scripts/ingest-embrapa.mjs data/embrapa/catalog.normalized.json download",
     "start": "node dist/server.js",
     "check": "tsc -p tsconfig.json --noEmit"
   },

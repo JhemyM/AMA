@@ -1,0 +1,22 @@
+{
+  "source": "embrapa-publications",
+  "collectedAt": "2026-10-02T00:00:00Z",
+  "records": [
+    {
+      "repository": "Infoteca-e",
+      "externalId": "example-publication-id",
+      "title": "Exemplo de publicação técnica autorizada",
+      "abstract": "Substitua este registro por dados obtidos da fonte oficial.",
+      "publicationType": "manual",
+      "language": "pt-BR",
+      "publicationYear": 2026,
+      "authors": ["Embrapa"],
+      "keywords": ["manejo sustentável", "agricultura familiar"],
+      "officialUrl": "https://www.embrapa.br/busca-de-publicacoes",
+      "fileUrl": null,
+      "rightsStatus": "metadata-only",
+      "licenseName": null,
+      "licenseUrl": null
+    }
+  ]
+}
