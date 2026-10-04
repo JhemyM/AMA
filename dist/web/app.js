@@ -39,23 +39,7 @@ document.getElementById('logoutButton')?.addEventListener('click', () => {
   window.location.href = 'login.html';
 });
 
-const currentUserStr = localStorage.getItem('agra_current_user');
-if (currentUserStr) {
-  try {
-    const user = JSON.parse(currentUserStr);
-    if (user && user.name) {
-      const nameEl = document.getElementById('sidebarName');
-      const avatarEl = document.getElementById('sidebarAvatar');
-      if (nameEl) nameEl.textContent = user.name;
-      if (avatarEl) {
-        const initials = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-        avatarEl.textContent = initials;
-      }
-    }
-  } catch (e) {
-    console.warn('Failed to parse current user');
-  }
-}
+
 // -------------------------
 
 // --- ONBOARDING & PROPERTY DATA ---
