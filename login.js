@@ -29,56 +29,72 @@ showLoginBtn?.addEventListener('click', () => {
   registerError.hidden = true;
 });
 
-// Mock Local Storage Registration
-registerForm?.addEventListener('submit', (e) => {
+// Supabase Registration
+registerForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const name = document.querySelector('#regName').value;
   const email = document.querySelector('#regEmail').value;
   const password = document.querySelector('#regPassword').value;
 
-  const users = JSON.parse(localStorage.getItem('agra_users') || '{}');
+  const submitBtn = registerForm.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Criando...';
+  submitBtn.disabled = true;
 
-  if (users[email]) {
+  const { data, error } = await window.supabaseClient.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name: name,
+        plan: 'free' // Default plan
+      }
+    }
+  });
+
+  submitBtn.textContent = originalText;
+  submitBtn.disabled = false;
+
+  if (error) {
+    registerError.textContent = 'Erro ao criar conta: ' + error.message;
     registerError.hidden = false;
     return;
   }
 
-  users[email] = { name, email, password };
-  localStorage.setItem('agra_users', JSON.stringify(users));
-  localStorage.setItem('agra_current_user', JSON.stringify({ email, name }));
-  
   showToast('Conta criada com sucesso!');
   setTimeout(() => {
     window.location.href = 'index.html';
   }, 1000);
 });
 
-// Mock Local Storage Login
-loginForm?.addEventListener('submit', (e) => {
+// Supabase Login
+loginForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const email = document.querySelector('#loginEmail').value;
   const password = document.querySelector('#loginPassword').value;
 
-  const users = JSON.parse(localStorage.getItem('agra_users') || '{}');
-  let user = users[email];
+  const submitBtn = loginForm.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Entrando...';
+  submitBtn.disabled = true;
 
-  if (!user) {
-    // Seamlessly register if user doesn't exist
-    const name = email.split('@')[0];
-    user = { name: name.charAt(0).toUpperCase() + name.slice(1), email, password };
-    users[email] = user;
-    localStorage.setItem('agra_users', JSON.stringify(users));
-  }
+  const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
 
-  if (user.password === password) {
-    localStorage.setItem('agra_current_user', JSON.stringify({ email, name: user.name }));
+  submitBtn.textContent = originalText;
+  submitBtn.disabled = false;
+
+  if (error) {
+    loginError.textContent = 'Credenciais inválidas.';
+    loginError.hidden = false;
+  } else {
     showToast('Login realizado com sucesso!');
     setTimeout(() => {
       window.location.href = 'index.html';
     }, 1000);
-  } else {
-    loginError.hidden = false;
   }
 });

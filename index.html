@@ -64,7 +64,7 @@
     <main class="main-content">
       <header class="topbar">
         <div class="breadcrumb"><span id="topPropertyName">Sua Propriedade</span><b>/</b><strong id="pageTitle">Dashboard</strong></div>
-        <div class="top-actions"><span class="sync-status"><i></i>Dados sincronizados há 4 min</span><span class="network-status online" id="networkStatus">Online</span><button class="icon-button" type="button" aria-label="Notificações">♢<b class="notification-dot"></b></button><div class="top-avatar" id="topAvatar">MS</div></div>
+        <div class="top-actions"><span class="sync-status"><i></i>Dados sincronizados há 4 min</span><span class="network-status online" id="networkStatus">Online</span><button class="icon-button" id="themeToggle" type="button" aria-label="Alternar Tema">🌗</button><button class="icon-button" type="button" aria-label="Notificações">♢<b class="notification-dot"></b></button><div class="top-avatar" id="topAvatar">MS</div></div>
       </header>
 
       <section class="page-content" id="dashboardSection">
@@ -161,8 +161,10 @@
   </dialog>
 
 
-  
   <div class="toast" id="toast" role="status">Atividade registrada com sucesso.</div>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="supabase-client.js"></script>
   <script defer src="storage.js"></script>
   <script defer src="feedback-config.js"></script>
   <script defer src="feedback-config.local.js"></script>

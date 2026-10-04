@@ -34,9 +34,24 @@ if (currentDateElement) {
   currentDateElement.textContent = new Date().toLocaleDateString('pt-BR', options);
 }
 
-document.getElementById('logoutButton')?.addEventListener('click', () => {
+document.getElementById('logoutButton')?.addEventListener('click', async () => {
+  if (window.supabaseClient) {
+    await window.supabaseClient.auth.signOut();
+  }
   localStorage.removeItem('agra_current_user');
   window.location.href = 'login.html';
+});
+
+document.getElementById('topAvatar')?.addEventListener('click', async () => {
+  if (window.innerWidth <= 760) {
+    if (confirm('Opções de perfil:\n\nDeseja sair do aplicativo?')) {
+      if (window.supabaseClient) {
+        await window.supabaseClient.auth.signOut();
+      }
+      localStorage.removeItem('agra_current_user');
+      window.location.href = 'login.html';
+    }
+  }
 });
 
 
@@ -47,6 +62,27 @@ const onboardingDialog = document.getElementById('onboardingDialog');
 const onboardingForm = document.getElementById('onboardingForm');
 
 let dashboardMap = null;
+
+// --- DARK MODE TOGGLE & FLUIDITY ---
+const themeToggle = document.getElementById('themeToggle');
+const htmlEl = document.documentElement;
+
+// Load saved theme
+const savedTheme = localStorage.getItem('agra_theme');
+if (savedTheme === 'dark') {
+  htmlEl.setAttribute('data-theme', 'dark');
+}
+
+themeToggle?.addEventListener('click', () => {
+  const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    htmlEl.removeAttribute('data-theme');
+    localStorage.setItem('agra_theme', 'light');
+  } else {
+    htmlEl.setAttribute('data-theme', 'dark');
+    localStorage.setItem('agra_theme', 'dark');
+  }
+});
 
 async function updateWeather(lat, lon) {
   try {

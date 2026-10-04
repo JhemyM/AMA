@@ -46,42 +46,61 @@ class MonetizationManager {
 
   injectPaywallModal() {
     const modalHtml = `
-      <div id="paywallModal" class="modal-overlay" style="display: none; z-index: 9999;">
-        <div class="modal-content paywall-content" style="max-width: 700px;">
-          <div class="paywall-header">
-            <h2>Recursos Premium</h2>
-            <p>Faça o upgrade para liberar o poder total do AGRA.</p>
+      <dialog class="feedback-dialog" id="paywallModal" aria-labelledby="paywallTitle" style="max-width: 800px; width: 90%;">
+        <div class="dialog-heading" style="padding: 24px 24px 0;">
+          <div>
+            <p class="eyebrow" style="color: #8fc9a1;">Recursos Premium</p>
+            <h2 id="paywallTitle" style="color: #fff;">Evolua sua Gestão</h2>
           </div>
-          <div class="paywall-body" style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
-            <div class="plan-card">
-              <h3>AGRA Pro</h3>
-              <p class="price">R$ 147<span>/mês</span></p>
-              <ul>
-                <li>✓ Gestão de Produção</li>
-                <li>✓ Clima e Solo Avançados</li>
-                <li>✓ Estoque e Embrapa</li>
-              </ul>
-              <button class="primary-button checkout-btn" data-plan="pro">Assinar Mensal</button>
-            </div>
-            <div class="plan-card" style="border-color: #d4af37; box-shadow: 0 0 20px rgba(212,175,55,0.2);">
-              <h3>AGRA Vitalício</h3>
-              <p class="price">R$ 1.497<span>/único</span></p>
-              <ul>
-                <li>✓ Acesso <b>Para Sempre</b></li>
-                <li>✓ Gestão de Equipes</li>
-                <li>✓ Nenhuma mensalidade</li>
-              </ul>
-              <button class="primary-button checkout-btn" data-plan="vitalicio" style="background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%);">Garantir Acesso</button>
-            </div>
-          </div>
-          <button id="closePaywall" class="text-button" style="margin-top: 1rem;">Voltar</button>
+          <button class="dialog-close" id="closePaywall" aria-label="Fechar" style="color: #fff; background: transparent; border: none; font-size: 24px; cursor: pointer;">×</button>
         </div>
-      </div>
+        
+        <div class="paywall-content" style="padding: 0 24px 24px; max-width: 100%; background: transparent; border: none; text-align: left;">
+          <p style="color: rgba(255,255,255,0.8); margin-bottom: 24px;">Faça o upgrade para liberar o poder total do AGRA e tome decisões baseadas em dados.</p>
+          
+          <div class="paywall-body" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div class="plan-card" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+              <h3 style="color: #fff; margin-top: 0;">AGRA Pro</h3>
+              <p class="price" style="font-size: 2rem; font-weight: bold; color: #8fc9a1; margin: 1rem 0;">R$ 147<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/mês</span></p>
+              <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; color: #e0e0e0;">
+                <li style="margin-bottom: 0.5rem;">✓ Gestão de Produção</li>
+                <li style="margin-bottom: 0.5rem;">✓ Clima e Solo Avançados</li>
+                <li style="margin-bottom: 0.5rem;">✓ Estoque e Embrapa</li>
+              </ul>
+              <button class="primary-button checkout-btn" data-plan="pro" style="width: 100%;">Assinar Mensal</button>
+            </div>
+            
+            <div class="plan-card" style="background: linear-gradient(145deg, rgba(212,175,55,0.1), rgba(0,0,0,0)); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 30px rgba(212,175,55,0.1);">
+              <div style="position: absolute; top: -10px; right: 20px; background: #d4af37; color: #000; font-size: 0.7rem; font-weight: bold; padding: 4px 8px; border-radius: 8px;">MAIS VANTAJOSO</div>
+              <h3 style="color: #d4af37; margin-top: 0;">AGRA Vitalício</h3>
+              <p class="price" style="font-size: 2rem; font-weight: bold; color: #d4af37; margin: 1rem 0;">R$ 1.497<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/único</span></p>
+              <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; color: #e0e0e0;">
+                <li style="margin-bottom: 0.5rem;">✓ Acesso <b>Para Sempre</b></li>
+                <li style="margin-bottom: 0.5rem;">✓ Gestão de Equipes</li>
+                <li style="margin-bottom: 0.5rem;">✓ Nenhuma mensalidade</li>
+              </ul>
+              <button class="primary-button checkout-btn" data-plan="vitalicio" style="width: 100%; background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%); border: none; color: #fff;">Garantir Acesso</button>
+            </div>
+          </div>
+        </div>
+      </dialog>
     `;
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Set custom style for this specific dialog background
+    const styleHtml = `
+      <style>
+        #paywallModal { background: rgba(20, 45, 33, 0.95); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); }
+        #paywallModal::backdrop { background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+        .plan-card { position: relative; }
+      </style>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', styleHtml + modalHtml);
+
+    const dialog = document.getElementById('paywallModal');
 
     document.getElementById('closePaywall').addEventListener('click', () => {
-      document.getElementById('paywallModal').style.display = 'none';
+      dialog.close();
     });
 
     document.querySelectorAll('.checkout-btn').forEach(btn => {
@@ -95,7 +114,7 @@ class MonetizationManager {
           const response = await fetch('/api/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ plan: plan })
+            body: JSON.stringify({ plan: plan, user: this.currentUser })
           });
 
           if (!response.ok) {
@@ -103,12 +122,11 @@ class MonetizationManager {
           }
 
           const data = await response.json();
-          // Redireciona o usuÃ¡rio para o Checkout Seguro gerado pelo Stripe/MercadoPago
           window.location.href = data.url;
 
         } catch (error) {
           console.error(error);
-          alert('Este recurso sÃ³ funcionarÃ¡ quando o AGRA estiver hospedado na Vercel com a Cloud Function ativa!');
+          alert('Este recurso só funcionará quando o backend de pagamentos estiver configurado e ativo!');
           e.target.textContent = originalText;
           e.target.disabled = false;
         }
@@ -117,7 +135,10 @@ class MonetizationManager {
   }
 
   showPaywall(sectionId) {
-    document.getElementById('paywallModal').style.display = 'flex';
+    const dialog = document.getElementById('paywallModal');
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
   }
 }
 

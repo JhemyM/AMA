@@ -42,6 +42,11 @@ export default async function handler(req, res) {
       throw new Error('Plano invÃ¡lido');
     }
 
+    // Obtém o domínio dinamicamente para redirecionar de volta para o ambiente certo (Vercel)
+    const host = req.headers.host;
+    const protocol = req.headers['x-forwarded-proto'] || (host.includes('localhost') ? 'http' : 'https');
+    const baseUrl = `${protocol}://${host}`;
+
     const body = {
       items: [
         {
@@ -53,9 +58,9 @@ export default async function handler(req, res) {
         }
       ],
       back_urls: {
-        success: 'https://jhemym.github.io/AMA?status=success',
-        failure: 'https://jhemym.github.io/AMA?status=failure',
-        pending: 'https://jhemym.github.io/AMA?status=pending'
+        success: `${baseUrl}/index.html?status=success`,
+        failure: `${baseUrl}/index.html?status=failure`,
+        pending: `${baseUrl}/index.html?status=pending`
       },
       auto_return: 'approved'
     };

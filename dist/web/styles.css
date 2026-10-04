@@ -240,3 +240,422 @@ h1, h2, h3, strong, b, .brand-mark {
   margin-bottom: 0.5rem;
   color: #e0e0e0;
 }
+
+/* ============================================================ */
+/* MOBILE OPTIMIZATION - PREMIUM APP EXPERIENCE                 */
+/* ============================================================ */
+@media (max-width: 760px) {
+  /* Layout adjustments */
+  .app-shell {
+    flex-direction: column !important;
+    padding-bottom: 90px; /* Space for the bottom nav */
+    background: #f4f8f4;
+  }
+
+  /* Transform Sidebar into a Bottom Navigation Bar */
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100% !important;
+    height: 85px !important;
+    padding: 0 !important;
+    flex-direction: row;
+    justify-content: flex-start;
+    background: rgba(20, 45, 33, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.2);
+    border-radius: 24px 24px 0 0;
+  }
+
+  .brand, .farm-switcher, .sidebar-footer, .nav-label {
+    display: none !important;
+  }
+
+  /* Scrollable horizontal navigation for modules */
+  .nav-list {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-item {
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 6px;
+    padding: 12px 10px !important;
+    font-size: 11px !important;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6) !important;
+    background: transparent !important;
+    border: none !important;
+    margin: 0;
+    min-width: 72px;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-item::after {
+    display: none !important; /* Hide pseudo elements from base */
+  }
+
+  .nav-item .nav-icon {
+    font-size: 24px !important;
+    margin-bottom: 2px;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .nav-item.active {
+    color: #fff !important;
+    background: rgba(255,255,255,0.1) !important;
+    border: none !important;
+  }
+  
+  .nav-item.active .nav-icon {
+    transform: translateY(-2px) scale(1.1);
+    color: #8fc9a1;
+  }
+
+  /* Topbar Mobile Redesign */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 0 20px !important;
+    height: 70px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  }
+
+  .breadcrumb {
+    font-size: 16px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+  }
+  
+  .breadcrumb span {
+    display: block !important;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .breadcrumb b {
+    display: none !important;
+  }
+  
+  #pageTitle {
+    font-size: 20px;
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+  }
+
+  /* Main Page Content Adjustments */
+  .page-content {
+    padding: 24px 16px !important;
+  }
+
+  .page-heading {
+    margin-top: 0;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .page-heading h1 {
+    font-size: 28px !important;
+    line-height: 1.2;
+  }
+
+  /* Action Buttons Group */
+  .heading-actions {
+    display: flex;
+    flex-direction: row !important;
+    gap: 12px !important;
+    width: 100%;
+  }
+
+  .heading-actions button {
+    flex: 1;
+    min-height: 48px;
+    border-radius: 14px !important;
+    font-size: 14px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Premium Cards for Metrics */
+  .metric-grid {
+    gap: 16px !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .metric-card {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: none !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Add subtle gradients to metric cards based on their accent */
+  .metric-card.accent-green { background: linear-gradient(145deg, #ffffff, #eaf4eb) !important; }
+  .metric-card.accent-blue { background: linear-gradient(145deg, #ffffff, #e6f1f4) !important; }
+  .metric-card.accent-amber { background: linear-gradient(145deg, #ffffff, #fcf6e8) !important; }
+  .metric-card.accent-orange { background: linear-gradient(145deg, #ffffff, #fcf1ed) !important; }
+
+  .metric-card>strong {
+    font-size: 26px !important;
+    margin: 16px 0 12px !important;
+  }
+
+  /* Panel improvements */
+  .content-grid {
+    gap: 16px !important;
+  }
+
+  .panel {
+    border-radius: 20px !important;
+    padding: 24px 20px !important;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255,255,255,1) !important;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+  }
+
+  .panel-heading h2 {
+    font-size: 18px !important;
+  }
+  
+  /* Touch Targets for interactive elements */
+  .select-button, .text-button, .location-button {
+    min-height: 44px;
+    padding: 8px 16px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
+  }
+
+  .farm-map {
+    border-radius: 16px !important;
+    height: 200px !important;
+  }
+
+  /* Make map fields more tappable */
+  .map-field {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Floating Action Button (FAB) for Add Activity */
+  .primary-button#newActivityButton {
+    position: fixed;
+    bottom: 105px;
+    right: 20px;
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 32px !important;
+    padding: 0 !important;
+    box-shadow: 0 12px 32px rgba(25, 59, 45, 0.4) !important;
+    z-index: 950;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent !important;
+    overflow: hidden;
+  }
+  
+  .primary-button#newActivityButton span {
+    color: #fff !important;
+    font-size: 28px !important;
+    position: absolute;
+    margin: 0 !important;
+  }
+  
+  /* When #newActivityButton is FAB, the export button should take full width */
+  .heading-actions .secondary-button#exportDataButton {
+    flex: 1;
+    width: 100%;
+  }
+
+  /* Bottom strip spacing for FAB */
+  .bottom-strip {
+    margin-bottom: 30px;
+    border-radius: 16px !important;
+    padding: 20px !important;
+  }
+
+  /* Better styling for task/field lists on mobile */
+  .field-row, .task-row {
+    padding: 12px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.03);
+  }
+  
+  /* Better modal/dialog experience */
+  .feedback-dialog {
+    padding: 24px !important;
+    border-radius: 24px !important;
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+  
+  .dialog-close {
+    width: 44px;
+    height: 44px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* ============================================================ */
+/* FLUIDITY & ANIMATIONS                                        */
+/* ============================================================ */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease !important;
+}
+
+.panel, .metric-card, .sidebar, .topbar, button, .nav-item, input, select, textarea, .auth-glass-panel, .bottom-strip {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+/* ============================================================ */
+/* DARK MODE THEME                                              */
+/* ============================================================ */
+[data-theme="dark"] {
+  /* Core Variables Override */
+  --forest: rgba(10, 18, 14, 0.95);
+  --forest-2: rgba(18, 32, 24, 0.9);
+  --ink: #e4e9e4;
+  --muted: #8ea396;
+  --line: rgba(255, 255, 255, 0.1);
+  --surface: rgba(18, 30, 23, 0.85);
+  
+  --glass-bg: rgba(22, 36, 28, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #09120e 0%, #0d1a14 50%, #0a140f 100%) !important;
+  color: var(--ink) !important;
+}
+
+[data-theme="dark"] .app-shell {
+  background: radial-gradient(circle at top left, rgba(74, 132, 90, 0.08), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(44, 100, 60, 0.08), transparent 40%) !important;
+}
+
+[data-theme="dark"] .topbar {
+  background: rgba(15, 28, 22, 0.85) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+[data-theme="dark"] .panel, 
+[data-theme="dark"] .metric-card {
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .metric-card.accent-green { border-top-color: #4e8258 !important; }
+[data-theme="dark"] .metric-card.accent-blue { border-top-color: #487d8a !important; }
+[data-theme="dark"] .metric-card.accent-amber { border-top-color: #b3914a !important; }
+[data-theme="dark"] .metric-card.accent-orange { border-top-color: #b56448 !important; }
+
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] strong, 
+[data-theme="dark"] .metric-card>strong {
+  color: #fff !important;
+}
+
+[data-theme="dark"] .breadcrumb strong {
+  color: #c9dfce !important;
+}
+
+[data-theme="dark"] .primary-button {
+  background: linear-gradient(135deg, #3c825a 0%, #2b6148 100%) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+}
+
+[data-theme="dark"] .secondary-button,
+[data-theme="dark"] .location-button {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #a9c5ad !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .secondary-button:hover,
+[data-theme="dark"] .location-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .field-row, 
+[data-theme="dark"] .task-row,
+[data-theme="dark"] .bottom-strip {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.05) !important;
+}
+
+[data-theme="dark"] .task-date {
+  background: rgba(255,255,255,0.05) !important;
+}
+[data-theme="dark"] .task-date.today {
+  background: rgba(143, 201, 161, 0.15) !important;
+}
+[data-theme="dark"] .task-date b {
+  color: #8fc9a1 !important;
+}
+
+[data-theme="dark"] .feedback-dialog,
+[data-theme="dark"] .feedback-dialog form {
+  background: rgba(20, 35, 26, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .feedback-dialog select,
+[data-theme="dark"] .feedback-dialog textarea,
+[data-theme="dark"] .feedback-dialog input {
+  background: rgba(0,0,0,0.2) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+
+[data-theme="dark"] .farm-switcher select {
+  color: #fff !important;
+}
+
+[data-theme="dark"] .icon-button {
+  color: #8ea396 !important;
+}
+[data-theme="dark"] .icon-button:hover {
+  color: #fff !important;
+}

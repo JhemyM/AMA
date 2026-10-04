@@ -45,7 +45,9 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "electron": "^44.5.1",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "html-minifier-terser": "^7.2.0",
+    "javascript-obfuscator": "^5.9.0"
   },
   "dependencies": {
     "mercadopago": "^3.6.1"

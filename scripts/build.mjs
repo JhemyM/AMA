@@ -1,5 +1,6 @@
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import JavaScriptObfuscator from 'javascript-obfuscator';
 
 const root = resolve(import.meta.dirname, '..');
 const output = resolve(root, 'dist', 'web');
@@ -14,19 +15,59 @@ const webFiles = [
   'monetization.js',
   'app.js',
   'sw.js',
-  'manifest.webmanifest'
+  'manifest.webmanifest',
+  'supabase-client.js'
 ];
+
+const obfConfig = {
+    compact: true,
+    controlFlowFlattening: true,
+    controlFlowFlatteningThreshold: 1,
+    deadCodeInjection: true,
+    deadCodeInjectionThreshold: 1,
+    debugProtection: true,
+    debugProtectionInterval: 4000,
+    disableConsoleOutput: false,
+    identifierNamesGenerator: 'hexadecimal',
+    log: false,
+    numbersToExpressions: true,
+    renameGlobals: false,
+    selfDefending: true,
+    simplify: true,
+    splitStrings: true,
+    splitStringsChunkLength: 5,
+    stringArray: true,
+    stringArrayCallsTransform: true,
+    stringArrayEncoding: ['rc4'],
+    stringArrayIndexShift: true,
+    stringArrayRotate: true,
+    stringArrayShuffle: true,
+    stringArrayWrappersCount: 5,
+    stringArrayWrappersChainedCalls: true,
+    stringArrayWrappersParametersMaxCount: 5,
+    stringArrayWrappersType: 'function',
+    stringArrayThreshold: 1,
+    transformObjectKeys: true,
+    unicodeEscapeSequence: false
+};
 
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 for (const file of webFiles) {
-  await cp(resolve(root, file), resolve(output, file));
+  if (file.endsWith('.js') && file !== 'sw.js') {
+    const content = await readFile(resolve(root, file), 'utf8');
+    const obfuscated = JavaScriptObfuscator.obfuscate(content, obfConfig).getObfuscatedCode();
+    await writeFile(resolve(output, file), obfuscated, 'utf8');
+  } else {
+    await cp(resolve(root, file), resolve(output, file));
+  }
 }
+
 // Copy icons directory and background image
 await cp(resolve(root, 'icons'), resolve(output, 'icons'), { recursive: true });
 await cp(resolve(root, 'bg-login.jpg'), resolve(output, 'bg-login.jpg'));
 
-// We no longer copy the modules directory directly. Instead, we bundle it.
+// Handle sw.js separately
 const packageJson = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
 const serviceWorkerPath = resolve(output, 'sw.js');
 const serviceWorker = await readFile(serviceWorkerPath, 'utf8');
@@ -44,14 +85,16 @@ const invHtml = await readFile(resolve(root, 'modules/inventory.html'), 'utf8');
 const weatherHtml = await readFile(resolve(root, 'modules/weather.html'), 'utf8');
 const teamHtml = await readFile(resolve(root, 'modules/team.html'), 'utf8');
 
-const fieldsJs = await readFile(resolve(root, 'modules/fields.js'), 'utf8');
-const tasksJs = await readFile(resolve(root, 'modules/tasks.js'), 'utf8');
-const embrapaJs = await readFile(resolve(root, 'modules/embrapa.js'), 'utf8');
-const soilJs = await readFile(resolve(root, 'modules/soil.js'), 'utf8');
-const prodJs = await readFile(resolve(root, 'modules/production.js'), 'utf8');
-const invJs = await readFile(resolve(root, 'modules/inventory.js'), 'utf8');
-const weatherJs = await readFile(resolve(root, 'modules/weather.js'), 'utf8');
-const teamJs = await readFile(resolve(root, 'modules/team.js'), 'utf8');
+function obf(code) { return JavaScriptObfuscator.obfuscate(code, obfConfig).getObfuscatedCode(); }
+
+const fieldsJs = obf(await readFile(resolve(root, 'modules/fields.js'), 'utf8'));
+const tasksJs = obf(await readFile(resolve(root, 'modules/tasks.js'), 'utf8'));
+const embrapaJs = obf(await readFile(resolve(root, 'modules/embrapa.js'), 'utf8'));
+const soilJs = obf(await readFile(resolve(root, 'modules/soil.js'), 'utf8'));
+const prodJs = obf(await readFile(resolve(root, 'modules/production.js'), 'utf8'));
+const invJs = obf(await readFile(resolve(root, 'modules/inventory.js'), 'utf8'));
+const weatherJs = obf(await readFile(resolve(root, 'modules/weather.js'), 'utf8'));
+const teamJs = obf(await readFile(resolve(root, 'modules/team.js'), 'utf8'));
 
 const injectedScripts = `
 <script>
@@ -80,4 +123,4 @@ const templates = `
 indexHtml = indexHtml.replace('</body>', `${templates}\n${injectedScripts}\n</body>`);
 await writeFile(resolve(output, 'index.html'), indexHtml, 'utf8');
 
-console.log(`AGRA web build ready: ${output}`);
+console.log(`AGRA web build ready: ${output} (Obfuscated)`);
