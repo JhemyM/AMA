@@ -206,6 +206,13 @@
         <option value="Soja">Soja</option>
         <option value="Café">Café</option>
         <option value="Trigo">Trigo</option>
+        <option value="Algodão">Algodão</option>
+        <option value="Feijão">Feijão</option>
+        <option value="Cana">Cana-de-açúcar</option>
+        <option value="Arroz">Arroz</option>
+        <option value="Hortaliças">Hortaliças</option>
+        <option value="Fruticultura">Fruticultura</option>
+        <option value="Pastagem">Pastagem</option>
         <option value="Outro">Outra Cultura</option>
       </select>
     </div>
@@ -779,13 +786,13 @@
             <b style="display: block; font-size: 1.25rem;">${day}</b>
             <small style="font-size: 0.75rem; text-transform: uppercase;">${month}</small>
           </span>
-          <div style="flex: 1;">
-            <strong style="display: block;">${task.title}</strong>
-            <small class="muted">${task.field} · ${task.assignee}</small>
+          <div style="flex: 1; min-width:0;">
+            <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.title}</strong>
+            <small class="muted" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} · ${task.assignee}</small>
           </div>
-          <div style="display:flex; align-items:center; gap: 0.5rem;">
+          <div style="display:flex; align-items:center; gap: 0.25rem; flex-shrink: 0;">
             <span class="tag ${tagClass}">${tagLabel}</span>
-            <button class="text-button delete-task-btn" data-index="${index}" style="color: var(--red-600); padding: 0.25rem;" title="Excluir Atividade">×</button>
+            <button class="text-button delete-task-btn" data-index="${index}" style="color: var(--red-600); padding: 0 0.25rem; font-size: 1.5rem; line-height: 1;" title="Excluir Atividade">×</button>
           </div>
         </div>
       `;
@@ -1041,6 +1048,50 @@
         "keywords": ["clima", "água", "evapotranspiração", "cálculo"],
         "category": "clima",
         "officialUrl": "https://www.embrapa.br/agricultura-digital"
+      },
+      {
+        "id": "man-017",
+        "title": "Cultivo do Algodão: Boas Práticas",
+        "abstract": "Manejo nutricional e fitossanitário do algodoeiro no cerrado.",
+        "publicationType": "Manual Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Algodão"],
+        "keywords": ["algodão", "cerrado", "manejo"],
+        "category": "algodão",
+        "officialUrl": "https://www.embrapa.br/algodao"
+      },
+      {
+        "id": "man-018",
+        "title": "Doenças do Feijoeiro",
+        "abstract": "Guia de identificação e controle das principais doenças do feijão comum.",
+        "publicationType": "Comunicado Técnico",
+        "publicationYear": 2022,
+        "authors": ["Embrapa Arroz e Feijão"],
+        "keywords": ["feijão", "doenças", "controle"],
+        "category": "feijão",
+        "officialUrl": "https://www.embrapa.br/arroz-e-feijao"
+      },
+      {
+        "id": "man-019",
+        "title": "Cana-de-Açúcar: Eficiência Energética",
+        "abstract": "Como melhorar a produtividade da cana-de-açúcar visando sustentabilidade.",
+        "publicationType": "Documento",
+        "publicationYear": 2024,
+        "authors": ["Embrapa Agroenergia"],
+        "keywords": ["cana", "energia", "produtividade"],
+        "category": "cana",
+        "officialUrl": "https://www.embrapa.br/agroenergia"
+      },
+      {
+        "id": "man-020",
+        "title": "Manejo de Pastagens Intensivas",
+        "abstract": "Estratégias de pastejo rotacionado e adubação para pecuária de corte e leite.",
+        "publicationType": "Manual Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Gado de Corte"],
+        "keywords": ["pastagem", "gado", "rotação"],
+        "category": "pastagem",
+        "officialUrl": "https://www.embrapa.br/gado-de-corte"
       }
     ];
 
@@ -1180,11 +1231,17 @@
     });
 
     container.querySelector('#manualDownloadBtn')?.addEventListener('click', () => {
-      showToast('Baixando PDF criptografado para acesso offline...');
-      setTimeout(() => {
-        showToast('Download concluído com sucesso!');
-        container.querySelector('#manualDialog').close();
-      }, 1500);
+      if (!activeDocId) return;
+      const doc = defaultCatalog.find(d => d.id === activeDocId);
+      if (doc && doc.officialUrl) {
+        showToast('Abrindo documento oficial...');
+        setTimeout(() => {
+          window.open(doc.officialUrl, '_blank');
+          container.querySelector('#manualDialog').close();
+        }, 800);
+      } else {
+        showToast('Link oficial indisponível para este manual.');
+      }
     });
 
     const searchInput = container.querySelector('#embrapaSearch');

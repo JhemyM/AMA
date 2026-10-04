@@ -268,9 +268,10 @@ function renderPropertyData() {
       const vol = cropTotals[crop];
       const pct = Math.max(2, (vol / maxVol) * 100);
       let colorClass = 'soy';
-      if (crop.toLowerCase() === 'milho') colorClass = 'corn';
-      else if (crop.toLowerCase().includes('caf')) colorClass = 'coffee';
-      else if (crop.toLowerCase() === 'trigo') colorClass = 'wheat';
+      const cLower = crop.toLowerCase();
+      if (cLower === 'milho' || cLower.includes('cana') || cLower.includes('hortali')) colorClass = 'corn';
+      else if (cLower.includes('caf') || cLower.includes('feij') || cLower.includes('fruti')) colorClass = 'coffee';
+      else if (cLower === 'trigo' || cLower.includes('algod') || cLower.includes('arroz')) colorClass = 'wheat';
       
       html += `<div class="bar-group"><div class="bar ${colorClass}" style="height: ${pct}%"><span>${vol} t</span></div><small>${crop}</small></div>`;
     });
@@ -378,10 +379,13 @@ function renderPropertyData() {
         tasksHtml += `
           <div class="task-row">
             <span class="task-date ${isToday ? 'today' : ''}"><b>${day}</b><small>${month}</small></span>
-            <div style="flex:1;"><strong>${task.title}</strong><small>${task.field} · ${task.assignee}</small></div>
-            <div style="display:flex; align-items:center; gap:0.5rem;">
+            <div style="flex:1; min-width:0;">
+              <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.title}</strong>
+              <small style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} · ${task.assignee}</small>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.25rem; flex-shrink: 0;">
               <span class="tag ${isToday ? 'urgent' : 'planned'}">${isToday ? 'Hoje' : 'Agendado'}</span>
-              <button class="text-button delete-task-btn" data-title="${task.title}" style="color: var(--red-600); padding: 0.25rem;" title="Excluir Atividade">×</button>
+              <button class="text-button delete-task-btn" data-title="${task.title}" style="color: var(--red-600); padding: 0 0.25rem; font-size: 1.25rem; line-height: 1;" title="Excluir Atividade">×</button>
             </div>
           </div>
         `;

@@ -40,13 +40,13 @@ window.AgraTasks = {
             <b style="display: block; font-size: 1.25rem;">${day}</b>
             <small style="font-size: 0.75rem; text-transform: uppercase;">${month}</small>
           </span>
-          <div style="flex: 1;">
-            <strong style="display: block;">${task.title}</strong>
-            <small class="muted">${task.field} · ${task.assignee}</small>
+          <div style="flex: 1; min-width:0;">
+            <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.title}</strong>
+            <small class="muted" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} · ${task.assignee}</small>
           </div>
-          <div style="display:flex; align-items:center; gap: 0.5rem;">
+          <div style="display:flex; align-items:center; gap: 0.25rem; flex-shrink: 0;">
             <span class="tag ${tagClass}">${tagLabel}</span>
-            <button class="text-button delete-task-btn" data-index="${index}" style="color: var(--red-600); padding: 0.25rem;" title="Excluir Atividade">×</button>
+            <button class="text-button delete-task-btn" data-index="${index}" style="color: var(--red-600); padding: 0 0.25rem; font-size: 1.5rem; line-height: 1;" title="Excluir Atividade">×</button>
           </div>
         </div>
       `;

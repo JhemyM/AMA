@@ -176,6 +176,50 @@ window.AgraEmbrapa = {
         "keywords": ["clima", "água", "evapotranspiração", "cálculo"],
         "category": "clima",
         "officialUrl": "https://www.embrapa.br/agricultura-digital"
+      },
+      {
+        "id": "man-017",
+        "title": "Cultivo do Algodão: Boas Práticas",
+        "abstract": "Manejo nutricional e fitossanitário do algodoeiro no cerrado.",
+        "publicationType": "Manual Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Algodão"],
+        "keywords": ["algodão", "cerrado", "manejo"],
+        "category": "algodão",
+        "officialUrl": "https://www.embrapa.br/algodao"
+      },
+      {
+        "id": "man-018",
+        "title": "Doenças do Feijoeiro",
+        "abstract": "Guia de identificação e controle das principais doenças do feijão comum.",
+        "publicationType": "Comunicado Técnico",
+        "publicationYear": 2022,
+        "authors": ["Embrapa Arroz e Feijão"],
+        "keywords": ["feijão", "doenças", "controle"],
+        "category": "feijão",
+        "officialUrl": "https://www.embrapa.br/arroz-e-feijao"
+      },
+      {
+        "id": "man-019",
+        "title": "Cana-de-Açúcar: Eficiência Energética",
+        "abstract": "Como melhorar a produtividade da cana-de-açúcar visando sustentabilidade.",
+        "publicationType": "Documento",
+        "publicationYear": 2024,
+        "authors": ["Embrapa Agroenergia"],
+        "keywords": ["cana", "energia", "produtividade"],
+        "category": "cana",
+        "officialUrl": "https://www.embrapa.br/agroenergia"
+      },
+      {
+        "id": "man-020",
+        "title": "Manejo de Pastagens Intensivas",
+        "abstract": "Estratégias de pastejo rotacionado e adubação para pecuária de corte e leite.",
+        "publicationType": "Manual Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Gado de Corte"],
+        "keywords": ["pastagem", "gado", "rotação"],
+        "category": "pastagem",
+        "officialUrl": "https://www.embrapa.br/gado-de-corte"
       }
     ];
 
@@ -315,11 +359,17 @@ window.AgraEmbrapa = {
     });
 
     container.querySelector('#manualDownloadBtn')?.addEventListener('click', () => {
-      showToast('Baixando PDF criptografado para acesso offline...');
-      setTimeout(() => {
-        showToast('Download concluído com sucesso!');
-        container.querySelector('#manualDialog').close();
-      }, 1500);
+      if (!activeDocId) return;
+      const doc = defaultCatalog.find(d => d.id === activeDocId);
+      if (doc && doc.officialUrl) {
+        showToast('Abrindo documento oficial...');
+        setTimeout(() => {
+          window.open(doc.officialUrl, '_blank');
+          container.querySelector('#manualDialog').close();
+        }, 800);
+      } else {
+        showToast('Link oficial indisponível para este manual.');
+      }
     });
 
     const searchInput = container.querySelector('#embrapaSearch');
