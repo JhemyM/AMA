@@ -579,3 +579,7 @@ updateNetworkStatus();
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
   navigator.serviceWorker.register('./sw.js').catch(() => showToast('Cache offline indisponível nesta sessão.'));
 }
+
+window.addEventListener('agra_tasks_updated', () => {
+  renderPropertyData();
+});

@@ -25,7 +25,7 @@ window.AgraTasks = {
     // Sort by date
     tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    tasks.forEach(task => {
+    tasks.forEach((task, index) => {
       const taskDate = new Date(task.date + 'T12:00:00');
       const day = taskDate.getDate().toString().padStart(2, '0');
       const month = taskDate.toLocaleString('pt-BR', { month: 'short' }).toUpperCase();
@@ -44,9 +44,24 @@ window.AgraTasks = {
             <strong style="display: block;">${task.title}</strong>
             <small class="muted">${task.field} · ${task.assignee}</small>
           </div>
-          <span class="tag ${tagClass}">${tagLabel}</span>
+          <div style="display:flex; align-items:center; gap: 0.5rem;">
+            <span class="tag ${tagClass}">${tagLabel}</span>
+            <button class="text-button delete-task-btn" data-index="${index}" style="color: var(--red-600); padding: 0.25rem;" title="Excluir Atividade">×</button>
+          </div>
         </div>
       `;
+    });
+
+    moduleList.querySelectorAll('.delete-task-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        if(confirm('Tem certeza que deseja excluir esta atividade?')) {
+          tasks.splice(index, 1);
+          localStorage.setItem('agra_tasks_data', JSON.stringify(tasks));
+          renderTasks();
+          window.dispatchEvent(new Event('agra_tasks_updated'));
+        }
+      });
     });
   }
 
