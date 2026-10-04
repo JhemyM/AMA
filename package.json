@@ -47,5 +47,7 @@
     "electron": "^44.5.1",
     "electron-builder": "^26.0.12"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mercadopago": "^3.6.1"
+  }
 }
