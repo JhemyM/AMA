@@ -85,9 +85,33 @@ class MonetizationManager {
     });
 
     document.querySelectorAll('.checkout-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', async (e) => {
         const plan = e.target.getAttribute('data-plan');
-        alert('Aqui chamaremos a Cloud Function (segura) para gerar o link do plano: ' + plan.toUpperCase());
+        const originalText = e.target.textContent;
+        e.target.textContent = 'Carregando...';
+        e.target.disabled = true;
+
+        try {
+          const response = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ plan: plan })
+          });
+
+          if (!response.ok) {
+            throw new Error('Falha ao contatar servidor de pagamentos.');
+          }
+
+          const data = await response.json();
+          // Redireciona o usuÃ¡rio para o Checkout Seguro gerado pelo Stripe/MercadoPago
+          window.location.href = data.url;
+
+        } catch (error) {
+          console.error(error);
+          alert('Este recurso sÃ³ funcionarÃ¡ quando o AGRA estiver hospedado na Vercel com a Cloud Function ativa!');
+          e.target.textContent = originalText;
+          e.target.disabled = false;
+        }
       });
     });
   }
