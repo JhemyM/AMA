@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3329">
+  <title>AGRA | Login</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles-base.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- AUTHENTICATION SCREEN -->
+  <div id="authContainer" class="auth-wrapper">
+    <div class="auth-glass-panel">
+      <div class="auth-header">
+        <div class="brand-mark auth-logo">VC</div>
+        <h1>Bem-vindo ao <strong>AGRA</strong></h1>
+        <p>Gestão rural inteligente</p>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="loginEmail">E-mail</label>
+          <input type="email" id="loginEmail" required placeholder="seu@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Senha</label>
+          <input type="password" id="loginPassword" required placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <div class="form-error" id="loginError" hidden>Credenciais inválidas.</div>
+        <button type="submit" class="primary-button auth-btn">Entrar</button>
+        <button type="button" class="text-button switch-auth" id="showRegisterBtn">Não tem conta? <span>Criar agora</span></button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" class="auth-form" hidden>
+        <div class="form-group">
+          <label for="regName">Nome Completo</label>
+          <input type="text" id="regName" required placeholder="João da Silva" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="regEmail">E-mail</label>
+          <input type="email" id="regEmail" required placeholder="seu@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Senha</label>
+          <input type="password" id="regPassword" required placeholder="••••••••" autocomplete="new-password">
+        </div>
+        <div class="form-error" id="registerError" hidden>Este e-mail já está em uso.</div>
+        <button type="submit" class="primary-button auth-btn">Criar Conta</button>
+        <button type="button" class="text-button switch-auth" id="showLoginBtn">Já possui conta? <span>Fazer login</span></button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Toasts -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <script defer src="login.js"></script>
+</body>
+</html>

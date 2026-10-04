@@ -219,9 +219,7 @@ window.addEventListener('agra_property_updated', renderPropertyData);
 
 const dashboard = document.querySelector('#dashboardSection');
 const dynamicModuleSection = document.querySelector('#dynamicModuleSection');
-const placeholder = document.querySelector('#placeholderSection');
 const pageTitle = document.querySelector('#pageTitle');
-const placeholderTitle = document.querySelector('#placeholderTitle');
 const toast = document.querySelector('#toast');
 const networkStatus = document.querySelector('#networkStatus');
 const feedbackDialog = document.querySelector('#feedbackDialog');
@@ -245,7 +243,6 @@ const implementedModules = ['fields', 'tasks', 'embrapa', 'soil', 'production', 
 async function showSection(section) {
   dashboard.hidden = true;
   dynamicModuleSection.hidden = true;
-  placeholder.hidden = true;
 
   if (section === 'dashboard') {
     dashboard.hidden = false;
@@ -280,13 +277,9 @@ async function showSection(section) {
     // Hide other loaded modules, show active one
     Array.from(dynamicModuleSection.children).forEach(child => {
       child.style.display = child.id === `module-container-${section}` ? 'block' : 'none';
-    });
-  } else {
-    placeholder.hidden = false;
   }
 
   pageTitle.textContent = sectionLabels[section] || 'Dashboard';
-  placeholderTitle.textContent = sectionLabels[section] || 'Módulo';
   document.querySelectorAll('.nav-item').forEach((item) => {
     item.classList.toggle('active', item.dataset.section === section);
   });
@@ -296,7 +289,7 @@ document.querySelectorAll('[data-section]').forEach((button) => {
   button.addEventListener('click', () => showSection(button.dataset.section));
 });
 
-document.querySelector('#backButton').addEventListener('click', () => showSection('dashboard'));
+
 document.querySelector('#farmButton').addEventListener('click', () => {
   showToast('Seletor de propriedades estará disponível em breve.');
 });

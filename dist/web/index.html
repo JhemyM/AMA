@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b3329">
+  <title>AGRA | Gestão rural inteligente</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles-base.css">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    if (!localStorage.getItem('agra_current_user')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+</head>
+<body>
+  <!-- MAIN APP -->
+  <div class="app-shell" id="mainApp">
+    <aside class="sidebar" aria-label="Navegação principal">
+      <div class="brand">
+        <div class="brand-mark">VC</div>
+        <div>
+          <strong>AGRA</strong>
+          <span>gestão rural</span>
+        </div>
+      </div>
+
+      <div class="farm-switcher">
+        <span class="eyebrow">Propriedade ativa</span>
+        <button class="farm-button" type="button" id="farmButton">
+          <span id="sidebarPropertyName">Sua Propriedade</span><span class="chevron">⌄</span>
+        </button>
+      </div>
+
+      <nav class="nav-list">
+        <span class="nav-label">Visão geral</span>
+        <button class="nav-item active" data-section="dashboard" type="button"><span class="nav-icon">◈</span>Dashboard</button>
+        <button class="nav-item" data-section="production" type="button"><span class="nav-icon">▦</span>Produção</button>
+        <button class="nav-item" data-section="fields" type="button"><span class="nav-icon">⌗</span>Talhões</button>
+        <button class="nav-item" data-section="soil" type="button"><span class="nav-icon">◒</span>Solo e análises</button>
+        <button class="nav-item" data-section="weather" type="button"><span class="nav-icon">☼</span>Clima</button>
+        <span class="nav-label">Operação</span>
+        <button class="nav-item" data-section="tasks" type="button"><span class="nav-icon">✓</span>Atividades</button>
+        <button class="nav-item" data-section="inventory" type="button"><span class="nav-icon">□</span>Estoque</button>
+        <button class="nav-item" data-section="team" type="button"><span class="nav-icon">♙</span>Equipe</button>
+        <span class="nav-label">Conhecimento</span>
+        <button class="nav-item" data-section="embrapa" type="button"><span class="nav-icon">📚</span>Manuais Embrapa</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="help-card" id="feedbackButton" type="button"><span class="help-icon">?</span><span><strong>Enviar feedback</strong><small>Ajude a melhorar o AGRA</small></span></button>
+        <div class="user-row"><div class="avatar" id="sidebarAvatar">MS</div><div><strong id="sidebarName">Marina Souza</strong><small>Administradora</small></div><button class="text-button" id="logoutButton" type="button" style="margin-left:auto; padding:0 8px;">Sair</button></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span id="topPropertyName">Sua Propriedade</span><b>/</b><strong id="pageTitle">Dashboard</strong></div>
+        <div class="top-actions"><span class="sync-status"><i></i>Dados sincronizados há 4 min</span><span class="network-status online" id="networkStatus">Online</span><button class="icon-button" type="button" aria-label="Notificações">♢<b class="notification-dot"></b></button><div class="top-avatar" id="topAvatar">MS</div></div>
+      </header>
+
+      <section class="page-content" id="dashboardSection">
+        <div class="page-heading"><div><p class="eyebrow" id="currentDateString">Hoje</p><h1>Bom dia, <span id="greetingName">Marina</span> <span>🌱</span></h1><p class="muted">Decisões mais inteligentes para produzir mais, preservando a terra.</p></div><div class="heading-actions"><button class="secondary-button" id="exportDataButton" type="button">⇩ Exportar dados</button><button class="primary-button" id="newActivityButton" type="button"><span>＋</span> Registrar atividade</button><input id="importDataInput" type="file" accept="application/json" hidden></div></div>
+
+        <div class="metric-grid">
+          <article class="metric-card accent-green"><div class="metric-top"><span class="metric-label">Produção estimada</span><span class="metric-symbol">↗</span></div><strong id="metricProduction">-- <small>t</small></strong><div class="metric-foot"><span class="trend up">Estimativa baseada na área</span></div></article>
+          <article class="metric-card accent-blue"><div class="metric-top"><span class="metric-label">Área cultivada</span><span class="metric-symbol">⌗</span></div><strong id="metricArea">-- <small>ha</small></strong><div class="metric-foot"><span id="metricFieldsCount">-- talhões ativos</span><span id="metricTotalArea">de -- ha totais</span></div></article>
+          <article class="metric-card accent-amber"><div class="metric-top"><span class="metric-label">Umidade média do solo</span><span class="metric-symbol">◒</span></div><strong>42 <small>%</small></strong><div class="metric-foot"><span class="trend stable">● ideal</span><span>últimas 24 horas</span></div></article>
+          <article class="metric-card accent-orange"><div class="metric-top"><span class="metric-label">Atividades pendentes</span><span class="metric-symbol">◷</span></div><strong>07</strong><div class="metric-foot"><span class="trend attention">2 vencem hoje</span><span>18 concluídas na semana</span></div></article>
+        </div>
+
+        <article class="panel property-panel"><div class="panel-heading"><div><h2>Visão da propriedade</h2><p>Saúde dos talhões e uso de recursos</p></div><button class="text-button" type="button" data-section="fields">Abrir lista de talhões <span>→</span></button></div><div class="property-layout"><div class="farm-map" id="dynamicFarmMap" role="img" aria-label="Visualização dos talhões"></div><div class="property-summary"><div class="resource-ring"><div id="dynamicResourceRing"><strong>--%</strong><small>uso eficiente</small></div></div><div class="summary-copy"><strong id="dynamicFarmStatus">Avaliando...</strong><p id="dynamicFarmStatusDesc">Processando dados dos talhões.</p><div class="map-legend"><span><i class="legend-good"></i>Ideal</span><span><i class="legend-watch"></i>Atenção</span><span><i class="legend-risk"></i>Risco</span></div></div></div></div></article>
+
+        <div class="content-grid">
+          <article class="panel production-panel"><div class="panel-heading"><div><h2>Produção por cultura</h2><p>Estimativa da safra 2026</p></div><button class="select-button" type="button">Safra atual <span>⌄</span></button></div><div class="chart-wrap"><div class="chart-y"><span>120 t</span><span>90 t</span><span>60 t</span><span>30 t</span><span>0</span></div><div class="bar-chart"><div class="grid-line one"></div><div class="grid-line two"></div><div class="grid-line three"></div><div class="grid-line four"></div><div class="bar-group"><div class="bar corn" style="height: 78%"><span>94 t</span></div><small>Milho</small></div><div class="bar-group"><div class="bar soy" style="height: 61%"><span>73 t</span></div><small>Soja</small></div><div class="bar-group"><div class="bar coffee" style="height: 42%"><span>50 t</span></div><small>Café</small></div><div class="bar-group"><div class="bar wheat" style="height: 26%"><span>31 t</span></div><small>Trigo</small></div></div></div><div class="chart-legend"><span><i class="dot corn-dot"></i>Colhido</span><span><i class="dot light-dot"></i>Estimativa restante</span><strong>Total projetado: 248,6 t</strong></div></article>
+
+          <article class="panel weather-panel"><div class="panel-heading"><div><h2>Condições do clima</h2><p>Estação Santa Clara · agora</p></div><button class="text-button" type="button" data-section="weather">Ver detalhes <span>→</span></button></div><div class="current-weather"><div class="weather-icon">☀</div><div><strong>27°</strong><span>Ensolarado</span></div><div class="weather-meta"><span>Umidade <b>61%</b></span><span>Vento <b>12 km/h</b></span></div></div><div class="forecast"><div><span>Hoje</span><b>☀</b><strong>29°</strong><small>18°</small></div><div><span>Qui</span><b>⛅</b><strong>28°</strong><small>17°</small></div><div><span>Sex</span><b>☂</b><strong>24°</strong><small>16°</small></div><div><span>Sáb</span><b>☀</b><strong>30°</strong><small>19°</small></div></div></article>
+
+          <article class="panel field-panel"><div class="panel-heading"><div><h2>Saúde dos talhões</h2><p>Índice geral por área monitorada</p></div><button class="text-button" type="button" data-section="fields">Ver todos <span>→</span></button></div><div class="field-list" id="dynamicFieldList"></div></article>
+
+          <article class="panel task-panel"><div class="panel-heading"><div><h2>Próximas atividades</h2><p>O que precisa de atenção</p></div><button class="text-button" type="button" data-section="tasks">Ver agenda <span>→</span></button></div><div class="task-list"><div class="task-row"><span class="task-date today"><b>02</b><small>OUT</small></span><div><strong>Aplicação preventiva</strong><small>Talhão Norte · João Lima</small></div><span class="tag urgent">Hoje</span></div><div class="task-row"><span class="task-date"><b>03</b><small>OUT</small></span><div><strong>Coleta de amostras</strong><small>Talhão Leste · Equipe técnica</small></div><span class="tag planned">Amanhã</span></div><div class="task-row"><span class="task-date"><b>05</b><small>OUT</small></span><div><strong>Revisão do sistema de irrigação</strong><small>Talhão Ribeirão · Carlos Mendes</small></div><span class="tag planned">Sáb</span></div></div></article>
+        </div>
+
+        <section class="bottom-strip"><div class="insight-mark">✦</div><div><strong>Recomendação Inteligente baseada nos seus dados</strong><p id="dynamicRecommendationText">Analisando a saúde dos seus talhões...</p></div><button class="outline-button" id="openEmbrapaRecButton" type="button" data-section="embrapa">Ler manual Embrapa <span>→</span></button></section>
+      </section>
+
+      <section class="page-content" id="dynamicModuleSection" hidden>
+        <!-- Modules will be dynamically injected here -->
+      </section>
+
+
+    </main>
+  </div>
+  <dialog class="feedback-dialog" id="feedbackDialog" aria-labelledby="feedbackTitle">
+    <form method="dialog" id="feedbackForm">
+      <div class="dialog-heading"><div><p class="eyebrow">Canal do piloto</p><h2 id="feedbackTitle">Como podemos melhorar?</h2></div><button class="dialog-close" value="cancel" aria-label="Fechar">×</button></div>
+      <label for="feedbackType">Tipo de retorno</label>
+      <select id="feedbackType" required><option value="idea">Tenho uma ideia</option><option value="problem">Encontrei um problema</option><option value="guidance">Não entendi uma orientação</option><option value="praise">Algo funcionou bem</option></select>
+      <label for="feedbackRating">Como foi a experiência?</label>
+      <select id="feedbackRating" required><option value="5">Muito boa</option><option value="4">Boa</option><option value="3">Regular</option><option value="2">Difícil</option><option value="1">Muito difícil</option></select>
+      <label for="feedbackMessage">Conte o que aconteceu</label>
+      <textarea id="feedbackMessage" rows="4" required placeholder="Escreva com suas palavras..."></textarea>
+      <label class="consent-line"><input id="feedbackContact" type="checkbox"> Posso ser contatado para esclarecer este retorno.</label>
+      <div class="feedback-actions"><button class="secondary-button" id="emailFeedbackButton" value="cancel" type="button">Preparar e-mail</button><button class="primary-button" value="submit" type="submit">Salvar feedback offline</button></div>
+    </form>
+  </dialog>
+  <dialog class="feedback-dialog" id="onboardingDialog" aria-labelledby="onboardingTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+    <form method="dialog" id="onboardingForm">
+      <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+        <div>
+          <p class="eyebrow">Configuração Inicial</p>
+          <h2 id="onboardingTitle">Cadastre sua Propriedade</h2>
+        </div>
+      </div>
+      <p class="muted" style="margin-bottom: 1.5rem;">Para começar a usar o AGRA com os seus próprios dados, insira as informações básicas da sua fazenda ou sítio.</p>
+      
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="propName" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome da Propriedade</label>
+        <input type="text" id="propName" required placeholder="Ex: Sítio Bela Vista" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="propArea" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Área Total (Hectares)</label>
+        <input type="number" id="propArea" required min="1" step="0.1" placeholder="Ex: 50" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+
+      <h3 style="font-size: 1rem; margin-bottom: 1rem;">Seu Primeiro Talhão</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="form-group">
+          <label for="fieldName" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Talhão</label>
+          <input type="text" id="fieldName" required placeholder="Ex: Talhão Sul" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+        </div>
+        <div class="form-group">
+          <label for="fieldArea" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Área (ha)</label>
+          <input type="number" id="fieldArea" required min="0.1" step="0.1" placeholder="Ex: 10" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+        </div>
+        <div class="form-group" style="grid-column: span 2;">
+          <label for="fieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura</label>
+          <select id="fieldCrop" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+            <option value="Milho">Milho</option>
+            <option value="Soja">Soja</option>
+            <option value="Café">Café</option>
+            <option value="Trigo">Trigo</option>
+            <option value="Outro">Outra Cultura</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="feedback-actions" style="display:flex; justify-content:flex-end;">
+        <button class="primary-button" value="submit" type="submit">Salvar Propriedade</button>
+      </div>
+    </form>
+  </dialog>
+
+
+  
+  <div class="toast" id="toast" role="status">Atividade registrada com sucesso.</div>
+  <script defer src="storage.js"></script>
+  <script defer src="feedback-config.js"></script>
+  <script defer src="feedback-config.local.js"></script>
+  <script defer src="app.js"></script>
+
+<template id="tpl-fields"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Gestão de Áreas</p>
+    <h1>Seus Talhões</h1>
+    <p class="muted">Visualize e gerencie as áreas de plantio da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewFieldButton" type="button"><span>＋</span> Novo Talhão</button>
+  </div>
+</div>
+<div class="field-list" id="fieldsModuleList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+  <!-- Fields will be dynamically injected here -->
+</div>
+
+<dialog class="feedback-dialog" id="newFieldDialog" aria-labelledby="newFieldTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newFieldForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <div>
+        <h2 id="newFieldTitle">Adicionar Novo Talhão</h2>
+      </div>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newFieldDialog').close()" aria-label="Fechar">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newFieldName" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Talhão</label>
+      <input type="text" id="newFieldName" required placeholder="Ex: Talhão Norte" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newFieldArea" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Área (ha)</label>
+      <input type="number" id="newFieldArea" required min="0.1" step="0.1" placeholder="Ex: 15.5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label for="newFieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura</label>
+      <select id="newFieldCrop" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+        <option value="Milho">Milho</option>
+        <option value="Soja">Soja</option>
+        <option value="Café">Café</option>
+        <option value="Trigo">Trigo</option>
+        <option value="Outro">Outra Cultura</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Localização (Coordenadas)</label>
+      <div style="display: flex; gap: 0.5rem;">
+        <input type="text" id="newFieldGps" readonly placeholder="Sem GPS capturado" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface);">
+        <button type="button" id="captureGpsButton" class="secondary-button" style="white-space: nowrap;">Capturar 📍</button>
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('newFieldDialog').close()">Cancelar</button>
+      <button class="primary-button" value="submit" type="submit">Salvar Talhão</button>
+    </div>
+  </form>
+</dialog>
+</template>
+<template id="tpl-tasks"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Operação</p>
+    <h1>Atividades e Agenda</h1>
+    <p class="muted">Gerencie as tarefas pendentes e concluídas da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewTaskButton" type="button"><span>＋</span> Nova Atividade</button>
+  </div>
+</div>
+<div class="task-list" id="tasksModuleList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+  <!-- Tasks will be dynamically injected here -->
+</div>
+
+<dialog class="feedback-dialog" id="newTaskDialog" aria-labelledby="newTaskTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newTaskForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <div>
+        <h2 id="newTaskTitle">Agendar Atividade</h2>
+      </div>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newTaskDialog').close()" aria-label="Fechar">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newTaskTitleInput" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Título da Atividade</label>
+      <input type="text" id="newTaskTitleInput" required placeholder="Ex: Aplicação preventiva" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newTaskAssignee" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Responsável</label>
+      <input type="text" id="newTaskAssignee" required placeholder="Ex: João Lima" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label for="newTaskDate" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Data</label>
+        <input type="date" id="newTaskDate" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      <div class="form-group">
+        <label for="newTaskField" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Talhão Vinculado</label>
+        <select id="newTaskField" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+          <!-- Dynamically populated -->
+        </select>
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('newTaskDialog').close()">Cancelar</button>
+      <button class="primary-button" value="submit" type="submit">Salvar Atividade</button>
+    </div>
+  </form>
+</dialog>
+</template>
+<template id="tpl-embrapa"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Conhecimento e Pesquisa</p>
+    <h1>Manuais Embrapa</h1>
+    <p class="muted">Acesse a biblioteca técnica oficial para auxiliar no manejo sustentável da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <input type="search" id="embrapaSearch" placeholder="Buscar manuais..." style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; width: 250px;">
+  </div>
+</div>
+<div class="embrapa-list" id="embrapaModuleList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+  <!-- Manuals will be dynamically injected here -->
+</div>
+
+<dialog class="feedback-dialog" id="manualDialog" aria-labelledby="manualTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 600px;">
+  <form method="dialog">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <div>
+        <h2 id="manualTitle" style="line-height: 1.3;">Título do Manual</h2>
+      </div>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('manualDialog').close()" aria-label="Fechar">×</button>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem;">
+      <p class="muted" style="margin-bottom: 0.5rem;"><strong id="manualYear">2026</strong> · <span id="manualAuthors">Embrapa</span></p>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;" id="manualKeywords">
+      </div>
+      <p id="manualAbstract" style="line-height: 1.6;">Resumo do manual...</p>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('manualDialog').close()">Fechar</button>
+      <a href="#" id="manualOfficialLink" target="_blank" style="text-decoration: none;">
+        <button class="primary-button" type="button">Acessar na Íntegra <span>↗</span></button>
+      </a>
+    </div>
+  </form>
+</dialog>
+</template>
+<template id="tpl-soil"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Agricultura de Precisão</p>
+    <h1>Solo e Análises</h1>
+    <p class="muted">Registre os laudos técnicos de solo para obter recomendações precisas de adubação e calagem.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewSoilTestButton" type="button"><span>＋</span> Nova Análise</button>
+  </div>
+</div>
+
+<div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+  <article class="metric-card accent-amber">
+    <div class="metric-top"><span class="metric-label">pH Médio</span><span class="metric-symbol">◒</span></div>
+    <strong id="avgPhMetric">--</strong>
+    <div class="metric-foot"><span class="trend stable">Ideal: 6.0 a 6.5</span></div>
+  </article>
+  <article class="metric-card accent-green">
+    <div class="metric-top"><span class="metric-label">Matéria Orgânica</span><span class="metric-symbol">⌗</span></div>
+    <strong id="avgMoMetric">-- <small>%</small></strong>
+    <div class="metric-foot"><span class="trend up">Bom teor</span></div>
+  </article>
+  <article class="metric-card accent-blue">
+    <div class="metric-top"><span class="metric-label">Umidade Relativa</span><span class="metric-symbol">💧</span></div>
+    <strong>42 <small>%</small></strong>
+    <div class="metric-foot"><span>Sensores online</span></div>
+  </article>
+</div>
+
+<div class="task-list" id="soilTestsList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newSoilDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newSoilForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Registrar Análise de Solo</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newSoilDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Talhão</label>
+      <select id="soilFieldSelect" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;"></select>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">pH (H2O)</label>
+        <input type="number" id="soilPh" required step="0.1" min="1" max="14" placeholder="Ex: 6.2" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Mat. Orgânica (%)</label>
+        <input type="number" id="soilMo" required step="0.1" placeholder="Ex: 3.5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newSoilDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Salvar Laudo</button>
+    </div>
+  </form>
+</dialog>
+</template>
+<template id="tpl-production"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Gestão de Safra</p>
+    <h1>Produção</h1>
+    <p class="muted">Acompanhe as estimativas e registros de colheita da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewHarvestButton" type="button"><span>＋</span> Registrar Colheita</button>
+  </div>
+</div>
+
+<article class="panel production-panel" style="margin-bottom: 2rem;">
+  <div class="panel-heading">
+    <div>
+      <h2>Produção Acumulada</h2>
+      <p>Total registrado por cultura</p>
+    </div>
+  </div>
+  <div class="field-list" id="productionTotals" style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+    <!-- Rendered totals -->
+  </div>
+</article>
+
+<div class="task-list" id="harvestList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newHarvestDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newHarvestForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Registrar Colheita</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newHarvestDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Talhão de Origem</label>
+      <select id="harvestFieldSelect" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;"></select>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Volume (Ton)</label>
+        <input type="number" id="harvestVolume" required step="0.1" min="0.1" placeholder="Ex: 12.5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Data da Colheita</label>
+        <input type="date" id="harvestDate" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newHarvestDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Salvar Colheita</button>
+    </div>
+  </form>
+</dialog>
+</template>
+<template id="tpl-inventory"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Operação</p>
+    <h1>Estoque e Insumos</h1>
+    <p class="muted">Gerencie sementes, fertilizantes e defensivos agrícolas.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewItemButton" type="button"><span>＋</span> Adicionar Insumo</button>
+  </div>
+</div>
+
+<div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+  <article class="metric-card accent-green">
+    <div class="metric-top"><span class="metric-label">Sementes</span><span class="metric-symbol">🌱</span></div>
+    <strong id="seedCount">-- <small>itens</small></strong>
+  </article>
+  <article class="metric-card accent-blue">
+    <div class="metric-top"><span class="metric-label">Fertilizantes</span><span class="metric-symbol">◒</span></div>
+    <strong id="fertCount">-- <small>itens</small></strong>
+  </article>
+  <article class="metric-card accent-orange">
+    <div class="metric-top"><span class="metric-label">Defensivos</span><span class="metric-symbol">🧪</span></div>
+    <strong id="chemCount">-- <small>itens</small></strong>
+  </article>
+</div>
+
+<div class="task-list" id="inventoryList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newItemDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newItemForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Novo Insumo</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newItemDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Produto</label>
+      <input type="text" id="itemName" required placeholder="Ex: NPK 10-10-10" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Categoria</label>
+        <select id="itemCategory" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+          <option value="Semente">Semente</option>
+          <option value="Fertilizante">Fertilizante</option>
+          <option value="Defensivo">Defensivo</option>
+          <option value="Outro">Outros</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Quantidade</label>
+        <input type="number" id="itemQuantity" required min="1" placeholder="Ex: 50" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newItemDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Adicionar ao Estoque</button>
+    </div>
+  </form>
+</dialog>
+</template>
+<template id="tpl-weather"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Monitoramento</p>
+    <h1>Condições Climáticas</h1>
+    <p class="muted">Previsão estendida e monitoramento de sensores para planejamento operacional.</p>
+  </div>
+</div>
+
+<article class="panel weather-panel" style="margin-bottom: 2rem;">
+  <div class="panel-heading">
+    <div>
+      <h2>Estação Meteorológica Principal</h2>
+      <p>Dados atualizados em tempo real</p>
+    </div>
+  </div>
+  <div class="current-weather" style="padding: 2rem; border-bottom: 1px solid var(--border);">
+    <div class="weather-icon" style="font-size: 3rem;">☀</div>
+    <div>
+      <strong style="font-size: 2.5rem;">28°</strong>
+      <span style="display: block;">Ensolarado</span>
+    </div>
+    <div class="weather-meta" style="margin-left: auto; text-align: right; display: flex; flex-direction: column; gap: 0.5rem;">
+      <span>Umidade <b>61%</b></span>
+      <span>Vento <b>12 km/h NE</b></span>
+      <span>Precipitação <b>0 mm</b></span>
+    </div>
+  </div>
+  <div class="forecast" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; padding: 1.5rem; text-align: center;">
+    <div><span class="muted">Hoje</span><b style="font-size:1.5rem; display:block; margin:0.5rem 0;">☀</b><strong>29°</strong><small class="muted" style="margin-left:4px;">18°</small></div>
+    <div><span class="muted">Amanhã</span><b style="font-size:1.5rem; display:block; margin:0.5rem 0;">⛅</b><strong>28°</strong><small class="muted" style="margin-left:4px;">17°</small></div>
+    <div><span class="muted">Sexta</span><b style="font-size:1.5rem; display:block; margin:0.5rem 0;">☂</b><strong>24°</strong><small class="muted" style="margin-left:4px;">16°</small></div>
+    <div><span class="muted">Sábado</span><b style="font-size:1.5rem; display:block; margin:0.5rem 0;">☀</b><strong>30°</strong><small class="muted" style="margin-left:4px;">19°</small></div>
+    <div><span class="muted">Domingo</span><b style="font-size:1.5rem; display:block; margin:0.5rem 0;">☁</b><strong>27°</strong><small class="muted" style="margin-left:4px;">18°</small></div>
+  </div>
+</article>
+</template>
+<template id="tpl-team"><div class="page-heading">
+  <div>
+    <p class="eyebrow">Operação</p>
+    <h1>Equipe</h1>
+    <p class="muted">Gerencie o acesso e as funções dos colaboradores da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewMemberButton" type="button"><span>＋</span> Adicionar Membro</button>
+  </div>
+</div>
+
+<div class="task-list" id="teamList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newMemberDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newMemberForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Adicionar Membro</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newMemberDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome Completo</label>
+      <input type="text" id="memberName" required placeholder="Ex: Carlos Silva" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Função</label>
+      <select id="memberRole" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+        <option value="Operador Máquinas">Operador de Máquinas</option>
+        <option value="Técnico Agrícola">Técnico Agrícola</option>
+        <option value="Administrador">Administrador</option>
+      </select>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newMemberDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Convidar Membro</button>
+    </div>
+  </form>
+</dialog>
+</template>
+
+
+<script>
+  window.AgraFields = {
+  init: function(container) {
+  // Render fields grid
+  function renderFields() {
+    const dataStr = localStorage.getItem('agra_property_data');
+    const moduleList = container.querySelector('#fieldsModuleList');
+    if (!dataStr || !moduleList) return;
+    
+    const data = JSON.parse(dataStr);
+    moduleList.innerHTML = '';
+    
+    data.fields.forEach(field => {
+      let color = 'green';
+      if (field.health < 60) color = 'red';
+      else if (field.health < 75) color = 'yellow';
+      
+      moduleList.innerHTML += `
+        <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div class="field-name">
+              <span class="field-color ${color}"></span>
+              <div>
+                <strong>${field.name}</strong>
+                <small>${field.crop}${field.gps ? ` · 📍 ${field.gps}` : ''}</small>
+              </div>
+            </div>
+            <strong class="${color === 'green' ? 'health-good' : color === 'yellow' ? 'health-warn' : 'health-alert'}">${field.health}</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem; margin-top: auto;">
+            <span class="muted">Área</span>
+            <strong>${field.area} ha</strong>
+          </div>
+        </article>
+      `;
+    });
+  }
+
+  renderFields();
+
+  // Dialog events
+  const newFieldDialog = container.querySelector('#newFieldDialog');
+  
+  container.querySelector('#openNewFieldButton')?.addEventListener('click', () => {
+    newFieldDialog?.showModal();
+  });
+
+  container.querySelector('#captureGpsButton')?.addEventListener('click', () => {
+    const input = container.querySelector('#newFieldGps');
+    input.value = "Obtendo sinal...";
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        input.value = `${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`;
+      }, (err) => {
+        input.value = "Falha ao capturar GPS (Permissão negada ou Offline)";
+      }, { timeout: 10000 });
+    } else {
+      input.value = "GPS não suportado";
+    }
+  });
+
+  container.querySelector('#newFieldForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const dataStr = localStorage.getItem('agra_property_data');
+    if (!dataStr) return;
+    const data = JSON.parse(dataStr);
+    
+    const newField = {
+      name: container.querySelector('#newFieldName').value,
+      area: Number(container.querySelector('#newFieldArea').value),
+      crop: container.querySelector('#newFieldCrop').value,
+      gps: container.querySelector('#newFieldGps')?.value || '',
+      health: Math.floor(Math.random() * 40) + 50
+    };
+    
+    data.fields.push(newField);
+    data.totalArea += newField.area;
+    
+    localStorage.setItem('agra_property_data', JSON.stringify(data));
+    newFieldDialog.close();
+    e.target.reset();
+    
+    renderFields();
+    
+    // Trigger a global event to let dashboard update
+    window.dispatchEvent(new Event('agra_property_updated'));
+    
+    // Using global toast
+    const toast = document.querySelector('#toast');
+    if (toast) {
+      toast.textContent = 'Talhão adicionado com sucesso!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+  });
+}
+};
+
+  window.AgraTasks = {
+  init: function(container) {
+  // Initialize default tasks if empty
+  let tasksStr = localStorage.getItem('agra_tasks_data');
+  if (!tasksStr) {
+    const defaultTasks = [
+      { title: 'Aplicação preventiva', assignee: 'João Lima', date: new Date().toISOString().split('T')[0], field: 'Talhão Inicial' }
+    ];
+    localStorage.setItem('agra_tasks_data', JSON.stringify(defaultTasks));
+    tasksStr = JSON.stringify(defaultTasks);
+  }
+
+  function renderTasks() {
+    const tasks = JSON.parse(localStorage.getItem('agra_tasks_data') || '[]');
+    const moduleList = container.querySelector('#tasksModuleList');
+    if (!moduleList) return;
+    
+    moduleList.innerHTML = '';
+    
+    if (tasks.length === 0) {
+      moduleList.innerHTML = '<p class="muted">Nenhuma atividade agendada.</p>';
+      return;
+    }
+
+    // Sort by date
+    tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    tasks.forEach(task => {
+      const taskDate = new Date(task.date + 'T12:00:00');
+      const day = taskDate.getDate().toString().padStart(2, '0');
+      const month = taskDate.toLocaleString('pt-BR', { month: 'short' }).toUpperCase();
+      
+      const isToday = task.date === new Date().toISOString().split('T')[0];
+      const tagClass = isToday ? 'urgent' : 'planned';
+      const tagLabel = isToday ? 'Hoje' : 'Agendado';
+      
+      moduleList.innerHTML += `
+        <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+          <span class="task-date ${isToday ? 'today' : ''}" style="min-width: 48px; text-align: center;">
+            <b style="display: block; font-size: 1.25rem;">${day}</b>
+            <small style="font-size: 0.75rem; text-transform: uppercase;">${month}</small>
+          </span>
+          <div style="flex: 1;">
+            <strong style="display: block;">${task.title}</strong>
+            <small class="muted">${task.field} · ${task.assignee}</small>
+          </div>
+          <span class="tag ${tagClass}">${tagLabel}</span>
+        </div>
+      `;
+    });
+  }
+
+  renderTasks();
+
+  const newTaskDialog = container.querySelector('#newTaskDialog');
+  const fieldSelect = container.querySelector('#newTaskField');
+  
+  container.querySelector('#openNewTaskButton')?.addEventListener('click', () => {
+    // Populate fields dropdown
+    if (fieldSelect) {
+      fieldSelect.innerHTML = '';
+      const propertyDataStr = localStorage.getItem('agra_property_data');
+      if (propertyDataStr) {
+        const propData = JSON.parse(propertyDataStr);
+        propData.fields.forEach(field => {
+          fieldSelect.innerHTML += `<option value="${field.name}">${field.name}</option>`;
+        });
+      } else {
+        fieldSelect.innerHTML = '<option value="Geral">Geral</option>';
+      }
+    }
+    
+    // Set default date to today
+    const dateInput = container.querySelector('#newTaskDate');
+    if (dateInput) {
+      dateInput.value = new Date().toISOString().split('T')[0];
+    }
+    
+    newTaskDialog?.showModal();
+  });
+
+  container.querySelector('#newTaskForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const tasks = JSON.parse(localStorage.getItem('agra_tasks_data') || '[]');
+    
+    const newTask = {
+      title: container.querySelector('#newTaskTitleInput').value,
+      assignee: container.querySelector('#newTaskAssignee').value,
+      date: container.querySelector('#newTaskDate').value,
+      field: container.querySelector('#newTaskField').value
+    };
+    
+    tasks.push(newTask);
+    localStorage.setItem('agra_tasks_data', JSON.stringify(tasks));
+    
+    newTaskDialog.close();
+    e.target.reset();
+    
+    renderTasks();
+    
+    const toast = document.querySelector('#toast');
+    if (toast) {
+      toast.textContent = 'Atividade agendada com sucesso!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+  });
+}
+};
+
+  window.AgraEmbrapa = {
+  init: function(container) {
+    const defaultCatalog = [
+      {
+        "title": "Práticas de Conservação do Solo e Água",
+        "abstract": "Um guia abrangente sobre as melhores práticas para evitar erosão, melhorar a retenção de água no solo e garantir a sustentabilidade das áreas de plantio a longo prazo.",
+        "publicationType": "Manual Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Solos"],
+        "keywords": ["solo", "água", "conservação", "sustentabilidade"],
+        "officialUrl": "https://www.embrapa.br/solos"
+      },
+      {
+        "title": "Manejo Integrado de Pragas na Cultura da Soja",
+        "abstract": "Instruções detalhadas para identificação e controle biológico e químico das principais pragas que afetam as lavouras de soja no Brasil.",
+        "publicationType": "Comunicado Técnico",
+        "publicationYear": 2024,
+        "authors": ["Embrapa Soja"],
+        "keywords": ["soja", "pragas", "manejo integrado", "defensivos"],
+        "officialUrl": "https://www.embrapa.br/soja"
+      },
+      {
+        "title": "Irrigação de Precisão: Quando e Quanto Irrigar",
+        "abstract": "Metodologias baseadas em sensores de umidade e dados climáticos para otimizar o uso da água nas propriedades rurais, reduzindo custos energéticos.",
+        "publicationType": "Documento de Referência",
+        "publicationYear": 2025,
+        "authors": ["Embrapa Milho e Sorgo", "Embrapa Instrumentação"],
+        "keywords": ["irrigação", "tecnologia", "clima", "precisão"],
+        "officialUrl": "https://www.embrapa.br/instrumentacao"
+      },
+      {
+        "title": "Aproveitamento de Resíduos na Adubação",
+        "abstract": "Como transformar restos de cultura e resíduos orgânicos da fazenda em compostos ricos em nutrientes para reduzir a dependência de fertilizantes químicos.",
+        "publicationType": "Manual Técnico",
+        "publicationYear": 2022,
+        "authors": ["Embrapa Meio Ambiente"],
+        "keywords": ["adubação", "resíduos", "fertilizantes", "orgânico"],
+        "officialUrl": "https://www.embrapa.br/meio-ambiente"
+      }
+    ];
+
+    function renderCatalog(filterText = '') {
+      const moduleList = container.querySelector('#embrapaModuleList');
+      if (!moduleList) return;
+      
+      moduleList.innerHTML = '';
+      
+      const filtered = defaultCatalog.filter(doc => 
+        doc.title.toLowerCase().includes(filterText.toLowerCase()) || 
+        doc.keywords.some(k => k.toLowerCase().includes(filterText.toLowerCase()))
+      );
+
+      if (filtered.length === 0) {
+        moduleList.innerHTML = '<p class="muted">Nenhum manual encontrado para sua busca.</p>';
+        return;
+      }
+
+      filtered.forEach((doc, index) => {
+        moduleList.innerHTML += `
+          <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'" data-index="${index}">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <div class="field-name" style="align-items: flex-start;">
+                <span class="field-color accent-blue" style="border-radius: 4px; padding: 4px; display:flex; align-items:center; justify-content:center; color:white;">📚</span>
+                <div>
+                  <strong style="display: block; line-height: 1.3; margin-bottom: 0.25rem;">${doc.title}</strong>
+                  <small class="muted">${doc.publicationType} · ${doc.publicationYear}</small>
+                </div>
+              </div>
+            </div>
+            <p style="font-size: 0.875rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; margin-top: auto;">
+              ${doc.abstract}
+            </p>
+          </article>
+        `;
+      });
+
+      // Add click listeners to open dialog
+      moduleList.querySelectorAll('article').forEach(article => {
+        article.addEventListener('click', () => {
+          const doc = filtered[article.dataset.index];
+          openDialog(doc);
+        });
+      });
+    }
+
+    function openDialog(doc) {
+      const dialog = container.querySelector('#manualDialog');
+      container.querySelector('#manualTitle').textContent = doc.title;
+      container.querySelector('#manualYear').textContent = doc.publicationYear;
+      container.querySelector('#manualAuthors').textContent = doc.authors.join(', ');
+      container.querySelector('#manualAbstract').textContent = doc.abstract;
+      container.querySelector('#manualOfficialLink').href = doc.officialUrl;
+      
+      const kwContainer = container.querySelector('#manualKeywords');
+      kwContainer.innerHTML = '';
+      doc.keywords.forEach(kw => {
+        kwContainer.innerHTML += `<span style="background: var(--surface-hover); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; color: var(--text);">${kw}</span>`;
+      });
+      
+      dialog?.showModal();
+    }
+
+    const searchInput = container.querySelector('#embrapaSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        renderCatalog(e.target.value);
+      });
+    }
+
+    renderCatalog();
+  }
+};
+
+  window.AgraSoil = {
+  init: function(container) {
+    let soilData = JSON.parse(localStorage.getItem('agra_soil_data') || '[]');
+
+    function renderSoilData() {
+      const list = container.querySelector('#soilTestsList');
+      if (!list) return;
+
+      list.innerHTML = '';
+      if (soilData.length === 0) {
+        list.innerHTML = '<p class="muted">Nenhuma análise registrada.</p>';
+      } else {
+        let totalPh = 0;
+        let totalMo = 0;
+
+        soilData.forEach(test => {
+          totalPh += Number(test.ph);
+          totalMo += Number(test.mo);
+          
+          let phClass = (test.ph >= 6 && test.ph <= 6.5) ? 'health-good' : 'health-warn';
+          
+          list.innerHTML += `
+            <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <strong style="display: block;">Laudo: ${test.field}</strong>
+                <small class="muted">${new Date(test.date).toLocaleDateString()}</small>
+              </div>
+              <div style="display: flex; gap: 2rem;">
+                <div><span class="muted" style="display:block; font-size:0.75rem;">pH</span><strong class="${phClass}">${test.ph}</strong></div>
+                <div><span class="muted" style="display:block; font-size:0.75rem;">MO</span><strong>${test.mo}%</strong></div>
+              </div>
+            </div>
+          `;
+        });
+
+        // Update metrics
+        const avgPh = (totalPh / soilData.length).toFixed(1);
+        const avgMo = (totalMo / soilData.length).toFixed(1);
+        
+        container.querySelector('#avgPhMetric').textContent = avgPh;
+        container.querySelector('#avgMoMetric').innerHTML = `${avgMo} <small>%</small>`;
+      }
+    }
+
+    renderSoilData();
+
+    const dialog = container.querySelector('#newSoilDialog');
+    const fieldSelect = container.querySelector('#soilFieldSelect');
+
+    container.querySelector('#openNewSoilTestButton')?.addEventListener('click', () => {
+      const propData = JSON.parse(localStorage.getItem('agra_property_data') || '{"fields":[]}');
+      fieldSelect.innerHTML = '';
+      propData.fields.forEach(f => {
+        fieldSelect.innerHTML += `<option value="${f.name}">${f.name}</option>`;
+      });
+      if (propData.fields.length === 0) {
+        fieldSelect.innerHTML = '<option value="Geral">Sem talhões</option>';
+      }
+      dialog?.showModal();
+    });
+
+    container.querySelector('#newSoilForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newTest = {
+        field: container.querySelector('#soilFieldSelect').value,
+        ph: container.querySelector('#soilPh').value,
+        mo: container.querySelector('#soilMo').value,
+        date: new Date().toISOString()
+      };
+      soilData.push(newTest);
+      localStorage.setItem('agra_soil_data', JSON.stringify(soilData));
+      dialog.close();
+      e.target.reset();
+      renderSoilData();
+      
+      const toast = document.querySelector('#toast');
+      if (toast) {
+        toast.textContent = 'Análise salva com sucesso!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      }
+    });
+  }
+};
+
+  window.AgraProduction = {
+  init: function(container) {
+    let prodData = JSON.parse(localStorage.getItem('agra_production_data') || '[]');
+
+    function renderProductionData() {
+      const list = container.querySelector('#harvestList');
+      const totalsDiv = container.querySelector('#productionTotals');
+      if (!list || !totalsDiv) return;
+
+      list.innerHTML = '';
+      if (prodData.length === 0) {
+        list.innerHTML = '<p class="muted">Nenhuma colheita registrada.</p>';
+      } else {
+        prodData.sort((a, b) => new Date(b.date) - new Date(a.date));
+        prodData.forEach(harvest => {
+          list.innerHTML += `
+            <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <strong style="display: block;">Talhão: ${harvest.field}</strong>
+                <small class="muted">${new Date(harvest.date + 'T12:00:00').toLocaleDateString()}</small>
+              </div>
+              <div>
+                <strong class="health-good" style="font-size: 1.25rem;">${harvest.volume} t</strong>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      const propData = JSON.parse(localStorage.getItem('agra_property_data') || '{"fields":[]}');
+      const cropTotals = {};
+      
+      propData.fields.forEach(f => {
+        if (!cropTotals[f.crop]) cropTotals[f.crop] = 0;
+      });
+      
+      prodData.forEach(h => {
+        const field = propData.fields.find(f => f.name === h.field);
+        const crop = field ? field.crop : 'Desconhecida';
+        if (!cropTotals[crop]) cropTotals[crop] = 0;
+        cropTotals[crop] += Number(h.volume);
+      });
+
+      totalsDiv.innerHTML = '';
+      Object.keys(cropTotals).forEach(crop => {
+        totalsDiv.innerHTML += `
+          <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); display:flex; flex-direction:column; gap: 0.5rem;">
+            <span class="muted" style="font-size: 0.875rem;">Cultura</span>
+            <strong style="font-size: 1.1rem;">${crop}</strong>
+            <span style="font-size: 1.5rem; color: var(--green-600); font-weight: 600;">${cropTotals[crop].toFixed(1)} t</span>
+          </div>
+        `;
+      });
+      if (Object.keys(cropTotals).length === 0) {
+        totalsDiv.innerHTML = '<p class="muted">Nenhum talhão cadastrado para estimar totais.</p>';
+      }
+    }
+
+    renderProductionData();
+
+    const dialog = container.querySelector('#newHarvestDialog');
+    const fieldSelect = container.querySelector('#harvestFieldSelect');
+
+    container.querySelector('#openNewHarvestButton')?.addEventListener('click', () => {
+      const propData = JSON.parse(localStorage.getItem('agra_property_data') || '{"fields":[]}');
+      fieldSelect.innerHTML = '';
+      propData.fields.forEach(f => {
+        fieldSelect.innerHTML += `<option value="${f.name}">${f.name}</option>`;
+      });
+      if (propData.fields.length === 0) {
+        fieldSelect.innerHTML = '<option value="Geral">Sem talhões</option>';
+      }
+      container.querySelector('#harvestDate').value = new Date().toISOString().split('T')[0];
+      dialog?.showModal();
+    });
+
+    container.querySelector('#newHarvestForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newHarvest = {
+        field: container.querySelector('#harvestFieldSelect').value,
+        volume: container.querySelector('#harvestVolume').value,
+        date: container.querySelector('#harvestDate').value
+      };
+      prodData.push(newHarvest);
+      localStorage.setItem('agra_production_data', JSON.stringify(prodData));
+      dialog.close();
+      e.target.reset();
+      renderProductionData();
+      
+      const toast = document.querySelector('#toast');
+      if (toast) {
+        toast.textContent = 'Colheita salva com sucesso!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      }
+    });
+  }
+};
+
+  window.AgraInventory = {
+  init: function(container) {
+    let invData = JSON.parse(localStorage.getItem('agra_inventory_data') || '[]');
+
+    function renderInventory() {
+      const list = container.querySelector('#inventoryList');
+      if (!list) return;
+
+      list.innerHTML = '';
+      let counts = { Semente: 0, Fertilizante: 0, Defensivo: 0 };
+
+      if (invData.length === 0) {
+        list.innerHTML = '<p class="muted">Nenhum item no estoque.</p>';
+      } else {
+        invData.forEach(item => {
+          if (counts[item.category] !== undefined) counts[item.category]++;
+          list.innerHTML += `
+            <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <strong style="display: block;">${item.name}</strong>
+                <small class="muted">${item.category}</small>
+              </div>
+              <strong style="font-size: 1.1rem;">${item.quantity} un</strong>
+            </div>
+          `;
+        });
+      }
+
+      container.querySelector('#seedCount').innerHTML = `${counts['Semente']} <small>itens</small>`;
+      container.querySelector('#fertCount').innerHTML = `${counts['Fertilizante']} <small>itens</small>`;
+      container.querySelector('#chemCount').innerHTML = `${counts['Defensivo']} <small>itens</small>`;
+    }
+
+    renderInventory();
+
+    const dialog = container.querySelector('#newItemDialog');
+
+    container.querySelector('#openNewItemButton')?.addEventListener('click', () => {
+      dialog?.showModal();
+    });
+
+    container.querySelector('#newItemForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newItem = {
+        name: container.querySelector('#itemName').value,
+        category: container.querySelector('#itemCategory').value,
+        quantity: container.querySelector('#itemQuantity').value
+      };
+      invData.push(newItem);
+      localStorage.setItem('agra_inventory_data', JSON.stringify(invData));
+      dialog.close();
+      e.target.reset();
+      renderInventory();
+      
+      const toast = document.querySelector('#toast');
+      if (toast) {
+        toast.textContent = 'Insumo adicionado!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      }
+    });
+  }
+};
+
+  window.AgraWeather = {
+  init: function(container) {
+    // Weather module is mostly display-only in this version.
+    // In the future, this would integrate with an API like OpenWeatherMap.
+  }
+};
+
+  window.AgraTeam = {
+  init: function(container) {
+    let teamData = JSON.parse(localStorage.getItem('agra_team_data') || '[]');
+
+    function renderTeam() {
+      const list = container.querySelector('#teamList');
+      if (!list) return;
+
+      list.innerHTML = '';
+      if (teamData.length === 0) {
+        list.innerHTML = '<p class="muted">Nenhum membro cadastrado além do administrador.</p>';
+      } else {
+        teamData.forEach(member => {
+          const initials = member.name.substring(0, 2).toUpperCase();
+          list.innerHTML += `
+            <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem;">
+              <div class="avatar" style="width: 40px; height: 40px; border-radius: 50%; background: var(--surface-hover); display:flex; align-items:center; justify-content:center; font-weight:bold; color:var(--text);">${initials}</div>
+              <div>
+                <strong style="display: block;">${member.name}</strong>
+                <small class="muted">${member.role}</small>
+              </div>
+            </div>
+          `;
+        });
+      }
+    }
+
+    renderTeam();
+
+    const dialog = container.querySelector('#newMemberDialog');
+
+    container.querySelector('#openNewMemberButton')?.addEventListener('click', () => {
+      dialog?.showModal();
+    });
+
+    container.querySelector('#newMemberForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newMember = {
+        name: container.querySelector('#memberName').value,
+        role: container.querySelector('#memberRole').value
+      };
+      teamData.push(newMember);
+      localStorage.setItem('agra_team_data', JSON.stringify(teamData));
+      dialog.close();
+      e.target.reset();
+      renderTeam();
+      
+      const toast = document.querySelector('#toast');
+      if (toast) {
+        toast.textContent = 'Membro convidado!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      }
+    });
+  }
+};
+
+</script>
+
+</body>
+</html>

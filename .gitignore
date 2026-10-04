@@ -3,9 +3,12 @@ node_modules/
 android-native/.gradle/
 android-native/app/build/
 android-native/local.properties
-dist/
-executables/*.exe
-executables/*.apk
+dist/desktop/*unpacked/
+dist/desktop/*.nsis.7z
+dist/desktop/builder-effective-config.yaml
+dist/desktop/builder-debug.yml
+android-native/local.properties
+android-native/local.properties
 data/embrapa/catalog.normalized.json
 data/embrapa/documents/
 .env
