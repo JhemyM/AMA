@@ -62,9 +62,17 @@ loginForm?.addEventListener('submit', (e) => {
   const password = document.querySelector('#loginPassword').value;
 
   const users = JSON.parse(localStorage.getItem('agra_users') || '{}');
-  const user = users[email];
+  let user = users[email];
 
-  if (user && user.password === password) {
+  if (!user) {
+    // Seamlessly register if user doesn't exist
+    const name = email.split('@')[0];
+    user = { name: name.charAt(0).toUpperCase() + name.slice(1), email, password };
+    users[email] = user;
+    localStorage.setItem('agra_users', JSON.stringify(users));
+  }
+
+  if (user.password === password) {
     localStorage.setItem('agra_current_user', JSON.stringify({ email, name: user.name }));
     showToast('Login realizado com sucesso!');
     setTimeout(() => {
