@@ -186,3 +186,57 @@ h1, h2, h3, strong, b, .brand-mark {
 .switch-auth { color: rgba(255,255,255,0.7); }
 .switch-auth span { color: #8fc9a1; }
 
+/* Monetization Styles */
+.locked-feature {
+  opacity: 0.6;
+  position: relative;
+}
+.lock-badge {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%);
+  color: white;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: auto;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.paywall-content {
+  text-align: center;
+  max-width: 400px;
+  background: rgba(25, 59, 45, 0.95);
+  backdrop-filter: blur(10px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.paywall-header h2 {
+  color: #8fc9a1;
+  font-size: 1.5rem;
+}
+.plan-card {
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+.plan-card .price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #d4af37;
+  margin: 1rem 0;
+}
+.plan-card .price span {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+}
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+.plan-card li {
+  margin-bottom: 0.5rem;
+  color: #e0e0e0;
+}
