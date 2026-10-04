@@ -25,15 +25,15 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-
       - name: Install dependencies
         run: npm ci
       - name: Build PWA
         run: npm run build:web
       - name: Install Android platform
         run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+          export ANDROID_SDK_ROOT="${ANDROID_HOME}"
+          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+          "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"
       - name: Build Android APK
         working-directory: android-native
         run: ./gradlew assembleDebug

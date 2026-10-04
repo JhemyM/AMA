@@ -24,12 +24,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-
       - name: Accept licenses and install SDK
         working-directory: .
         run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+          "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
       - name: Upload debug APK
