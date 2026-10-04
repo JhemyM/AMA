@@ -36,7 +36,7 @@ h1, h2, h3, strong, b, .brand-mark {
 /* Main App Layout using Glassmorphism */
 .app-shell {
   display: flex;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: radial-gradient(circle at top left, rgba(144, 202, 160, 0.15), transparent 40%),
               radial-gradient(circle at bottom right, rgba(94, 150, 110, 0.15), transparent 40%);
 }
@@ -666,7 +666,7 @@ body {
 
 .auth-wrapper {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0; left: 0; width: 100%; height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
