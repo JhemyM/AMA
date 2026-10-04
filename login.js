@@ -69,6 +69,28 @@ backToLoginBtn?.addEventListener('click', () => {
   recoveryError.hidden = true;
 });
 
+const demoLoginBtn = document.querySelector('#demoLoginBtn');
+demoLoginBtn?.addEventListener('click', async () => {
+  demoLoginBtn.textContent = 'Entrando...';
+  demoLoginBtn.disabled = true;
+
+  const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+    email: 'demo@agra.com.br',
+    password: 'AgraDemo2026!'
+  });
+
+  if (error) {
+    loginError.textContent = 'Erro no login de demonstração: ' + error.message;
+    loginError.hidden = false;
+    demoLoginBtn.textContent = 'Experimentar (Conta Demo)';
+    demoLoginBtn.disabled = false;
+    return;
+  }
+
+  localStorage.setItem('agra_demo_start', Date.now().toString());
+  window.location.href = 'index.html';
+});
+
 // Supabase Registration
 registerForm?.addEventListener('submit', async (e) => {
   e.preventDefault();
