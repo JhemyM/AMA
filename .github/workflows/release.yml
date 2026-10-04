@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  build-pwa:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,36 +20,57 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
       - name: Install dependencies
         run: npm ci
       - name: Build PWA
         run: npm run build:web
-      - name: Sync Capacitor
-        run: npx cap sync android
-      - name: Install Android platform
-        run: |
-          export ANDROID_SDK_ROOT="${ANDROID_HOME}"
-          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses || true
-          "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"
-      - name: Build Android APK
-        working-directory: android
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
       - name: Archive PWA
-        run: tar -czf agra-web-${{ github.ref_name }}.tar.gz -C dist/web .
+        run: tar -czf agra-web.tar.gz -C dist/web .
+      - name: Upload Web Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: agra-web
+          path: agra-web.tar.gz
+
+  build-desktop:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       - name: Build Desktop Executable
         run: npm run desktop:win
+      - name: Upload Exe Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: agra-exe
+          path: dist/desktop/*.exe
+
+  publish:
+    needs: [build-pwa, build-desktop]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download Web
+        uses: actions/download-artifact@v4
+        with:
+          name: agra-web
+          path: release-artifacts/
+      - name: Download EXE
+        uses: actions/download-artifact@v4
+        with:
+          name: agra-exe
+          path: release-artifacts/
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           files: |
-            agra-web-${{ github.ref_name }}.tar.gz
-            android/app/build/outputs/apk/debug/app-debug.apk
-            dist/desktop/*.exe
+            release-artifacts/*

@@ -29,6 +29,15 @@ jobs:
         run: |
           yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses || true
           "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies and Sync
+        working-directory: .
+        run: |
+          npm ci
+          npx cap sync android
       - name: Build debug APK
         run: |
           chmod +x gradlew

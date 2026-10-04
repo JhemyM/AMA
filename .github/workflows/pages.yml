@@ -1,8 +1,8 @@
-name: Publish AGRA PWA
+﻿name: Deploy PWA to GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -11,11 +11,14 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,27 +30,14 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Configure private feedback recipient
-        env:
-          AGRA_FEEDBACK_EMAIL: ${{ secrets.AGRA_FEEDBACK_EMAIL }}
-        run: |
-          node -e "const fs=require('fs'); const email=process.env.AGRA_FEEDBACK_EMAIL || ''; fs.writeFileSync('feedback-config.js', 'window.AGRA_CONFIG = { feedbackEmail: ' + JSON.stringify(email) + ' };\n');"
-      - name: Build web app
+      - name: Build PWA
         run: npm run build:web
-      - name: Configure Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload Pages artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/web
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+          path: './dist/web'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

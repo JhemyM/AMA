@@ -21,6 +21,9 @@ await mkdir(output, { recursive: true });
 for (const file of webFiles) {
   await cp(resolve(root, file), resolve(output, file));
 }
+// Copy icons directory
+await cp(resolve(root, 'icons'), resolve(output, 'icons'), { recursive: true });
+
 // We no longer copy the modules directory directly. Instead, we bundle it.
 const packageJson = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
 const serviceWorkerPath = resolve(output, 'sw.js');
