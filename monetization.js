@@ -1,15 +1,15 @@
-﻿// monetization.js - AGRA Plan and Features Manager
+// monetization.js - AGRA Plan and Features Manager
 
 const PLAN_FEATURES = {
   free: ['dashboard', 'fields', 'tasks'],
   pro: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'embrapa'],
-  enterprise: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa']
+  enterprise: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa'],
+  vitalicio: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa']
 };
 
 class MonetizationManager {
   constructor() {
     this.currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
-    // Default to 'free' if no plan is set
     if (!this.currentUser.plan) {
       this.currentUser.plan = 'free';
       localStorage.setItem('agra_current_user', JSON.stringify(this.currentUser));
@@ -33,50 +33,62 @@ class MonetizationManager {
       const sectionId = item.getAttribute('data-section');
       if (!this.isFeatureAllowed(sectionId)) {
         item.classList.add('locked-feature');
-        item.innerHTML += ' <span class="lock-badge">âœ’ PRO</span>';
+        item.innerHTML += ' <span class="lock-badge">🔒 PRO</span>';
         
-        // Intercept clicks on locked items
         item.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           this.showPaywall(sectionId);
-        }, true); // Use capture phase to intercept before app.js navigation
+        }, true);
       }
     });
   }
 
   injectPaywallModal() {
-    const modalHtml = \
+    const modalHtml = `
       <div id="paywallModal" class="modal-overlay" style="display: none; z-index: 9999;">
-        <div class="modal-content paywall-content">
+        <div class="modal-content paywall-content" style="max-width: 700px;">
           <div class="paywall-header">
-            <h2>Recurso Exclusivo</h2>
-            <p>FaÃ§a upgrade do seu plano para liberar esta funcionalidade.</p>
+            <h2>Recursos Premium</h2>
+            <p>Faça o upgrade para liberar o poder total do AGRA.</p>
           </div>
-          <div class="paywall-body">
+          <div class="paywall-body" style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
             <div class="plan-card">
               <h3>AGRA Pro</h3>
-              <p class="price">R$ 97<span>/mÃªs</span></p>
+              <p class="price">R$ 97<span>/mês</span></p>
               <ul>
-                <li>âœ“ GestÃ£o de ProduÃ§Ã£o</li>
-                <li>âœ“ Clima e AnÃ¡lise de Solo</li>
-                <li>âœ“ Estoque e Manuais Embrapa</li>
+                <li>✓ Gestão de Produção</li>
+                <li>✓ Clima e Solo Avançados</li>
+                <li>✓ Estoque e Embrapa</li>
               </ul>
-              <button id="btnCheckout" class="primary-button">Assinar Agora</button>
+              <button class="primary-button checkout-btn" data-plan="pro">Assinar Mensal</button>
+            </div>
+            <div class="plan-card" style="border-color: #d4af37; box-shadow: 0 0 20px rgba(212,175,55,0.2);">
+              <h3>AGRA Vitalício</h3>
+              <p class="price">R$ 997<span>/único</span></p>
+              <ul>
+                <li>✓ Acesso <b>Para Sempre</b></li>
+                <li>✓ Gestão de Equipes</li>
+                <li>✓ Nenhuma mensalidade</li>
+              </ul>
+              <button class="primary-button checkout-btn" data-plan="vitalicio" style="background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%);">Garantir Acesso</button>
             </div>
           </div>
-          <button id="closePaywall" class="text-button">Voltar</button>
+          <button id="closePaywall" class="text-button" style="margin-top: 1rem;">Voltar</button>
         </div>
       </div>
-    \;
+    `;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 
     document.getElementById('closePaywall').addEventListener('click', () => {
       document.getElementById('paywallModal').style.display = 'none';
     });
 
-    document.getElementById('btnCheckout').addEventListener('click', () => {
-      alert('IntegraÃ§Ã£o com o gateway de pagamento (Stripe/MercadoPago) serÃ¡ inserida aqui!');
+    document.querySelectorAll('.checkout-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const plan = e.target.getAttribute('data-plan');
+        alert('Aqui chamaremos a Cloud Function (segura) para gerar o link do plano: ' + plan.toUpperCase());
+      });
     });
   }
 
