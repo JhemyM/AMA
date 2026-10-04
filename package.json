@@ -4,6 +4,16 @@
   "version": "0.3.3",
   "description": "Nucleo do AGRA para gestao rural sustentavel.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhemyM/AMA.git"
+  },
+  "author": "JhemyM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JhemyM/AMA/issues"
+  },
+  "homepage": "https://jhemym.github.io/AMA",
   "scripts": {
     "build": "npm run build:web",
     "build:web": "node scripts/build.mjs",
