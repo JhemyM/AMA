@@ -41,16 +41,8 @@ Ideal para escritórios de fazendas e computadores sem permissão de instalaçã
 2. Baixe o arquivo **`AGRA.0.7.0.exe`** (ou a versão mais recente).
 3. Execute o arquivo e use o sistema normalmente (não requer instalação!).
 
-### 3. Rodando Localmente (Desenvolvedores)
-O projeto utiliza um script de compilação customizado para injetar módulos dinâmicos e ofuscar o código por segurança.
-
-```bash
-git clone https://github.com/JhemyM/AMA.git
-cd AMA
-npm install
-npm run build:web
-npx http-server dist/web -p 8080 -c-1
-```
+### 3. Aplicativo Mobile
+O lançamento oficial nas lojas de aplicativos ocorrerá na versão 1.0. Por enquanto, utilize o executável Windows ou o acesso Web PWA.
 
 ---
 
@@ -65,11 +57,13 @@ O código fonte exposto na branch principal é o **código de desenvolvimento**.
 
 ## 🤝 Contribuição e Manutenção
 
-Para colaborar técnica e comercialmente com o projeto:
-- [Workflow e Estrutura de Pastas](FUTURE_WORKFLOW.md)
-- [Termos de Uso e Licenciamento](protecao_e_licenciamento.md)
+---
 
-Leia o nosso [CONTRIBUTING.md](CONTRIBUTING.md) para diretrizes de Pull Request.
+## 🤝 Parcerias Comerciais
+
+O AGRA é uma plataforma comercial proprietária. Caso tenha interesse em parcerias para cooperativas agrícolas, integrações B2B ou licenciamento em larga escala, entre em contato através dos canais comerciais oficiais.
+
+- [Termos de Uso e Licenciamento Institucional](protecao_e_licenciamento.md)
 
 ---
 
