@@ -54,7 +54,7 @@ window.AgraTasks = {
 
     moduleList.querySelectorAll('.delete-task-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const index = e.target.dataset.index;
+        const index = e.currentTarget.dataset.index;
         if(confirm('Tem certeza que deseja excluir esta atividade?')) {
           tasks.splice(index, 1);
           localStorage.setItem('agra_tasks_data', JSON.stringify(tasks));

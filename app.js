@@ -396,7 +396,7 @@ function renderPropertyData() {
       dashboardTaskList.querySelectorAll('.delete-task-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           if(confirm('Tem certeza que deseja excluir esta atividade?')) {
-            const tTitle = e.target.dataset.title;
+            const tTitle = e.currentTarget.dataset.title;
             const updatedTasks = tasks.filter(t => t.title !== tTitle);
             localStorage.setItem('agra_tasks_data', JSON.stringify(updatedTasks));
             window.dispatchEvent(new Event('agra_tasks_updated'));
@@ -631,7 +631,17 @@ window.addEventListener('offline', updateNetworkStatus);
 updateNetworkStatus();
 
 if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-  navigator.serviceWorker.register('./sw.js').catch(() => showToast('Cache offline indisponível nesta sessão.'));
+  navigator.serviceWorker.register('./sw.js').then(reg => {
+    reg.addEventListener('updatefound', () => {
+      const newWorker = reg.installing;
+      newWorker.addEventListener('statechange', () => {
+        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+          showToast('Atualização aplicada. Recarregando...');
+          setTimeout(() => window.location.reload(), 1500);
+        }
+      });
+    });
+  }).catch(() => showToast('Cache offline indisponível nesta sessão.'));
 }
 
 window.addEventListener('agra_tasks_updated', () => {
