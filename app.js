@@ -432,6 +432,7 @@ async function showSection(section) {
     Array.from(dynamicModuleSection.children).forEach(child => {
       child.style.display = child.id === `module-container-${section}` ? 'block' : 'none';
     });
+  }
 
   pageTitle.textContent = sectionLabels[section] || 'Dashboard';
   document.querySelectorAll('.nav-item').forEach((item) => {
