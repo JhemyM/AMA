@@ -4,7 +4,8 @@ const PLAN_FEATURES = {
   free: ['dashboard', 'fields', 'tasks'],
   pro: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'embrapa', 'carbon'],
   enterprise: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon'],
-  vitalicio: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon']
+  vitalicio: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon'],
+  demo: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon']
 };
 
 class MonetizationManager {
