@@ -36,7 +36,9 @@ jobs:
           "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0"
       - name: Build Android APK
         working-directory: android-native
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
       - name: Archive PWA
         run: tar -czf agra-web-${{ github.ref_name }}.tar.gz -C dist/web .
       - name: Publish release
