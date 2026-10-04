@@ -32,7 +32,10 @@
       <div class="farm-switcher">
         <span class="eyebrow">Propriedade ativa</span>
         <select id="farmSelect" style="appearance: none; background: transparent; border: none; color: var(--text); font-weight: 600; font-size: 1rem; padding: 0.25rem 0; width: 100%; cursor: pointer; outline: none;"></select>
-        <button class="text-button" id="addFarmButton" style="padding:0; font-size: 0.8rem; margin-top: 0.25rem;">+ Nova Fazenda</button>
+        <div style="display:flex; justify-content:space-between; margin-top: 0.25rem;">
+          <button class="text-button" id="addFarmButton" style="padding:0; font-size: 0.8rem;">+ Nova Fazenda</button>
+          <button class="text-button" id="deleteFarmButton" style="padding:0; font-size: 0.8rem; color: var(--red-600);">Excluir</button>
+        </div>
       </div>
 
       <nav class="nav-list">
@@ -596,14 +599,15 @@
     const data = JSON.parse(dataStr);
     moduleList.innerHTML = '';
     
-    data.fields.forEach(field => {
+    data.fields.forEach((field, index) => {
       let color = 'green';
       if (field.health < 60) color = 'red';
       else if (field.health < 75) color = 'yellow';
       
       moduleList.innerHTML += `
-        <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; position: relative;">
+          <button class="text-button delete-field-btn" data-index="${index}" style="position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.5rem; color: var(--red-600);">Excluir</button>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-right: 3rem;">
             <div class="field-name">
               <span class="field-color ${color}"></span>
               <div>
@@ -619,6 +623,19 @@
           </div>
         </article>
       `;
+    });
+
+    moduleList.querySelectorAll('.delete-field-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        if(confirm(`Tem certeza que deseja excluir o talhão "${data.fields[index].name}"?`)) {
+          data.totalArea -= data.fields[index].area;
+          data.fields.splice(index, 1);
+          localStorage.setItem('agra_property_data', JSON.stringify(data));
+          renderFields();
+          window.dispatchEvent(new Event('agra_property_updated'));
+        }
+      });
     });
   }
 
@@ -879,9 +896,13 @@
       moduleList.innerHTML = '';
       const savedIds = getSavedManuals();
       
+      const normalizeStr = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const normalizedSearch = normalizeStr(currentSearch);
+
       const filtered = defaultCatalog.filter(doc => {
-        const matchesSearch = doc.title.toLowerCase().includes(currentSearch.toLowerCase()) || 
-                              doc.keywords.some(k => k.toLowerCase().includes(currentSearch.toLowerCase()));
+        const matchesSearch = normalizeStr(doc.title).includes(normalizedSearch) || 
+                              doc.keywords.some(k => normalizeStr(k).includes(normalizedSearch)) ||
+                              normalizeStr(doc.abstract).includes(normalizedSearch);
         const matchesCategory = currentCategory === 'all' || doc.category === currentCategory;
         const matchesSaved = !showingSaved || savedIds.includes(doc.id);
         return matchesSearch && matchesCategory && matchesSaved;
@@ -1092,18 +1113,30 @@
         list.innerHTML = '<p class="muted">Nenhuma colheita registrada.</p>';
       } else {
         prodData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        prodData.forEach(harvest => {
+        prodData.forEach((harvest, index) => {
           list.innerHTML += `
             <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
               <div>
                 <strong style="display: block;">Talhão: ${harvest.field}</strong>
                 <small class="muted">${new Date(harvest.date + 'T12:00:00').toLocaleDateString()}</small>
               </div>
-              <div>
+              <div style="display:flex; align-items:center; gap: 1rem;">
                 <strong class="health-good" style="font-size: 1.25rem;">${harvest.volume} t</strong>
+                <button class="text-button delete-harvest-btn" data-index="${index}" style="color: var(--red-600); padding: 0.25rem;">×</button>
               </div>
             </div>
           `;
+        });
+        
+        list.querySelectorAll('.delete-harvest-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const index = e.target.dataset.index;
+            if(confirm('Tem certeza que deseja remover este registro de colheita?')) {
+              prodData.splice(index, 1);
+              localStorage.setItem('agra_production_data', JSON.stringify(prodData));
+              renderProductionData();
+            }
+          });
         });
       }
 

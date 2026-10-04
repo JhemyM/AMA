@@ -145,6 +145,23 @@ document.getElementById('addFarmButton')?.addEventListener('click', () => {
   onboardingDialog.showModal();
 });
 
+document.getElementById('deleteFarmButton')?.addEventListener('click', () => {
+  const props = getProperties();
+  if (props.length <= 1) {
+    const toast = document.querySelector('#toast');
+    if (toast) { toast.textContent = 'Você não pode excluir a única fazenda.'; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2600); }
+    return;
+  }
+  if(confirm('Tem certeza que deseja excluir esta fazenda? Todos os dados serão perdidos.')) {
+    props.splice(currentPropertyIndex, 1);
+    localStorage.setItem('agra_properties', JSON.stringify(props));
+    currentPropertyIndex = 0;
+    localStorage.setItem('agra_active_property_index', 0);
+    localStorage.setItem('agra_property_data', JSON.stringify(props[0]));
+    window.location.reload();
+  }
+});
+
 function renderPropertyData() {
   const props = getProperties();
   
@@ -223,9 +240,50 @@ function renderPropertyData() {
           </div>
           <div class="progress"><span class="${color === 'yellow' ? 'yellow-fill' : color === 'red' ? 'red-fill' : ''}" style="width: ${field.health}%"></span></div>
           <strong class="${color === 'green' ? 'health-good' : color === 'yellow' ? 'health-warn' : 'health-alert'}">${field.health}</strong>
-        </div>
       `;
     });
+  }
+
+  // Render Dynamic Chart
+  const prodData = JSON.parse(localStorage.getItem('agra_production_data') || '[]');
+  const cropTotals = {};
+  data.fields.forEach(f => {
+    if (!cropTotals[f.crop]) cropTotals[f.crop] = 0;
+  });
+  prodData.forEach(h => {
+    const field = data.fields.find(f => f.name === h.field);
+    const crop = field ? field.crop : 'Desconhecida';
+    if (!cropTotals[crop]) cropTotals[crop] = 0;
+    cropTotals[crop] += Number(h.volume);
+  });
+
+  const chartWrap = document.querySelector('.chart-wrap');
+  if (chartWrap) {
+    let maxVol = Math.max(...Object.values(cropTotals), 10);
+    maxVol = Math.ceil(maxVol / 10) * 10;
+    let html = `<div class="chart-y"><span>${maxVol} t</span><span>${maxVol*0.75} t</span><span>${maxVol*0.5} t</span><span>${maxVol*0.25} t</span><span>0</span></div>`;
+    html += `<div class="bar-chart"><div class="grid-line one"></div><div class="grid-line two"></div><div class="grid-line three"></div><div class="grid-line four"></div>`;
+    
+    Object.keys(cropTotals).forEach(crop => {
+      const vol = cropTotals[crop];
+      const pct = Math.max(2, (vol / maxVol) * 100);
+      let colorClass = 'soy';
+      if (crop.toLowerCase() === 'milho') colorClass = 'corn';
+      else if (crop.toLowerCase().includes('caf')) colorClass = 'coffee';
+      else if (crop.toLowerCase() === 'trigo') colorClass = 'wheat';
+      
+      html += `<div class="bar-group"><div class="bar ${colorClass}" style="height: ${pct}%"><span>${vol} t</span></div><small>${crop}</small></div>`;
+    });
+    
+    html += `</div>`;
+    chartWrap.innerHTML = html;
+  }
+  
+  // Update metric production total
+  const metricProd = document.getElementById('metricProduction');
+  if (metricProd) {
+    const totalProd = Object.values(cropTotals).reduce((sum, v) => sum + v, 0);
+    metricProd.innerHTML = `${totalProd} <small>t</small>`;
   }
 
   // Update Map

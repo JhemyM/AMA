@@ -12,18 +12,30 @@ window.AgraProduction = {
         list.innerHTML = '<p class="muted">Nenhuma colheita registrada.</p>';
       } else {
         prodData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        prodData.forEach(harvest => {
+        prodData.forEach((harvest, index) => {
           list.innerHTML += `
             <div class="task-row" style="padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
               <div>
                 <strong style="display: block;">Talhão: ${harvest.field}</strong>
                 <small class="muted">${new Date(harvest.date + 'T12:00:00').toLocaleDateString()}</small>
               </div>
-              <div>
+              <div style="display:flex; align-items:center; gap: 1rem;">
                 <strong class="health-good" style="font-size: 1.25rem;">${harvest.volume} t</strong>
+                <button class="text-button delete-harvest-btn" data-index="${index}" style="color: var(--red-600); padding: 0.25rem;">×</button>
               </div>
             </div>
           `;
+        });
+        
+        list.querySelectorAll('.delete-harvest-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const index = e.target.dataset.index;
+            if(confirm('Tem certeza que deseja remover este registro de colheita?')) {
+              prodData.splice(index, 1);
+              localStorage.setItem('agra_production_data', JSON.stringify(prodData));
+              renderProductionData();
+            }
+          });
         });
       }
 

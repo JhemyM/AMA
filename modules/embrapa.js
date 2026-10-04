@@ -83,9 +83,13 @@ window.AgraEmbrapa = {
       moduleList.innerHTML = '';
       const savedIds = getSavedManuals();
       
+      const normalizeStr = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const normalizedSearch = normalizeStr(currentSearch);
+
       const filtered = defaultCatalog.filter(doc => {
-        const matchesSearch = doc.title.toLowerCase().includes(currentSearch.toLowerCase()) || 
-                              doc.keywords.some(k => k.toLowerCase().includes(currentSearch.toLowerCase()));
+        const matchesSearch = normalizeStr(doc.title).includes(normalizedSearch) || 
+                              doc.keywords.some(k => normalizeStr(k).includes(normalizedSearch)) ||
+                              normalizeStr(doc.abstract).includes(normalizedSearch);
         const matchesCategory = currentCategory === 'all' || doc.category === currentCategory;
         const matchesSaved = !showingSaved || savedIds.includes(doc.id);
         return matchesSearch && matchesCategory && matchesSaved;

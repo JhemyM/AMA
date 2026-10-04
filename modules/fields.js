@@ -9,14 +9,15 @@ window.AgraFields = {
     const data = JSON.parse(dataStr);
     moduleList.innerHTML = '';
     
-    data.fields.forEach(field => {
+    data.fields.forEach((field, index) => {
       let color = 'green';
       if (field.health < 60) color = 'red';
       else if (field.health < 75) color = 'yellow';
       
       moduleList.innerHTML += `
-        <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; position: relative;">
+          <button class="text-button delete-field-btn" data-index="${index}" style="position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.5rem; color: var(--red-600);">Excluir</button>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-right: 3rem;">
             <div class="field-name">
               <span class="field-color ${color}"></span>
               <div>
@@ -32,6 +33,19 @@ window.AgraFields = {
           </div>
         </article>
       `;
+    });
+
+    moduleList.querySelectorAll('.delete-field-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        if(confirm(`Tem certeza que deseja excluir o talhão "${data.fields[index].name}"?`)) {
+          data.totalArea -= data.fields[index].area;
+          data.fields.splice(index, 1);
+          localStorage.setItem('agra_property_data', JSON.stringify(data));
+          renderFields();
+          window.dispatchEvent(new Event('agra_property_updated'));
+        }
+      });
     });
   }
 
