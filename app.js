@@ -9,42 +9,35 @@ const sectionLabels = {
   team: 'Equipe'
 };
 
-// --- AUTHENTICATION LOGIC ---
-const authContainer = document.querySelector('#authContainer');
-const mainApp = document.querySelector('#mainApp');
-const loginForm = document.querySelector('#loginForm');
-const registerForm = document.querySelector('#registerForm');
-const showRegisterBtn = document.querySelector('#showRegisterBtn');
-const showLoginBtn = document.querySelector('#showLoginBtn');
+// Authentication logic has been moved to login.js
 
-// Toggle between Login and Register forms
-showRegisterBtn?.addEventListener('click', () => {
-  loginForm.hidden = true;
-  registerForm.hidden = false;
-});
+// --- DYNAMIC USER LOAD ---
+const currentUserStr = localStorage.getItem('agra_current_user');
+if (currentUserStr) {
+  const currentUser = JSON.parse(currentUserStr);
+  const nameParts = currentUser.name.split(' ');
+  const firstName = nameParts[0];
+  const initials = nameParts.length > 1 
+    ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
+    : firstName.substring(0, 2).toUpperCase();
 
-showLoginBtn?.addEventListener('click', () => {
-  registerForm.hidden = true;
-  loginForm.hidden = false;
-});
+  document.getElementById('greetingName').textContent = firstName;
+  document.getElementById('sidebarName').textContent = currentUser.name;
+  document.getElementById('sidebarAvatar').textContent = initials;
+  document.getElementById('topAvatar').textContent = initials;
+}
 
-// Mock authentication flow
-loginForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  // Simulate successful login
-  authContainer.hidden = true;
-  mainApp.hidden = false;
-  showToast('Login realizado com sucesso!');
-});
+const currentDateElement = document.getElementById('currentDateString');
+if (currentDateElement) {
+  const options = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+  currentDateElement.textContent = new Date().toLocaleDateString('pt-BR', options);
+}
 
-registerForm?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  // Simulate successful registration
-  authContainer.hidden = true;
-  mainApp.hidden = false;
-  showToast('Conta criada com sucesso!');
+document.getElementById('logoutButton')?.addEventListener('click', () => {
+  localStorage.removeItem('agra_current_user');
+  window.location.href = 'login.html';
 });
-// ----------------------------
+// -------------------------
 
 const dashboard = document.querySelector('#dashboardSection');
 const placeholder = document.querySelector('#placeholderSection');
