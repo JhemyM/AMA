@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agra-shell-v0.3.0';
+const CACHE_NAME = 'agra-shell-v2';
 const APP_SHELL = [
   './',
   './index.html',
