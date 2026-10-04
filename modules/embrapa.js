@@ -211,7 +211,39 @@ window.AgraEmbrapa = {
         const matchesSearch = normalizeStr(doc.title).includes(normalizedSearch) || 
                               doc.keywords.some(k => normalizeStr(k).includes(normalizedSearch)) ||
                               normalizeStr(doc.abstract).includes(normalizedSearch);
-        const matchesCategory = currentCategory === 'all' || doc.category === currentCategory;
+                              
+        let matchesCategory = currentCategory === 'all' || doc.category === currentCategory;
+        
+        // On-Demand Logic
+        if (currentCategory === 'recommended') {
+          const propData = JSON.parse(localStorage.getItem('agra_property_data') || '{"fields":[]}');
+          const plantedCrops = propData.fields.map(f => normalizeStr(f.crop));
+          const prefs = JSON.parse(localStorage.getItem('agra_embrapa_prefs') || '{"scale":"todas","climate":"todos"}');
+          
+          let matchesCrop = false;
+          let matchesClimate = false;
+          
+          if (plantedCrops.length > 0) {
+            matchesCrop = plantedCrops.some(crop => 
+              normalizeStr(doc.title).includes(crop) || 
+              doc.keywords.some(k => normalizeStr(k).includes(crop)) || 
+              doc.category === crop
+            );
+          }
+          
+          if (prefs.climate !== 'todos') {
+            matchesClimate = doc.keywords.some(k => normalizeStr(k).includes(prefs.climate)) || doc.category === prefs.climate;
+          }
+          
+          // Show if it matches planted crops OR user's specific climate preference
+          matchesCategory = matchesCrop || (prefs.climate !== 'todos' && matchesClimate);
+          
+          // If no fields and no prefs, just show everything as fallback or show none
+          if (plantedCrops.length === 0 && prefs.climate === 'todos') {
+            matchesCategory = true;
+          }
+        }
+
         const matchesSaved = !showingSaved || savedIds.includes(doc.id);
         return matchesSearch && matchesCategory && matchesSaved;
       });
@@ -317,6 +349,35 @@ window.AgraEmbrapa = {
         renderCatalog();
       });
     });
+
+    const prefsBtn = container.querySelector('#embrapaPrefsBtn');
+    const prefsDialog = container.querySelector('#embrapaPrefsDialog');
+    const prefsForm = container.querySelector('#embrapaPrefsForm');
+
+    if (prefsBtn && prefsDialog) {
+      prefsBtn.addEventListener('click', () => {
+        const prefs = JSON.parse(localStorage.getItem('agra_embrapa_prefs') || '{"scale":"todas","climate":"todos"}');
+        container.querySelector('#prefScale').value = prefs.scale;
+        container.querySelector('#prefClimate').value = prefs.climate;
+        prefsDialog.showModal();
+      });
+
+      prefsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const prefs = {
+          scale: container.querySelector('#prefScale').value,
+          climate: container.querySelector('#prefClimate').value
+        };
+        localStorage.setItem('agra_embrapa_prefs', JSON.stringify(prefs));
+        prefsDialog.close();
+        
+        // Auto-switch to recommended tab
+        const recBtn = container.querySelector('[data-category="recommended"]');
+        if (recBtn) recBtn.click();
+        
+        showToast('Filtros Inteligentes aplicados!');
+      });
+    }
 
     renderCatalog();
   }
