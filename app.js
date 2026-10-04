@@ -431,7 +431,7 @@ async function showSection(section) {
     // Hide other loaded modules, show active one
     Array.from(dynamicModuleSection.children).forEach(child => {
       child.style.display = child.id === `module-container-${section}` ? 'block' : 'none';
-  }
+    });
 
   pageTitle.textContent = sectionLabels[section] || 'Dashboard';
   document.querySelectorAll('.nav-item').forEach((item) => {
@@ -443,11 +443,7 @@ document.querySelectorAll('[data-section]').forEach((button) => {
   button.addEventListener('click', () => showSection(button.dataset.section));
 });
 
-
-document.querySelector('#farmButton').addEventListener('click', () => {
-  showToast('Seletor de propriedades estará disponível em breve.');
-});
-document.querySelector('#newActivityButton').addEventListener('click', () => {
+document.querySelector('#newActivityButton')?.addEventListener('click', () => {
   const state = AgraStorage.saveState({
     activitiesRegistered: AgraStorage.getState().activitiesRegistered + 1,
     lastOpenedAt: new Date().toISOString()
