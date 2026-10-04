@@ -11,6 +11,7 @@ const webFiles = [
   'styles.css',
   'storage.js',
   'feedback-config.js',
+  'monetization.js',
   'app.js',
   'sw.js',
   'manifest.webmanifest'
