@@ -29,7 +29,7 @@
       <div class="farm-switcher">
         <span class="eyebrow">Propriedade ativa</span>
         <button class="farm-button" type="button" id="farmButton">
-          <span>Fazenda Santa Clara</span><span class="chevron">⌄</span>
+          <span id="sidebarPropertyName">Sua Propriedade</span><span class="chevron">⌄</span>
         </button>
       </div>
 
@@ -44,6 +44,8 @@
         <button class="nav-item" data-section="tasks" type="button"><span class="nav-icon">✓</span>Atividades</button>
         <button class="nav-item" data-section="inventory" type="button"><span class="nav-icon">□</span>Estoque</button>
         <button class="nav-item" data-section="team" type="button"><span class="nav-icon">♙</span>Equipe</button>
+        <span class="nav-label">Conhecimento</span>
+        <button class="nav-item" data-section="embrapa" type="button"><span class="nav-icon">📚</span>Manuais Embrapa</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -54,7 +56,7 @@
 
     <main class="main-content">
       <header class="topbar">
-        <div class="breadcrumb"><span>Fazenda Santa Clara</span><b>/</b><strong id="pageTitle">Dashboard</strong></div>
+        <div class="breadcrumb"><span id="topPropertyName">Sua Propriedade</span><b>/</b><strong id="pageTitle">Dashboard</strong></div>
         <div class="top-actions"><span class="sync-status"><i></i>Dados sincronizados há 4 min</span><span class="network-status online" id="networkStatus">Online</span><button class="icon-button" type="button" aria-label="Notificações">♢<b class="notification-dot"></b></button><div class="top-avatar" id="topAvatar">MS</div></div>
       </header>
 
@@ -62,25 +64,29 @@
         <div class="page-heading"><div><p class="eyebrow" id="currentDateString">Hoje</p><h1>Bom dia, <span id="greetingName">Marina</span> <span>🌱</span></h1><p class="muted">Decisões mais inteligentes para produzir mais, preservando a terra.</p></div><div class="heading-actions"><button class="secondary-button" id="exportDataButton" type="button">⇩ Exportar dados</button><button class="primary-button" id="newActivityButton" type="button"><span>＋</span> Registrar atividade</button><input id="importDataInput" type="file" accept="application/json" hidden></div></div>
 
         <div class="metric-grid">
-          <article class="metric-card accent-green"><div class="metric-top"><span class="metric-label">Produção estimada</span><span class="metric-symbol">↗</span></div><strong>248,6 <small>t</small></strong><div class="metric-foot"><span class="trend up">↑ 8,4%</span><span>vs. safra anterior</span></div></article>
-          <article class="metric-card accent-blue"><div class="metric-top"><span class="metric-label">Área cultivada</span><span class="metric-symbol">⌗</span></div><strong>186,4 <small>ha</small></strong><div class="metric-foot"><span>12 talhões ativos</span><span>de 220 ha totais</span></div></article>
+          <article class="metric-card accent-green"><div class="metric-top"><span class="metric-label">Produção estimada</span><span class="metric-symbol">↗</span></div><strong id="metricProduction">-- <small>t</small></strong><div class="metric-foot"><span class="trend up">Estimativa baseada na área</span></div></article>
+          <article class="metric-card accent-blue"><div class="metric-top"><span class="metric-label">Área cultivada</span><span class="metric-symbol">⌗</span></div><strong id="metricArea">-- <small>ha</small></strong><div class="metric-foot"><span id="metricFieldsCount">-- talhões ativos</span><span id="metricTotalArea">de -- ha totais</span></div></article>
           <article class="metric-card accent-amber"><div class="metric-top"><span class="metric-label">Umidade média do solo</span><span class="metric-symbol">◒</span></div><strong>42 <small>%</small></strong><div class="metric-foot"><span class="trend stable">● ideal</span><span>últimas 24 horas</span></div></article>
           <article class="metric-card accent-orange"><div class="metric-top"><span class="metric-label">Atividades pendentes</span><span class="metric-symbol">◷</span></div><strong>07</strong><div class="metric-foot"><span class="trend attention">2 vencem hoje</span><span>18 concluídas na semana</span></div></article>
         </div>
 
-        <article class="panel property-panel"><div class="panel-heading"><div><h2>Visão da propriedade</h2><p>Saúde dos talhões e uso de recursos · visualização demonstrativa</p></div><button class="text-button" type="button" data-section="fields">Abrir mapa real <span>→</span></button></div><div class="property-layout"><div class="farm-map" role="img" aria-label="Visualização demonstrativa dos talhões da Fazenda Santa Clara"><span class="map-road road-one"></span><span class="map-road road-two"></span><button class="map-field field-north" type="button" aria-label="Talhão Norte, saúde 88"><b>Norte</b><small>88</small></button><button class="map-field field-river" type="button" aria-label="Talhão Ribeirão, saúde 74"><b>Ribeirão</b><small>74</small></button><button class="map-field field-east" type="button" aria-label="Talhão Leste, saúde 59"><b>Leste</b><small>59</small></button><button class="map-field field-low" type="button" aria-label="Talhão Baixada, saúde 42"><b>Baixada</b><small>42</small></button><span class="map-water"></span><span class="map-location">●</span><span class="map-demo-label">Demonstração</span></div><div class="property-summary"><div class="resource-ring"><div><strong>76%</strong><small>uso eficiente<br>da água</small></div></div><div class="summary-copy"><strong>Boa condição geral</strong><p>3 de 4 talhões dentro da faixa ideal.</p><div class="map-legend"><span><i class="legend-good"></i>Ideal</span><span><i class="legend-watch"></i>Atenção</span><span><i class="legend-risk"></i>Risco</span></div></div></div></div></article>
+        <article class="panel property-panel"><div class="panel-heading"><div><h2>Visão da propriedade</h2><p>Saúde dos talhões e uso de recursos</p></div><button class="text-button" type="button" data-section="fields">Abrir lista de talhões <span>→</span></button></div><div class="property-layout"><div class="farm-map" id="dynamicFarmMap" role="img" aria-label="Visualização dos talhões"></div><div class="property-summary"><div class="resource-ring"><div id="dynamicResourceRing"><strong>--%</strong><small>uso eficiente</small></div></div><div class="summary-copy"><strong id="dynamicFarmStatus">Avaliando...</strong><p id="dynamicFarmStatusDesc">Processando dados dos talhões.</p><div class="map-legend"><span><i class="legend-good"></i>Ideal</span><span><i class="legend-watch"></i>Atenção</span><span><i class="legend-risk"></i>Risco</span></div></div></div></div></article>
 
         <div class="content-grid">
           <article class="panel production-panel"><div class="panel-heading"><div><h2>Produção por cultura</h2><p>Estimativa da safra 2026</p></div><button class="select-button" type="button">Safra atual <span>⌄</span></button></div><div class="chart-wrap"><div class="chart-y"><span>120 t</span><span>90 t</span><span>60 t</span><span>30 t</span><span>0</span></div><div class="bar-chart"><div class="grid-line one"></div><div class="grid-line two"></div><div class="grid-line three"></div><div class="grid-line four"></div><div class="bar-group"><div class="bar corn" style="height: 78%"><span>94 t</span></div><small>Milho</small></div><div class="bar-group"><div class="bar soy" style="height: 61%"><span>73 t</span></div><small>Soja</small></div><div class="bar-group"><div class="bar coffee" style="height: 42%"><span>50 t</span></div><small>Café</small></div><div class="bar-group"><div class="bar wheat" style="height: 26%"><span>31 t</span></div><small>Trigo</small></div></div></div><div class="chart-legend"><span><i class="dot corn-dot"></i>Colhido</span><span><i class="dot light-dot"></i>Estimativa restante</span><strong>Total projetado: 248,6 t</strong></div></article>
 
           <article class="panel weather-panel"><div class="panel-heading"><div><h2>Condições do clima</h2><p>Estação Santa Clara · agora</p></div><button class="text-button" type="button" data-section="weather">Ver detalhes <span>→</span></button></div><div class="current-weather"><div class="weather-icon">☀</div><div><strong>27°</strong><span>Ensolarado</span></div><div class="weather-meta"><span>Umidade <b>61%</b></span><span>Vento <b>12 km/h</b></span></div></div><div class="forecast"><div><span>Hoje</span><b>☀</b><strong>29°</strong><small>18°</small></div><div><span>Qui</span><b>⛅</b><strong>28°</strong><small>17°</small></div><div><span>Sex</span><b>☂</b><strong>24°</strong><small>16°</small></div><div><span>Sáb</span><b>☀</b><strong>30°</strong><small>19°</small></div></div></article>
 
-          <article class="panel field-panel"><div class="panel-heading"><div><h2>Saúde dos talhões</h2><p>Índice geral por área monitorada</p></div><button class="text-button" type="button" data-section="fields">Ver todos <span>→</span></button></div><div class="field-list"><div class="field-row"><div class="field-name"><span class="field-color green"></span><div><strong>Talhão Norte</strong><small>Milho · 32,8 ha</small></div></div><div class="progress"><span style="width: 88%"></span></div><strong class="health-good">88</strong></div><div class="field-row"><div class="field-name"><span class="field-color green"></span><div><strong>Talhão Ribeirão</strong><small>Soja · 48,2 ha</small></div></div><div class="progress"><span style="width: 74%"></span></div><strong class="health-good">74</strong></div><div class="field-row"><div class="field-name"><span class="field-color yellow"></span><div><strong>Talhão Leste</strong><small>Café · 21,6 ha</small></div></div><div class="progress"><span class="yellow-fill" style="width: 59%"></span></div><strong class="health-warn">59</strong></div><div class="field-row"><div class="field-name"><span class="field-color red"></span><div><strong>Talhão Baixada</strong><small>Trigo · 18,4 ha</small></div></div><div class="progress"><span class="red-fill" style="width: 42%"></span></div><strong class="health-alert">42</strong></div></div></article>
+          <article class="panel field-panel"><div class="panel-heading"><div><h2>Saúde dos talhões</h2><p>Índice geral por área monitorada</p></div><button class="text-button" type="button" data-section="fields">Ver todos <span>→</span></button></div><div class="field-list" id="dynamicFieldList"></div></article>
 
           <article class="panel task-panel"><div class="panel-heading"><div><h2>Próximas atividades</h2><p>O que precisa de atenção</p></div><button class="text-button" type="button" data-section="tasks">Ver agenda <span>→</span></button></div><div class="task-list"><div class="task-row"><span class="task-date today"><b>02</b><small>OUT</small></span><div><strong>Aplicação preventiva</strong><small>Talhão Norte · João Lima</small></div><span class="tag urgent">Hoje</span></div><div class="task-row"><span class="task-date"><b>03</b><small>OUT</small></span><div><strong>Coleta de amostras</strong><small>Talhão Leste · Equipe técnica</small></div><span class="tag planned">Amanhã</span></div><div class="task-row"><span class="task-date"><b>05</b><small>OUT</small></span><div><strong>Revisão do sistema de irrigação</strong><small>Talhão Ribeirão · Carlos Mendes</small></div><span class="tag planned">Sáb</span></div></div></article>
         </div>
 
-        <section class="bottom-strip"><div class="insight-mark">✦</div><div><strong>Recomendação inteligente</strong><p>A umidade do Talhão Baixada caiu 12% nos últimos 5 dias. Antecipe a irrigação apenas se a previsão não indicar chuva nas próximas 24 horas.</p></div><button class="outline-button" type="button" data-section="soil">Ver análise <span>→</span></button></section>
+        <section class="bottom-strip"><div class="insight-mark">✦</div><div><strong>Recomendação Inteligente baseada nos seus dados</strong><p id="dynamicRecommendationText">Analisando a saúde dos seus talhões...</p></div><button class="outline-button" id="openEmbrapaRecButton" type="button" data-section="embrapa">Ler manual Embrapa <span>→</span></button></section>
+      </section>
+
+      <section class="page-content" id="dynamicModuleSection" hidden>
+        <!-- Modules will be dynamically injected here -->
       </section>
 
       <section class="placeholder-section" id="placeholderSection" hidden><div class="placeholder-icon">⌘</div><p class="eyebrow">Módulo em preparação</p><h1 id="placeholderTitle">Produção</h1><p class="muted">A estrutura deste módulo está pronta para receber seus registros, filtros e relatórios.</p><button class="primary-button" id="backButton" type="button">← Voltar ao dashboard</button></section>
@@ -99,6 +105,56 @@
       <div class="feedback-actions"><button class="secondary-button" id="emailFeedbackButton" value="cancel" type="button">Preparar e-mail</button><button class="primary-button" value="submit" type="submit">Salvar feedback offline</button></div>
     </form>
   </dialog>
+  <dialog class="feedback-dialog" id="onboardingDialog" aria-labelledby="onboardingTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+    <form method="dialog" id="onboardingForm">
+      <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+        <div>
+          <p class="eyebrow">Configuração Inicial</p>
+          <h2 id="onboardingTitle">Cadastre sua Propriedade</h2>
+        </div>
+      </div>
+      <p class="muted" style="margin-bottom: 1.5rem;">Para começar a usar o AGRA com os seus próprios dados, insira as informações básicas da sua fazenda ou sítio.</p>
+      
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="propName" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome da Propriedade</label>
+        <input type="text" id="propName" required placeholder="Ex: Sítio Bela Vista" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label for="propArea" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Área Total (Hectares)</label>
+        <input type="number" id="propArea" required min="1" step="0.1" placeholder="Ex: 50" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+
+      <h3 style="font-size: 1rem; margin-bottom: 1rem;">Seu Primeiro Talhão</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="form-group">
+          <label for="fieldName" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Talhão</label>
+          <input type="text" id="fieldName" required placeholder="Ex: Talhão Sul" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+        </div>
+        <div class="form-group">
+          <label for="fieldArea" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Área (ha)</label>
+          <input type="number" id="fieldArea" required min="0.1" step="0.1" placeholder="Ex: 10" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+        </div>
+        <div class="form-group" style="grid-column: span 2;">
+          <label for="fieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura</label>
+          <select id="fieldCrop" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+            <option value="Milho">Milho</option>
+            <option value="Soja">Soja</option>
+            <option value="Café">Café</option>
+            <option value="Trigo">Trigo</option>
+            <option value="Outro">Outra Cultura</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="feedback-actions" style="display:flex; justify-content:flex-end;">
+        <button class="primary-button" value="submit" type="submit">Salvar Propriedade</button>
+      </div>
+    </form>
+  </dialog>
+
+
+  
   <div class="toast" id="toast" role="status">Atividade registrada com sucesso.</div>
   <script defer src="storage.js"></script>
   <script defer src="feedback-config.js"></script>

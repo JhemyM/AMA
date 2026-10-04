@@ -1,0 +1,52 @@
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Operação</p>
+    <h1>Atividades e Agenda</h1>
+    <p class="muted">Gerencie as tarefas pendentes e concluídas da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewTaskButton" type="button"><span>＋</span> Nova Atividade</button>
+  </div>
+</div>
+<div class="task-list" id="tasksModuleList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+  <!-- Tasks will be dynamically injected here -->
+</div>
+
+<dialog class="feedback-dialog" id="newTaskDialog" aria-labelledby="newTaskTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newTaskForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <div>
+        <h2 id="newTaskTitle">Agendar Atividade</h2>
+      </div>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newTaskDialog').close()" aria-label="Fechar">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newTaskTitleInput" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Título da Atividade</label>
+      <input type="text" id="newTaskTitleInput" required placeholder="Ex: Aplicação preventiva" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newTaskAssignee" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Responsável</label>
+      <input type="text" id="newTaskAssignee" required placeholder="Ex: João Lima" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label for="newTaskDate" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Data</label>
+        <input type="date" id="newTaskDate" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      <div class="form-group">
+        <label for="newTaskField" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Talhão Vinculado</label>
+        <select id="newTaskField" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+          <!-- Dynamically populated -->
+        </select>
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('newTaskDialog').close()">Cancelar</button>
+      <button class="primary-button" value="submit" type="submit">Salvar Atividade</button>
+    </div>
+  </form>
+</dialog>

@@ -1,13 +1,5 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
-const { fork } = require('node:child_process');
-
-let apiProcess;
-
-function startApi() {
-  const apiPath = path.join(__dirname, '..', 'dist', 'server.js');
-  apiProcess = fork(apiPath, [], { silent: true, env: { ...process.env, PORT: '8787' } });
-}
 
 function createWindow() {
   const window = new BrowserWindow({
@@ -25,7 +17,6 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  startApi();
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -33,6 +24,5 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
-  if (apiProcess) apiProcess.kill();
   if (process.platform !== 'darwin') app.quit();
 });

@@ -12,8 +12,8 @@ android {
         applicationId = "br.com.agra.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0-alpha.1"
+        versionCode = 2
+        versionName = "0.2.0-beta.1"
     }
 
     compileOptions {
@@ -21,7 +21,24 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    buildFeatures { compose = true }
+    buildFeatures { 
+        compose = true
+        buildConfig = true
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            isMinifyEnabled = false
+        }
+    }
 }
 
 kotlin {

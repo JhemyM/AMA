@@ -1,0 +1,58 @@
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Gestão de Áreas</p>
+    <h1>Seus Talhões</h1>
+    <p class="muted">Visualize e gerencie as áreas de plantio da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewFieldButton" type="button"><span>＋</span> Novo Talhão</button>
+  </div>
+</div>
+<div class="field-list" id="fieldsModuleList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+  <!-- Fields will be dynamically injected here -->
+</div>
+
+<dialog class="feedback-dialog" id="newFieldDialog" aria-labelledby="newFieldTitle" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newFieldForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <div>
+        <h2 id="newFieldTitle">Adicionar Novo Talhão</h2>
+      </div>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newFieldDialog').close()" aria-label="Fechar">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newFieldName" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Talhão</label>
+      <input type="text" id="newFieldName" required placeholder="Ex: Talhão Norte" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label for="newFieldArea" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Área (ha)</label>
+      <input type="number" id="newFieldArea" required min="0.1" step="0.1" placeholder="Ex: 15.5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label for="newFieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura</label>
+      <select id="newFieldCrop" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+        <option value="Milho">Milho</option>
+        <option value="Soja">Soja</option>
+        <option value="Café">Café</option>
+        <option value="Trigo">Trigo</option>
+        <option value="Outro">Outra Cultura</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Localização (Coordenadas)</label>
+      <div style="display: flex; gap: 0.5rem;">
+        <input type="text" id="newFieldGps" readonly placeholder="Sem GPS capturado" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface);">
+        <button type="button" id="captureGpsButton" class="secondary-button" style="white-space: nowrap;">Capturar 📍</button>
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('newFieldDialog').close()">Cancelar</button>
+      <button class="primary-button" value="submit" type="submit">Salvar Talhão</button>
+    </div>
+  </form>
+</dialog>

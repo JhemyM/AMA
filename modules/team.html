@@ -1,0 +1,41 @@
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Operação</p>
+    <h1>Equipe</h1>
+    <p class="muted">Gerencie o acesso e as funções dos colaboradores da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewMemberButton" type="button"><span>＋</span> Adicionar Membro</button>
+  </div>
+</div>
+
+<div class="task-list" id="teamList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newMemberDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newMemberForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Adicionar Membro</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newMemberDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome Completo</label>
+      <input type="text" id="memberName" required placeholder="Ex: Carlos Silva" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1.5rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Função</label>
+      <select id="memberRole" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+        <option value="Operador Máquinas">Operador de Máquinas</option>
+        <option value="Técnico Agrícola">Técnico Agrícola</option>
+        <option value="Administrador">Administrador</option>
+      </select>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newMemberDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Convidar Membro</button>
+    </div>
+  </form>
+</dialog>

@@ -1,0 +1,61 @@
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Agricultura de Precisão</p>
+    <h1>Solo e Análises</h1>
+    <p class="muted">Registre os laudos técnicos de solo para obter recomendações precisas de adubação e calagem.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewSoilTestButton" type="button"><span>＋</span> Nova Análise</button>
+  </div>
+</div>
+
+<div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+  <article class="metric-card accent-amber">
+    <div class="metric-top"><span class="metric-label">pH Médio</span><span class="metric-symbol">◒</span></div>
+    <strong id="avgPhMetric">--</strong>
+    <div class="metric-foot"><span class="trend stable">Ideal: 6.0 a 6.5</span></div>
+  </article>
+  <article class="metric-card accent-green">
+    <div class="metric-top"><span class="metric-label">Matéria Orgânica</span><span class="metric-symbol">⌗</span></div>
+    <strong id="avgMoMetric">-- <small>%</small></strong>
+    <div class="metric-foot"><span class="trend up">Bom teor</span></div>
+  </article>
+  <article class="metric-card accent-blue">
+    <div class="metric-top"><span class="metric-label">Umidade Relativa</span><span class="metric-symbol">💧</span></div>
+    <strong>42 <small>%</small></strong>
+    <div class="metric-foot"><span>Sensores online</span></div>
+  </article>
+</div>
+
+<div class="task-list" id="soilTestsList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newSoilDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newSoilForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Registrar Análise de Solo</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newSoilDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Talhão</label>
+      <select id="soilFieldSelect" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;"></select>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">pH (H2O)</label>
+        <input type="number" id="soilPh" required step="0.1" min="1" max="14" placeholder="Ex: 6.2" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Mat. Orgânica (%)</label>
+        <input type="number" id="soilMo" required step="0.1" placeholder="Ex: 3.5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newSoilDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Salvar Laudo</button>
+    </div>
+  </form>
+</dialog>

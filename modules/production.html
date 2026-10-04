@@ -1,0 +1,55 @@
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Gestão de Safra</p>
+    <h1>Produção</h1>
+    <p class="muted">Acompanhe as estimativas e registros de colheita da sua propriedade.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewHarvestButton" type="button"><span>＋</span> Registrar Colheita</button>
+  </div>
+</div>
+
+<article class="panel production-panel" style="margin-bottom: 2rem;">
+  <div class="panel-heading">
+    <div>
+      <h2>Produção Acumulada</h2>
+      <p>Total registrado por cultura</p>
+    </div>
+  </div>
+  <div class="field-list" id="productionTotals" style="padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
+    <!-- Rendered totals -->
+  </div>
+</article>
+
+<div class="task-list" id="harvestList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newHarvestDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newHarvestForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Registrar Colheita</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newHarvestDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Talhão de Origem</label>
+      <select id="harvestFieldSelect" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;"></select>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Volume (Ton)</label>
+        <input type="number" id="harvestVolume" required step="0.1" min="0.1" placeholder="Ex: 12.5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Data da Colheita</label>
+        <input type="date" id="harvestDate" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newHarvestDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Salvar Colheita</button>
+    </div>
+  </form>
+</dialog>

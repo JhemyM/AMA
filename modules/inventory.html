@@ -1,0 +1,63 @@
+<div class="page-heading">
+  <div>
+    <p class="eyebrow">Operação</p>
+    <h1>Estoque e Insumos</h1>
+    <p class="muted">Gerencie sementes, fertilizantes e defensivos agrícolas.</p>
+  </div>
+  <div class="heading-actions">
+    <button class="primary-button" id="openNewItemButton" type="button"><span>＋</span> Adicionar Insumo</button>
+  </div>
+</div>
+
+<div class="metrics-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+  <article class="metric-card accent-green">
+    <div class="metric-top"><span class="metric-label">Sementes</span><span class="metric-symbol">🌱</span></div>
+    <strong id="seedCount">-- <small>itens</small></strong>
+  </article>
+  <article class="metric-card accent-blue">
+    <div class="metric-top"><span class="metric-label">Fertilizantes</span><span class="metric-symbol">◒</span></div>
+    <strong id="fertCount">-- <small>itens</small></strong>
+  </article>
+  <article class="metric-card accent-orange">
+    <div class="metric-top"><span class="metric-label">Defensivos</span><span class="metric-symbol">🧪</span></div>
+    <strong id="chemCount">-- <small>itens</small></strong>
+  </article>
+</div>
+
+<div class="task-list" id="inventoryList" style="display: flex; flex-direction: column; gap: 0.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+</div>
+
+<dialog class="feedback-dialog" id="newItemDialog" style="padding: 2rem; border-radius: 12px; border: 1px solid var(--border); max-width: 500px;">
+  <form method="dialog" id="newItemForm">
+    <div class="dialog-heading" style="margin-bottom: 1.5rem;">
+      <h2>Novo Insumo</h2>
+      <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('newItemDialog').close()">×</button>
+    </div>
+    
+    <div class="form-group" style="margin-bottom: 1rem;">
+      <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Nome do Produto</label>
+      <input type="text" id="itemName" required placeholder="Ex: NPK 10-10-10" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Categoria</label>
+        <select id="itemCategory" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
+          <option value="Semente">Semente</option>
+          <option value="Fertilizante">Fertilizante</option>
+          <option value="Defensivo">Defensivo</option>
+          <option value="Outro">Outros</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Quantidade</label>
+        <input type="number" id="itemQuantity" required min="1" placeholder="Ex: 50" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+      </div>
+    </div>
+    
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+      <button class="secondary-button" type="button" onclick="document.getElementById('newItemDialog').close()">Cancelar</button>
+      <button class="primary-button" type="submit">Adicionar ao Estoque</button>
+    </div>
+  </form>
+</dialog>

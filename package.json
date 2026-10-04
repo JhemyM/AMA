@@ -1,21 +1,15 @@
 {
   "name": "agra-platform",
   "private": true,
-  "version": "0.1.0-alpha.1",
-  "description": "Nucleo e API do AGRA para gestao rural sustentavel.",
+  "version": "0.2.0-beta.1",
+  "description": "Nucleo do AGRA para gestao rural sustentavel.",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
-    "build": "npm run build:api && npm run build:web",
-    "build:api": "tsc -p tsconfig.json",
+    "build": "npm run build:web",
     "build:web": "node scripts/build.mjs",
     "build:all": "npm run build",
     "desktop:dev": "npm run build:all && electron .",
-    "desktop:win": "npm run build:all && electron-builder --win portable",
-    "embrapa:normalize": "node scripts/ingest-embrapa.mjs data/embrapa/catalog.example.json normalize",
-    "embrapa:download": "node scripts/ingest-embrapa.mjs data/embrapa/catalog.normalized.json download",
-    "start": "node dist/server.js",
-    "check": "tsc -p tsconfig.json --noEmit"
+    "desktop:win": "npm run build:all && electron-builder --win portable"
   },
   "engines": {
     "node": ">=20"
@@ -30,8 +24,6 @@
     "files": [
       "desktop/**/*",
       "dist/web/**/*",
-      "dist/server.js",
-      "dist/domain/**/*",
       "package.json"
     ],
     "win": {
@@ -43,8 +35,6 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "electron": "^44.5.1",
-    "electron-builder": "^26.0.12",
-    "tsx": "^4.19.0",
-    "typescript": "^5.6.0"
+    "electron-builder": "^26.0.12"
   }
 }
