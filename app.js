@@ -352,6 +352,41 @@ function renderPropertyData() {
     }
   }
 
+  // Update Tasks Metric & List
+  const tasks = JSON.parse(localStorage.getItem('agra_tasks_data') || '[]');
+  const todayStr = new Date().toISOString().split('T')[0];
+  const todayTasks = tasks.filter(t => t.date === todayStr);
+  
+  const metricTasks = document.getElementById('metricTasks');
+  const metricTasksToday = document.getElementById('metricTasksToday');
+  if (metricTasks) metricTasks.textContent = tasks.length.toString().padStart(2, '0');
+  if (metricTasksToday) metricTasksToday.textContent = `${todayTasks.length} vencem hoje`;
+
+  const dashboardTaskList = document.getElementById('dashboardTaskList');
+  if (dashboardTaskList) {
+    if (tasks.length === 0) {
+      dashboardTaskList.innerHTML = '<p class="muted" style="padding:1rem;">Nenhuma atividade agendada.</p>';
+    } else {
+      let tasksHtml = '';
+      const sortedTasks = [...tasks].sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 3);
+      sortedTasks.forEach(task => {
+        const taskDate = new Date(task.date + 'T12:00:00');
+        const day = taskDate.getDate().toString().padStart(2, '0');
+        const month = taskDate.toLocaleString('pt-BR', { month: 'short' }).toUpperCase();
+        const isToday = task.date === todayStr;
+        
+        tasksHtml += `
+          <div class="task-row">
+            <span class="task-date ${isToday ? 'today' : ''}"><b>${day}</b><small>${month}</small></span>
+            <div><strong>${task.title}</strong><small>${task.field} · ${task.assignee}</small></div>
+            <span class="tag ${isToday ? 'urgent' : 'planned'}">${isToday ? 'Hoje' : 'Agendado'}</span>
+          </div>
+        `;
+      });
+      dashboardTaskList.innerHTML = tasksHtml;
+    }
+  }
+
   // Embrapa Recommendation Logic
   const recText = document.getElementById('dynamicRecommendationText');
   const embrapaBtn = document.getElementById('openEmbrapaRecButton');
