@@ -34,10 +34,10 @@ export default async function handler(req, res) {
 
     if (plan === 'pro') {
       itemTitle = 'AGRA Pro - Mensal';
-      itemPrice = 97.00;
+      itemPrice = 147.00;
     } else if (plan === 'vitalicio') {
       itemTitle = 'AGRA Vitalicio - Acesso Completo';
-      itemPrice = 997.00;
+      itemPrice = 1497.00;
     } else {
       throw new Error('Plano invÃ¡lido');
     }

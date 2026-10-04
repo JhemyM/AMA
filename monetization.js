@@ -55,7 +55,7 @@ class MonetizationManager {
           <div class="paywall-body" style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
             <div class="plan-card">
               <h3>AGRA Pro</h3>
-              <p class="price">R$ 97<span>/mês</span></p>
+              <p class="price">R$ 147<span>/mês</span></p>
               <ul>
                 <li>✓ Gestão de Produção</li>
                 <li>✓ Clima e Solo Avançados</li>
@@ -65,7 +65,7 @@ class MonetizationManager {
             </div>
             <div class="plan-card" style="border-color: #d4af37; box-shadow: 0 0 20px rgba(212,175,55,0.2);">
               <h3>AGRA Vitalício</h3>
-              <p class="price">R$ 997<span>/único</span></p>
+              <p class="price">R$ 1.497<span>/único</span></p>
               <ul>
                 <li>✓ Acesso <b>Para Sempre</b></li>
                 <li>✓ Gestão de Equipes</li>
