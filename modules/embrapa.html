@@ -4,9 +4,18 @@
     <h1>Manuais Embrapa</h1>
     <p class="muted">Acesse a biblioteca técnica oficial para auxiliar no manejo sustentável da sua propriedade.</p>
   </div>
-  <div class="heading-actions">
-    <input type="search" id="embrapaSearch" placeholder="Buscar manuais..." style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; width: 250px;">
+  <div class="heading-actions" style="display:flex; gap: 0.5rem;">
+    <input type="search" id="embrapaSearch" placeholder="Buscar manuais..." style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; width: 250px; background: var(--surface);">
+    <button class="secondary-button" id="embrapaToggleSaved" type="button">⭐ Meus Salvos</button>
   </div>
+</div>
+
+<div class="embrapa-filters" id="embrapaFilters" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
+  <button class="secondary-button active" data-category="all" style="border-radius: 20px;">Todos</button>
+  <button class="secondary-button" data-category="solo" style="border-radius: 20px;">Solo e Adubação</button>
+  <button class="secondary-button" data-category="soja" style="border-radius: 20px;">Soja</button>
+  <button class="secondary-button" data-category="milho" style="border-radius: 20px;">Milho</button>
+  <button class="secondary-button" data-category="clima" style="border-radius: 20px;">Clima e Água</button>
 </div>
 <div class="embrapa-list" id="embrapaModuleList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
   <!-- Manuals will be dynamically injected here -->
@@ -28,11 +37,10 @@
       <p id="manualAbstract" style="line-height: 1.6;">Resumo do manual...</p>
     </div>
     
-    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem;">
+    <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem; align-items:center;">
+      <button class="secondary-button" id="manualSaveBtn" type="button" style="margin-right:auto;">⭐ Salvar</button>
       <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('manualDialog').close()">Fechar</button>
-      <a href="#" id="manualOfficialLink" target="_blank" style="text-decoration: none;">
-        <button class="primary-button" type="button">Acessar na Íntegra <span>↗</span></button>
-      </a>
+      <button class="primary-button" id="manualDownloadBtn" type="button">Baixar PDF <span>⬇</span></button>
     </div>
   </form>
 </dialog>
