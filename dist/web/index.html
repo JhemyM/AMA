@@ -13,6 +13,9 @@
       window.location.href = 'login.html';
     }
   </script>
+  <!-- Leaflet for Satellite Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
 <body>
   <!-- MAIN APP -->
@@ -75,7 +78,7 @@
         <div class="content-grid">
           <article class="panel production-panel"><div class="panel-heading"><div><h2>Produção por cultura</h2><p>Estimativa da safra 2026</p></div><button class="select-button" type="button">Safra atual <span>⌄</span></button></div><div class="chart-wrap"><div class="chart-y"><span>120 t</span><span>90 t</span><span>60 t</span><span>30 t</span><span>0</span></div><div class="bar-chart"><div class="grid-line one"></div><div class="grid-line two"></div><div class="grid-line three"></div><div class="grid-line four"></div><div class="bar-group"><div class="bar corn" style="height: 78%"><span>94 t</span></div><small>Milho</small></div><div class="bar-group"><div class="bar soy" style="height: 61%"><span>73 t</span></div><small>Soja</small></div><div class="bar-group"><div class="bar coffee" style="height: 42%"><span>50 t</span></div><small>Café</small></div><div class="bar-group"><div class="bar wheat" style="height: 26%"><span>31 t</span></div><small>Trigo</small></div></div></div><div class="chart-legend"><span><i class="dot corn-dot"></i>Colhido</span><span><i class="dot light-dot"></i>Estimativa restante</span><strong>Total projetado: 248,6 t</strong></div></article>
 
-          <article class="panel weather-panel"><div class="panel-heading"><div><h2>Condições do clima</h2><p>Estação Santa Clara · agora</p></div><button class="text-button" type="button" data-section="weather">Ver detalhes <span>→</span></button></div><div class="current-weather"><div class="weather-icon">☀</div><div><strong>27°</strong><span>Ensolarado</span></div><div class="weather-meta"><span>Umidade <b>61%</b></span><span>Vento <b>12 km/h</b></span></div></div><div class="forecast"><div><span>Hoje</span><b>☀</b><strong>29°</strong><small>18°</small></div><div><span>Qui</span><b>⛅</b><strong>28°</strong><small>17°</small></div><div><span>Sex</span><b>☂</b><strong>24°</strong><small>16°</small></div><div><span>Sáb</span><b>☀</b><strong>30°</strong><small>19°</small></div></div></article>
+          <article class="panel weather-panel"><div class="panel-heading"><div><h2>Condições do clima</h2><p id="weatherLocation">Localizando...</p></div><button class="text-button" type="button" data-section="weather">Ver detalhes <span>→</span></button></div><div class="current-weather"><div class="weather-icon" id="weatherIconMain">...</div><div><strong id="weatherTempMain">--°</strong><span id="weatherDescMain">Carregando</span></div><div class="weather-meta"><span>Umidade <b id="weatherHumMain">--%</b></span><span>Vento <b id="weatherWindMain">-- km/h</b></span></div></div><div class="forecast" id="weatherForecastMain"></div></article>
 
           <article class="panel field-panel"><div class="panel-heading"><div><h2>Saúde dos talhões</h2><p>Índice geral por área monitorada</p></div><button class="text-button" type="button" data-section="fields">Ver todos <span>→</span></button></div><div class="field-list" id="dynamicFieldList"></div></article>
 

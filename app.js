@@ -44,6 +44,64 @@ document.getElementById('logoutButton')?.addEventListener('click', () => {
 const onboardingDialog = document.getElementById('onboardingDialog');
 const onboardingForm = document.getElementById('onboardingForm');
 
+let dashboardMap = null;
+
+async function updateWeather(lat, lon) {
+  try {
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    
+    const codeToIcon = (code) => {
+      if (code <= 1) return '☀'; 
+      if (code <= 3) return '⛅'; 
+      if (code <= 48) return '☁'; 
+      if (code <= 67) return '☂'; 
+      if (code <= 77) return '❄'; 
+      if (code <= 82) return '🌧'; 
+      if (code <= 99) return '⛈'; 
+      return '☀';
+    };
+    
+    const codeToDesc = (code) => {
+      if (code <= 1) return 'Ensolarado';
+      if (code <= 3) return 'Parcialmente Nublado';
+      if (code <= 48) return 'Neblina';
+      if (code <= 67) return 'Chuva';
+      if (code <= 77) return 'Neve';
+      if (code <= 82) return 'Pancadas de Chuva';
+      if (code <= 99) return 'Tempestade';
+      return 'Limpo';
+    };
+
+    const current = data.current;
+    document.getElementById('weatherTempMain').textContent = `${Math.round(current.temperature_2m)}°`;
+    document.getElementById('weatherIconMain').textContent = codeToIcon(current.weather_code);
+    document.getElementById('weatherDescMain').textContent = codeToDesc(current.weather_code);
+    document.getElementById('weatherHumMain').textContent = `${current.relative_humidity_2m}%`;
+    document.getElementById('weatherWindMain').textContent = `${current.wind_speed_10m} km/h`;
+    document.getElementById('weatherLocation').textContent = `Satélite (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
+
+    const forecastContainer = document.getElementById('weatherForecastMain');
+    if (forecastContainer) {
+      let html = '';
+      const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+      for (let i = 0; i < 4; i++) {
+        const date = new Date(data.daily.time[i]);
+        date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+        const dayName = i === 0 ? 'Hoje' : days[date.getDay()];
+        const icon = codeToIcon(data.daily.weather_code[i]);
+        const max = Math.round(data.daily.temperature_2m_max[i]);
+        const min = Math.round(data.daily.temperature_2m_min[i]);
+        html += `<div><span>${dayName}</span><b>${icon}</b><strong>${max}°</strong><small>${min}°</small></div>`;
+      }
+      forecastContainer.innerHTML = html;
+    }
+  } catch (error) {
+    console.warn('Weather fetch failed', error);
+  }
+}
+
 function renderPropertyData() {
   const dataStr = localStorage.getItem('agra_property_data');
   if (!dataStr) {
@@ -113,22 +171,49 @@ function renderPropertyData() {
   // Update Map
   const mapContainer = document.getElementById('dynamicFarmMap');
   if (mapContainer) {
-    mapContainer.innerHTML = '';
-    data.fields.forEach((field, i) => {
-      let colorClass = 'legend-good';
-      if (field.health < 60) colorClass = 'legend-risk';
-      else if (field.health < 75) colorClass = 'legend-watch';
+    if (window.L) {
+      if (!dashboardMap) {
+        dashboardMap = L.map('dynamicFarmMap', {zoomControl: false}).setView([-14.235, -51.925], 4);
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+          attribution: 'Tiles &copy; Esri'
+        }).addTo(dashboardMap);
+      }
       
-      const width = Math.max(30, Math.min(80, (field.area / data.totalArea) * 100));
-      const left = Math.random() * (100 - width);
-      const top = Math.random() * 60;
+      dashboardMap.eachLayer((layer) => {
+        if (layer instanceof L.Circle || layer instanceof L.Marker) dashboardMap.removeLayer(layer);
+      });
+
+      let bounds = [];
+      data.fields.forEach((field) => {
+        if (field.gps) {
+          const coords = field.gps.split(',').map(n => parseFloat(n.trim()));
+          if (coords.length === 2 && !isNaN(coords[0])) {
+            let color = field.health >= 75 ? '#22c55e' : field.health >= 60 ? '#f59e0b' : '#ef4444';
+            L.circle(coords, {
+              color: color, fillColor: color, fillOpacity: 0.6, radius: Math.sqrt(field.area) * 200
+            }).bindPopup(`<b>${field.name}</b><br>Cultura: ${field.crop}<br>Saúde: ${field.health}%`).addTo(dashboardMap);
+            bounds.push(coords);
+          }
+        }
+      });
       
-      mapContainer.innerHTML += `
-        <button class="map-field" style="position: absolute; width: ${width}%; height: 35%; left: ${left}%; top: ${top}%; background: var(--surface); border: 2px solid ${colorClass === 'legend-good' ? 'var(--green-500)' : colorClass === 'legend-watch' ? 'var(--amber-500)' : 'var(--red-500)'}; color: var(--text);" title="${field.name}">
-          <b style="color: var(--text)">${field.name}</b><small>${field.health}</small>
-        </button>
-      `;
-    });
+      if (bounds.length > 0) {
+        dashboardMap.fitBounds(bounds);
+        updateWeather(bounds[0][0], bounds[0][1]);
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            dashboardMap.setView([pos.coords.latitude, pos.coords.longitude], 12);
+            updateWeather(pos.coords.latitude, pos.coords.longitude);
+          },
+          err => {
+            updateWeather(-14.235, -51.925);
+          }
+        );
+      }
+    } else {
+      setTimeout(renderPropertyData, 500); 
+    }
   }
 
   // Update property summary
