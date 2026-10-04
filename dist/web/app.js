@@ -378,12 +378,27 @@ function renderPropertyData() {
         tasksHtml += `
           <div class="task-row">
             <span class="task-date ${isToday ? 'today' : ''}"><b>${day}</b><small>${month}</small></span>
-            <div><strong>${task.title}</strong><small>${task.field} · ${task.assignee}</small></div>
-            <span class="tag ${isToday ? 'urgent' : 'planned'}">${isToday ? 'Hoje' : 'Agendado'}</span>
+            <div style="flex:1;"><strong>${task.title}</strong><small>${task.field} · ${task.assignee}</small></div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span class="tag ${isToday ? 'urgent' : 'planned'}">${isToday ? 'Hoje' : 'Agendado'}</span>
+              <button class="text-button delete-task-btn" data-title="${task.title}" style="color: var(--red-600); padding: 0.25rem;" title="Excluir Atividade">×</button>
+            </div>
           </div>
         `;
       });
       dashboardTaskList.innerHTML = tasksHtml;
+
+      // Add delete listeners
+      dashboardTaskList.querySelectorAll('.delete-task-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if(confirm('Tem certeza que deseja excluir esta atividade?')) {
+            const tTitle = e.target.dataset.title;
+            const updatedTasks = tasks.filter(t => t.title !== tTitle);
+            localStorage.setItem('agra_tasks_data', JSON.stringify(updatedTasks));
+            window.dispatchEvent(new Event('agra_tasks_updated'));
+          }
+        });
+      });
     }
   }
 
