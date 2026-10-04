@@ -540,7 +540,7 @@ function updateNetworkStatus() {
 }
 
 const loadedModules = new Set();
-const implementedModules = ['fields', 'tasks', 'embrapa', 'soil', 'production', 'inventory', 'weather', 'team'];
+const implementedModules = ['fields', 'tasks', 'embrapa', 'soil', 'production', 'inventory', 'weather', 'team', 'carbon'];
 
 async function showSection(section) {
   dashboard.hidden = true;
@@ -568,6 +568,7 @@ async function showSection(section) {
         if (section === 'inventory') window.AgraInventory.init(tempContainer);
         if (section === 'weather') window.AgraWeather.init(tempContainer);
         if (section === 'team') window.AgraTeam.init(tempContainer);
+        if (section === 'carbon') window.AgraCarbon.init(tempContainer);
         
         loadedModules.add(section);
       } catch (error) {

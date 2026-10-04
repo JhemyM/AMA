@@ -90,6 +90,7 @@ const prodHtml = await readFile(resolve(root, 'modules/production.html'), 'utf8'
 const invHtml = await readFile(resolve(root, 'modules/inventory.html'), 'utf8');
 const weatherHtml = await readFile(resolve(root, 'modules/weather.html'), 'utf8');
 const teamHtml = await readFile(resolve(root, 'modules/team.html'), 'utf8');
+const carbonHtml = await readFile(resolve(root, 'modules/carbon.html'), 'utf8');
 
 function obf(code) { return JavaScriptObfuscator.obfuscate(code, obfConfig).getObfuscatedCode(); }
 
@@ -101,6 +102,7 @@ const prodJs = obf(await readFile(resolve(root, 'modules/production.js'), 'utf8'
 const invJs = obf(await readFile(resolve(root, 'modules/inventory.js'), 'utf8'));
 const weatherJs = obf(await readFile(resolve(root, 'modules/weather.js'), 'utf8'));
 const teamJs = obf(await readFile(resolve(root, 'modules/team.js'), 'utf8'));
+const carbonJs = obf(await readFile(resolve(root, 'modules/carbon.js'), 'utf8'));
 
 const injectedScripts = `
 <script>
@@ -112,6 +114,7 @@ const injectedScripts = `
   ${invJs}
   ${weatherJs}
   ${teamJs}
+  ${carbonJs}
 </script>
 `;
 
@@ -124,6 +127,7 @@ const templates = `
 <template id="tpl-inventory">${invHtml}</template>
 <template id="tpl-weather">${weatherHtml}</template>
 <template id="tpl-team">${teamHtml}</template>
+<template id="tpl-carbon">${carbonHtml}</template>
 `;
 
 indexHtml = indexHtml.replace('</body>', `${templates}\n${injectedScripts}\n</body>`);

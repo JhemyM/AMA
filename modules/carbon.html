@@ -1,0 +1,97 @@
+<div class="module-header">
+  <h2>Créditos e Captura de Carbono</h2>
+  <p>Medição, projeção de sequestro de carbono e integração sustentável Embrapa</p>
+</div>
+
+<div class="content-grid">
+  <!-- Carbon Capture Overview -->
+  <article class="panel accent-green" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(20,45,33,0.8) 0%, rgba(30,60,45,0.95) 100%);">
+    <div class="panel-heading">
+      <div>
+        <h2 style="color: #fff;">Visão Geral de Sequestro (tCO2e)</h2>
+        <p style="color: rgba(255,255,255,0.7);">Baseado no uso do solo, culturas e talhões ativos</p>
+      </div>
+      <button class="primary-button" type="button" id="emitCarbonReportBtn" style="background: var(--primary); border: none;">Emitir Relatório de Sustentabilidade</button>
+    </div>
+    
+    <div style="display: flex; gap: 2rem; align-items: center; margin-top: 1rem; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px;">
+        <strong style="font-size: 3.5rem; color: #4ad17c; line-height: 1;" id="carbonTotalCaptured">0</strong>
+        <span style="font-size: 1.2rem; color: #fff; margin-left: 8px;">toneladas capturadas/ano</span>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 8px; font-size: 0.9rem;">Equivale a retirar <b id="carbonCarEquivalent">0</b> carros das ruas.</p>
+      </div>
+      <div style="flex: 1; min-width: 200px; padding-left: 2rem; border-left: 1px solid rgba(255,255,255,0.1);">
+        <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">Potencial de Receita Bruta</h3>
+        <strong style="font-size: 2.5rem; color: #d4af37; line-height: 1;" id="carbonRevenue">R$ 0,00</strong>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 8px; font-size: 0.9rem;">Calculado a R$ 68,00 por crédito de carbono certificado.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Embrapa Integration Panel -->
+  <article class="panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Manuais Embrapa de Baixo Carbono</h2>
+        <p>Práticas recomendadas para maximizar sua captura</p>
+      </div>
+      <button class="text-button" type="button" data-section="embrapa">Ver todos <span>→</span></button>
+    </div>
+    <div class="task-list" style="margin-top: 1rem;">
+      <div class="task-item" style="cursor: pointer;" onclick="window.AgraCarbon.openEmbrapaReference('ILPF')">
+        <span class="task-icon" style="background: rgba(60,163,100,0.1); color: var(--primary);">🌿</span>
+        <div class="task-details">
+          <strong>Integração Lavoura-Pecuária-Floresta (ILPF)</strong>
+          <small>Aumente em até 4x a captura de carbono do seu sistema produtivo.</small>
+        </div>
+      </div>
+      <div class="task-item" style="cursor: pointer;" onclick="window.AgraCarbon.openEmbrapaReference('Plantio Direto')">
+        <span class="task-icon" style="background: rgba(212,175,55,0.1); color: #d4af37;">🌱</span>
+        <div class="task-details">
+          <strong>Sistema de Plantio Direto (SPD)</strong>
+          <small>Preservação do solo e retenção de matéria orgânica.</small>
+        </div>
+      </div>
+      <div class="task-item" style="cursor: pointer;" onclick="window.AgraCarbon.openEmbrapaReference('Recuperação de Pastagens')">
+        <span class="task-icon" style="background: rgba(74,209,124,0.1); color: #4ad17c;">🌾</span>
+        <div class="task-details">
+          <strong>Recuperação de Pastagens Degradadas</strong>
+          <small>Transforme áreas de baixa produtividade em sumidouros de CO2.</small>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Calculator Panel -->
+  <article class="panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Calculadora de Sequestro (Simulador)</h2>
+        <p>Estime ganhos com novas práticas de manejo</p>
+      </div>
+    </div>
+    <form id="carbonForm" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem;">
+      <div class="form-group">
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text);">Área do Projeto (Hectares)</label>
+        <input type="number" id="carbonArea" required min="1" step="0.5" value="10" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;">
+      </div>
+      <div class="form-group">
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text);">Prática / Bioma (Padrão Embrapa)</label>
+        <select id="carbonBiome" required style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--panel);">
+          <option value="12">Floresta Amazônica Conservada (12 t/ha/ano)</option>
+          <option value="8">Mata Atlântica (8 t/ha/ano)</option>
+          <option value="6">ILPF - Integração Lavoura-Pecuária-Floresta (6 t/ha/ano)</option>
+          <option value="4">Cerrado (4 t/ha/ano)</option>
+          <option value="2">Plantio Direto na Palha (2 t/ha/ano)</option>
+          <option value="1">Pastagem Recuperada (1 t/ha/ano)</option>
+        </select>
+      </div>
+      <button type="submit" class="primary-button" style="width: 100%; margin-top: 0.5rem;">Simular Projeção</button>
+    </form>
+    
+    <div id="carbonResultBox" style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(60, 163, 100, 0.1); border-left: 4px solid var(--primary); border-radius: 8px; display: none;">
+      <h4 style="color: var(--primary); margin: 0 0 0.5rem 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Projeção Estimada</h4>
+      <p id="carbonResultText" style="margin: 0; font-weight: 500; font-size: 1.1rem;"></p>
+    </div>
+  </article>
+</div>
