@@ -220,6 +220,50 @@ window.AgraEmbrapa = {
         "keywords": ["pastagem", "gado", "rotação"],
         "category": "pastagem",
         "officialUrl": "https://www.embrapa.br/gado-de-corte"
+      },
+      {
+        "id": "man-021",
+        "title": "Piscicultura: Manejo da Água e Alimentação",
+        "abstract": "Guias práticos para manutenção de viveiros, parâmetros de água e nutrição de peixes.",
+        "publicationType": "Guia Prático",
+        "publicationYear": 2021,
+        "authors": ["Embrapa Pesca e Aquicultura"],
+        "keywords": ["peixes", "água", "piscicultura", "aquicultura"],
+        "category": "piscicultura",
+        "officialUrl": "https://www.embrapa.br/pesca-e-aquicultura"
+      },
+      {
+        "id": "man-022",
+        "title": "Sanidade Bovina: Gado de Corte e Leite",
+        "abstract": "Protocolos sanitários e de vacinação para prevenir doenças em bovinos de corte e de leite.",
+        "publicationType": "Comunicado Técnico",
+        "publicationYear": 2022,
+        "authors": ["Embrapa Gado de Corte", "Embrapa Gado de Leite"],
+        "keywords": ["gado", "bovinos", "leite", "corte", "sanidade"],
+        "category": "gado",
+        "officialUrl": "https://www.embrapa.br/gado-de-corte"
+      },
+      {
+        "id": "man-023",
+        "title": "Avicultura Caipira: Instalações e Biosseguridade",
+        "abstract": "Estruturas, manejo de ambiência e prevenção de doenças para galinhas poedeiras e frangos de corte.",
+        "publicationType": "Manual",
+        "publicationYear": 2020,
+        "authors": ["Embrapa Suínos e Aves"],
+        "keywords": ["aves", "frango", "galinha", "biosseguridade"],
+        "category": "aves",
+        "officialUrl": "https://www.embrapa.br/suinos-e-aves"
+      },
+      {
+        "id": "man-024",
+        "title": "Suinocultura: Manejo de Dejetos e Sustentabilidade",
+        "abstract": "Práticas para o uso de dejetos suínos como biofertilizantes e biogás na propriedade.",
+        "publicationType": "Boletim Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Suínos e Aves"],
+        "keywords": ["suínos", "dejetos", "porcos", "biogás"],
+        "category": "suínos",
+        "officialUrl": "https://www.embrapa.br/suinos-e-aves"
       }
     ];
 
@@ -256,7 +300,10 @@ window.AgraEmbrapa = {
                               doc.keywords.some(k => normalizeStr(k).includes(normalizedSearch)) ||
                               normalizeStr(doc.abstract).includes(normalizedSearch);
                               
-        let matchesCategory = currentCategory === 'all' || doc.category === currentCategory;
+        const livestockCategories = ['gado', 'aves', 'suínos', 'piscicultura', 'pastagem'];
+        let matchesCategory = currentCategory === 'all' || doc.category === currentCategory ||
+          (currentCategory === 'gado' && livestockCategories.includes(doc.category)) ||
+          (currentCategory === 'soja' && (doc.category === 'soja' || doc.category === 'milho'));
         
         // On-Demand Logic
         if (currentCategory === 'recommended') {

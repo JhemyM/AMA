@@ -32,20 +32,31 @@
     </div>
 
     <div class="form-group" style="margin-bottom: 1.5rem;">
-      <label for="newFieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura</label>
+      <label for="newFieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura / Criação</label>
       <select id="newFieldCrop" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
-        <option value="Milho">Milho</option>
-        <option value="Soja">Soja</option>
-        <option value="Café">Café</option>
-        <option value="Trigo">Trigo</option>
-        <option value="Algodão">Algodão</option>
-        <option value="Feijão">Feijão</option>
-        <option value="Cana">Cana-de-açúcar</option>
-        <option value="Arroz">Arroz</option>
-        <option value="Hortaliças">Hortaliças</option>
-        <option value="Fruticultura">Fruticultura</option>
-        <option value="Pastagem">Pastagem</option>
-        <option value="Outro">Outra Cultura</option>
+        <optgroup label="Agricultura">
+          <option value="Milho">Milho</option>
+          <option value="Soja">Soja</option>
+          <option value="Café">Café</option>
+          <option value="Trigo">Trigo</option>
+          <option value="Algodão">Algodão</option>
+          <option value="Feijão">Feijão</option>
+          <option value="Cana">Cana-de-açúcar</option>
+          <option value="Arroz">Arroz</option>
+          <option value="Hortaliças">Hortaliças</option>
+          <option value="Fruticultura">Fruticultura</option>
+          <option value="Pastagem">Pastagem</option>
+        </optgroup>
+        <optgroup label="Pecuária e Criação">
+          <option value="Gado de Corte">Gado de Corte</option>
+          <option value="Gado de Leite">Gado de Leite</option>
+          <option value="Aves">Aves</option>
+          <option value="Suínos">Suínos</option>
+          <option value="Equinos">Equinos</option>
+          <option value="Ovinos">Ovinos/Caprinos</option>
+          <option value="Piscicultura">Piscicultura</option>
+        </optgroup>
+        <option value="Outro">Outra</option>
       </select>
     </div>
 

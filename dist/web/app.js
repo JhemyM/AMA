@@ -269,9 +269,9 @@ function renderPropertyData() {
       const pct = Math.max(2, (vol / maxVol) * 100);
       let colorClass = 'soy';
       const cLower = crop.toLowerCase();
-      if (cLower === 'milho' || cLower.includes('cana') || cLower.includes('hortali')) colorClass = 'corn';
-      else if (cLower.includes('caf') || cLower.includes('feij') || cLower.includes('fruti')) colorClass = 'coffee';
-      else if (cLower === 'trigo' || cLower.includes('algod') || cLower.includes('arroz')) colorClass = 'wheat';
+      if (cLower === 'milho' || cLower.includes('cana') || cLower.includes('hortali') || cLower.includes('equino') || cLower.includes('ovino')) colorClass = 'corn';
+      else if (cLower.includes('caf') || cLower.includes('feij') || cLower.includes('fruti') || cLower.includes('gado')) colorClass = 'coffee';
+      else if (cLower === 'trigo' || cLower.includes('algod') || cLower.includes('arroz') || cLower.includes('aves') || cLower.includes('suíno')) colorClass = 'wheat';
       
       html += `<div class="bar-group"><div class="bar ${colorClass}" style="height: ${pct}%"><span>${vol} t</span></div><small>${crop}</small></div>`;
     });

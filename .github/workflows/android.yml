@@ -24,10 +24,12 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+
       - name: Accept licenses and install SDK
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        working-directory: .
+        run: |
+          yes | sdkmanager --licenses
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
       - name: Upload debug APK

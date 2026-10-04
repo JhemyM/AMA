@@ -200,20 +200,31 @@
     </div>
 
     <div class="form-group" style="margin-bottom: 1.5rem;">
-      <label for="newFieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura</label>
+      <label for="newFieldCrop" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Cultura / Criação</label>
       <select id="newFieldCrop" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: white;">
-        <option value="Milho">Milho</option>
-        <option value="Soja">Soja</option>
-        <option value="Café">Café</option>
-        <option value="Trigo">Trigo</option>
-        <option value="Algodão">Algodão</option>
-        <option value="Feijão">Feijão</option>
-        <option value="Cana">Cana-de-açúcar</option>
-        <option value="Arroz">Arroz</option>
-        <option value="Hortaliças">Hortaliças</option>
-        <option value="Fruticultura">Fruticultura</option>
-        <option value="Pastagem">Pastagem</option>
-        <option value="Outro">Outra Cultura</option>
+        <optgroup label="Agricultura">
+          <option value="Milho">Milho</option>
+          <option value="Soja">Soja</option>
+          <option value="Café">Café</option>
+          <option value="Trigo">Trigo</option>
+          <option value="Algodão">Algodão</option>
+          <option value="Feijão">Feijão</option>
+          <option value="Cana">Cana-de-açúcar</option>
+          <option value="Arroz">Arroz</option>
+          <option value="Hortaliças">Hortaliças</option>
+          <option value="Fruticultura">Fruticultura</option>
+          <option value="Pastagem">Pastagem</option>
+        </optgroup>
+        <optgroup label="Pecuária e Criação">
+          <option value="Gado de Corte">Gado de Corte</option>
+          <option value="Gado de Leite">Gado de Leite</option>
+          <option value="Aves">Aves</option>
+          <option value="Suínos">Suínos</option>
+          <option value="Equinos">Equinos</option>
+          <option value="Ovinos">Ovinos/Caprinos</option>
+          <option value="Piscicultura">Piscicultura</option>
+        </optgroup>
+        <option value="Outro">Outra</option>
       </select>
     </div>
 
@@ -302,8 +313,8 @@
   <button class="secondary-button active" data-category="all" style="border-radius: 20px;">Todos</button>
   <button class="secondary-button" data-category="recommended" style="border-radius: 20px; border-color: var(--primary); color: var(--primary);">🎯 Recomendados (On-Demand)</button>
   <button class="secondary-button" data-category="solo" style="border-radius: 20px;">Solo e Adubação</button>
-  <button class="secondary-button" data-category="soja" style="border-radius: 20px;">Soja</button>
-  <button class="secondary-button" data-category="milho" style="border-radius: 20px;">Milho</button>
+  <button class="secondary-button" data-category="soja" style="border-radius: 20px;">Soja e Milho</button>
+  <button class="secondary-button" data-category="gado" style="border-radius: 20px;">Pecuária e Criação</button>
   <button class="secondary-button" data-category="clima" style="border-radius: 20px;">Clima e Água</button>
 </div>
 <div class="embrapa-list" id="embrapaModuleList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
@@ -1092,6 +1103,50 @@
         "keywords": ["pastagem", "gado", "rotação"],
         "category": "pastagem",
         "officialUrl": "https://www.embrapa.br/gado-de-corte"
+      },
+      {
+        "id": "man-021",
+        "title": "Piscicultura: Manejo da Água e Alimentação",
+        "abstract": "Guias práticos para manutenção de viveiros, parâmetros de água e nutrição de peixes.",
+        "publicationType": "Guia Prático",
+        "publicationYear": 2021,
+        "authors": ["Embrapa Pesca e Aquicultura"],
+        "keywords": ["peixes", "água", "piscicultura", "aquicultura"],
+        "category": "piscicultura",
+        "officialUrl": "https://www.embrapa.br/pesca-e-aquicultura"
+      },
+      {
+        "id": "man-022",
+        "title": "Sanidade Bovina: Gado de Corte e Leite",
+        "abstract": "Protocolos sanitários e de vacinação para prevenir doenças em bovinos de corte e de leite.",
+        "publicationType": "Comunicado Técnico",
+        "publicationYear": 2022,
+        "authors": ["Embrapa Gado de Corte", "Embrapa Gado de Leite"],
+        "keywords": ["gado", "bovinos", "leite", "corte", "sanidade"],
+        "category": "gado",
+        "officialUrl": "https://www.embrapa.br/gado-de-corte"
+      },
+      {
+        "id": "man-023",
+        "title": "Avicultura Caipira: Instalações e Biosseguridade",
+        "abstract": "Estruturas, manejo de ambiência e prevenção de doenças para galinhas poedeiras e frangos de corte.",
+        "publicationType": "Manual",
+        "publicationYear": 2020,
+        "authors": ["Embrapa Suínos e Aves"],
+        "keywords": ["aves", "frango", "galinha", "biosseguridade"],
+        "category": "aves",
+        "officialUrl": "https://www.embrapa.br/suinos-e-aves"
+      },
+      {
+        "id": "man-024",
+        "title": "Suinocultura: Manejo de Dejetos e Sustentabilidade",
+        "abstract": "Práticas para o uso de dejetos suínos como biofertilizantes e biogás na propriedade.",
+        "publicationType": "Boletim Técnico",
+        "publicationYear": 2023,
+        "authors": ["Embrapa Suínos e Aves"],
+        "keywords": ["suínos", "dejetos", "porcos", "biogás"],
+        "category": "suínos",
+        "officialUrl": "https://www.embrapa.br/suinos-e-aves"
       }
     ];
 
@@ -1128,7 +1183,10 @@
                               doc.keywords.some(k => normalizeStr(k).includes(normalizedSearch)) ||
                               normalizeStr(doc.abstract).includes(normalizedSearch);
                               
-        let matchesCategory = currentCategory === 'all' || doc.category === currentCategory;
+        const livestockCategories = ['gado', 'aves', 'suínos', 'piscicultura', 'pastagem'];
+        let matchesCategory = currentCategory === 'all' || doc.category === currentCategory ||
+          (currentCategory === 'gado' && livestockCategories.includes(doc.category)) ||
+          (currentCategory === 'soja' && (doc.category === 'soja' || doc.category === 'milho'));
         
         // On-Demand Logic
         if (currentCategory === 'recommended') {
