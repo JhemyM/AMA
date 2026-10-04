@@ -120,17 +120,75 @@ async function updateWeather(lat, lon) {
   }
 }
 
+let currentPropertyIndex = parseInt(localStorage.getItem('agra_active_property_index') || '0');
+
+function getProperties() {
+  const dataStr = localStorage.getItem('agra_properties');
+  if (dataStr) return JSON.parse(dataStr);
+  const oldDataStr = localStorage.getItem('agra_property_data');
+  if (oldDataStr) {
+    const arr = [JSON.parse(oldDataStr)];
+    localStorage.setItem('agra_properties', JSON.stringify(arr));
+    return arr;
+  }
+  return [];
+}
+
+function updateFarmSelect(props) {
+  const select = document.getElementById('farmSelect');
+  if (!select) return;
+  select.innerHTML = '';
+  props.forEach((p, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = p.propertyName;
+    if (idx === currentPropertyIndex) opt.selected = true;
+    select.appendChild(opt);
+  });
+}
+
+document.getElementById('farmSelect')?.addEventListener('change', (e) => {
+  currentPropertyIndex = parseInt(e.target.value);
+  localStorage.setItem('agra_active_property_index', currentPropertyIndex);
+  const props = getProperties();
+  if (props[currentPropertyIndex]) {
+    localStorage.setItem('agra_property_data', JSON.stringify(props[currentPropertyIndex]));
+    window.dispatchEvent(new Event('agra_property_updated'));
+  }
+});
+
+document.getElementById('addFarmButton')?.addEventListener('click', () => {
+  onboardingDialog.showModal();
+});
+
 function renderPropertyData() {
-  const dataStr = localStorage.getItem('agra_property_data');
-  if (!dataStr) {
+  const props = getProperties();
+  
+  if (props.length === 0) {
     onboardingDialog?.showModal();
     return;
   }
-  
+
+  const activeDataStr = localStorage.getItem('agra_property_data');
+  if (activeDataStr) {
+    const activeData = JSON.parse(activeDataStr);
+    if (!props[currentPropertyIndex] || JSON.stringify(props[currentPropertyIndex]) !== activeDataStr) {
+       props[currentPropertyIndex] = activeData;
+       localStorage.setItem('agra_properties', JSON.stringify(props));
+    }
+  } else {
+    localStorage.setItem('agra_property_data', JSON.stringify(props[currentPropertyIndex]));
+  }
+
+  const dataStr = localStorage.getItem('agra_property_data');
+  if (!dataStr) return;
   const data = JSON.parse(dataStr);
   
+  updateFarmSelect(props);
+  
   // Update property names
-  document.getElementById('sidebarPropertyName').textContent = data.propertyName;
+  const sidebarPropName = document.getElementById('sidebarPropertyName');
+  if (sidebarPropName) sidebarPropName.textContent = data.propertyName;
   document.getElementById('topPropertyName').textContent = data.propertyName;
   
   // Update metrics
@@ -309,10 +367,19 @@ onboardingForm?.addEventListener('submit', (e) => {
     ]
   };
   
+  const props = getProperties();
+  props.push(propertyData);
+  localStorage.setItem('agra_properties', JSON.stringify(props));
+  
+  currentPropertyIndex = props.length - 1;
+  localStorage.setItem('agra_active_property_index', currentPropertyIndex);
   localStorage.setItem('agra_property_data', JSON.stringify(propertyData));
+  
   onboardingDialog.close();
-  renderPropertyData();
-  showToast('Propriedade configurada com sucesso!');
+  e.target.reset();
+  
+  window.dispatchEvent(new Event('agra_property_updated'));
+  showToast('Propriedade adicionada com sucesso!');
 });
 
 // Run on load
