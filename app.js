@@ -647,3 +647,21 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
 window.addEventListener('agra_tasks_updated', () => {
   renderPropertyData();
 });
+
+// --- CARBON CALCULATOR LOGIC ---
+const btnCalculateCarbon = document.getElementById('btnCalculateCarbon');
+if (btnCalculateCarbon) {
+  btnCalculateCarbon.addEventListener('click', () => {
+    const area = parseFloat(document.getElementById('carbonArea').value) || 0;
+    const factor = parseFloat(document.getElementById('carbonBiome').value) || 0;
+    
+    const co2e = area * factor;
+    const revenue = co2e * 68.00;
+    
+    const resultBox = document.getElementById('carbonResult');
+    const resultText = document.getElementById('carbonResultText');
+    
+    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntÃ¡rio.`;
+    resultBox.style.display = 'block';
+  });
+}
