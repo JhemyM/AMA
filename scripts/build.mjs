@@ -55,7 +55,13 @@ await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 for (const file of webFiles) {
   if (file.endsWith('.js') && file !== 'sw.js') {
-    const content = await readFile(resolve(root, file), 'utf8');
+    let content = await readFile(resolve(root, file), 'utf8');
+    
+    // Inject Supabase Key from Vercel Env
+    if (file === 'supabase-client.js' && process.env.SUPABASE_ANON_KEY) {
+      content = content.replace('__INJECT_SUPABASE_ANON_KEY__', process.env.SUPABASE_ANON_KEY);
+    }
+    
     const obfuscated = JavaScriptObfuscator.obfuscate(content, obfConfig).getObfuscatedCode();
     await writeFile(resolve(output, file), obfuscated, 'utf8');
   } else {

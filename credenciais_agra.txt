@@ -1,0 +1,8 @@
+CREDENCIAIS DE SUPER USUÁRIO - AGRA
+
+Nível de Acesso: Vitalício (Todos os recursos desbloqueados)
+
+Email: admin@agra.com.br
+Senha: AgraAdmin2026!
+
+Nota: Estes dados foram registrados diretamente no seu banco de dados Supabase e possuem acesso irrestrito às funcionalidades premium.
