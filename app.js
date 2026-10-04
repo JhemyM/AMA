@@ -9,6 +9,43 @@ const sectionLabels = {
   team: 'Equipe'
 };
 
+// --- AUTHENTICATION LOGIC ---
+const authContainer = document.querySelector('#authContainer');
+const mainApp = document.querySelector('#mainApp');
+const loginForm = document.querySelector('#loginForm');
+const registerForm = document.querySelector('#registerForm');
+const showRegisterBtn = document.querySelector('#showRegisterBtn');
+const showLoginBtn = document.querySelector('#showLoginBtn');
+
+// Toggle between Login and Register forms
+showRegisterBtn?.addEventListener('click', () => {
+  loginForm.hidden = true;
+  registerForm.hidden = false;
+});
+
+showLoginBtn?.addEventListener('click', () => {
+  registerForm.hidden = true;
+  loginForm.hidden = false;
+});
+
+// Mock authentication flow
+loginForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  // Simulate successful login
+  authContainer.hidden = true;
+  mainApp.hidden = false;
+  showToast('Login realizado com sucesso!');
+});
+
+registerForm?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  // Simulate successful registration
+  authContainer.hidden = true;
+  mainApp.hidden = false;
+  showToast('Conta criada com sucesso!');
+});
+// ----------------------------
+
 const dashboard = document.querySelector('#dashboardSection');
 const placeholder = document.querySelector('#placeholderSection');
 const pageTitle = document.querySelector('#pageTitle');
