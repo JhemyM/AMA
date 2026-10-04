@@ -132,30 +132,41 @@ h1, h2, h3, strong, b, .brand-mark {
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
 /* Login UI specific overrides */
 .auth-wrapper {
-  background: linear-gradient(135deg, #193b2d 0%, #2a5240 100%);
+  background: url('bg-login.jpg') no-repeat center center;
+  background-size: cover;
   position: relative;
   overflow: hidden;
 }
 .auth-wrapper::before {
   content: '';
   position: absolute;
-  top: -50%; left: -50%; width: 200%; height: 200%;
-  background: radial-gradient(circle at 50% 50%, rgba(144, 202, 160, 0.1), transparent 60%);
-  animation: rotate 30s linear infinite;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(25, 59, 45, 0.7) 0%, rgba(20, 40, 30, 0.8) 100%);
 }
-@keyframes rotate { 100% { transform: rotate(360deg); } }
 .auth-glass-panel {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+  background: rgba(20, 40, 30, 0.4);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
   color: #fff;
-  border-radius: 16px;
+  border-radius: 20px;
   transform: translateY(0);
-  animation: float 6s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
+  padding: 3rem;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  z-index: 10;
 }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.auth-logo img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
 .auth-header h1 { color: #fff; }
 .auth-header p { color: rgba(255,255,255,0.7); }
 .auth-form label { color: rgba(255,255,255,0.8); }
@@ -175,3 +186,57 @@ h1, h2, h3, strong, b, .brand-mark {
 .switch-auth { color: rgba(255,255,255,0.7); }
 .switch-auth span { color: #8fc9a1; }
 
+/* Monetization Styles */
+.locked-feature {
+  opacity: 0.6;
+  position: relative;
+}
+.lock-badge {
+  background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%);
+  color: white;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  margin-left: auto;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.paywall-content {
+  text-align: center;
+  max-width: 400px;
+  background: rgba(25, 59, 45, 0.95);
+  backdrop-filter: blur(10px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.paywall-header h2 {
+  color: #8fc9a1;
+  font-size: 1.5rem;
+}
+.plan-card {
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+.plan-card .price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #d4af37;
+  margin: 1rem 0;
+}
+.plan-card .price span {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.6);
+}
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+.plan-card li {
+  margin-bottom: 0.5rem;
+  color: #e0e0e0;
+}
