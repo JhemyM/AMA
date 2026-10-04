@@ -32,17 +32,18 @@
       <button class="dialog-close" value="cancel" type="button" onclick="document.getElementById('manualDialog').close()" aria-label="Fechar">×</button>
     </div>
     
-    <div style="margin-bottom: 1.5rem;">
+    <div style="margin-bottom: 1.5rem; max-height: 50vh; overflow-y: auto; padding-right: 0.5rem;">
       <p class="muted" style="margin-bottom: 0.5rem;"><strong id="manualYear">2026</strong> · <span id="manualAuthors">Embrapa</span></p>
       <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;" id="manualKeywords">
       </div>
-      <p id="manualAbstract" style="line-height: 1.6;">Resumo do manual...</p>
+      <p id="manualAbstract" style="line-height: 1.6; font-weight: 500; margin-bottom: 1rem;">Resumo do manual...</p>
+      <div id="manualFullText" style="line-height: 1.8; color: var(--text-muted); display: none; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem;"></div>
     </div>
     
     <div class="feedback-actions" style="display:flex; justify-content:flex-end; gap: 1rem; align-items:center;">
       <button class="secondary-button" id="manualSaveBtn" type="button" style="margin-right:auto;">⭐ Salvar</button>
       <button class="secondary-button" value="cancel" type="button" onclick="document.getElementById('manualDialog').close()">Fechar</button>
-      <button class="primary-button" id="manualDownloadBtn" type="button">Baixar PDF <span>⬇</span></button>
+      <button class="primary-button" id="manualReadBtn" type="button">Ler Artigo Completo <span>📖</span></button>
     </div>
   </form>
 </dialog>
