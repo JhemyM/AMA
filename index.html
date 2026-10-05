@@ -15,7 +15,7 @@
   </script>
   <!-- Leaflet for Satellite Maps -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js?v=0.7.9" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js?v=0.7.10" crossorigin=""></script>
 </head>
 <body>
   <!-- MAIN APP -->
@@ -237,16 +237,32 @@
               </optgroup>
               <optgroup label="Outros">
                 <option value="Outro">Outra Cultura</option>
-              </optgroup>
-            </select>
+                              </optgroup>
+                <optgroup label="Silvicultura">
+                  <option value="Eucalipto">Eucalipto</option>
+                  <option value="Pinus">Pinus</option>
+                  <option value="Seringueira">Seringueira</option>
+                  <option value="Mogno Africano">Mogno Africano</option>
+                </optgroup>
+                <optgroup label="Pastagem e Pecuária">
+                  <option value="Pastagem (Braquiária)">Pastagem (Braquiária)</option>
+                  <option value="Pastagem (Mombaça)">Pastagem (Mombaça)</option>
+                  <option value="Gado de Corte">Gado de Corte</option>
+                  <option value="Gado de Leite">Gado de Leite</option>
+                  <option value="Suínos">Suínos</option>
+                  <option value="Aves">Aves</option>
+                  <option value="Ovinos/Caprinos">Ovinos/Caprinos</option>
+                </optgroup>
+              </select>
           </div>
           <div class="form-group">
-            <label for="fieldVariety" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Variedade</label>
-            <input type="text" id="fieldVariety" required placeholder="Ex: Pioneer 30F53" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+            <label for="fieldVariety" style="display:block; margin-bottom: 0.5rem; font-weight: 500;">Variedade <small style="color: #666; font-weight: normal;">(Opcional)</small></label>
+            <input type="text" id="fieldVariety" placeholder="Ex: Pioneer 30F53" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
           </div>
       </div>
       
-      <div class="feedback-actions" style="display:flex; justify-content:flex-end;">
+      <div class="feedback-actions" style="display:flex; justify-content:space-between;">
+          <button class="secondary-button" id="fillFakeDataButton" type="button" style="border: 1px solid #193b2d;">Preencher p/ Teste</button>
         <button class="primary-button" value="submit" type="submit">Salvar Propriedade</button>
       </div>
     </form>
@@ -256,12 +272,12 @@
   <div class="toast" id="toast" role="status">Atividade registrada com sucesso.</div>
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="supabase-client.js?v=0.7.9"></script>
-  <script defer src="storage.js?v=0.7.9"></script>
-  <script defer src="feedback-config.js?v=0.7.9"></script>
-  <script defer src="feedback-config.local.js?v=0.7.9"></script>
-  <script defer src="monetization.js?v=0.7.9"></script>
-  <script defer src="app.js?v=0.7.9"></script>
+  <script defer src="supabase-client.js?v=0.7.10"></script>
+  <script defer src="storage.js?v=0.7.10"></script>
+  <script defer src="feedback-config.js?v=0.7.10"></script>
+  <script defer src="feedback-config.local.js?v=0.7.10"></script>
+  <script defer src="monetization.js?v=0.7.10"></script>
+  <script defer src="app.js?v=0.7.10"></script>
 
   <!-- Mobile Bottom Navigation -->
   <nav class="bottom-nav">

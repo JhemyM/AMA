@@ -32,7 +32,7 @@ function checkHashAndRedirect() {
   } else {
     // Normal load, redirect to dashboard if logged in
     if (localStorage.getItem('agra_current_user')) {
-      window.location.href = 'index.html?v=0.7.9';
+      window.location.href = 'index.html?v=0.7.10';
     }
   }
 }
@@ -84,7 +84,7 @@ demoLoginBtn?.addEventListener('click', () => {
     plan: 'demo'
   }));
   
-  window.location.href = 'index.html?v=0.7.9';
+  window.location.href = 'index.html?v=0.7.10';
 });
 
 // Supabase Registration
@@ -122,7 +122,7 @@ registerForm?.addEventListener('submit', async (e) => {
 
   showToast('Conta criada com sucesso!');
   setTimeout(() => {
-    window.location.href = 'index.html?v=0.7.9';
+    window.location.href = 'index.html?v=0.7.10';
   }, 1000);
 });
 
@@ -143,7 +143,7 @@ loginForm?.addEventListener('submit', async (e) => {
     localStorage.setItem('agra_current_user', JSON.stringify(user));
     showToast('Login de administrador bem-sucedido!');
     setTimeout(() => {
-      window.location.href = 'index.html?v=0.7.9';
+      window.location.href = 'index.html?v=0.7.10';
     }, 1000);
     return;
   }
@@ -163,7 +163,7 @@ loginForm?.addEventListener('submit', async (e) => {
   } else {
     showToast('Login realizado com sucesso!');
     setTimeout(() => {
-      window.location.href = 'index.html?v=0.7.9';
+      window.location.href = 'index.html?v=0.7.10';
     }, 1000);
   }
 });
@@ -219,7 +219,7 @@ resetPasswordForm?.addEventListener('submit', async (e) => {
     showToast('Senha atualizada com sucesso!');
     setTimeout(() => {
       window.location.hash = ''; // Clear hash
-      window.location.href = 'index.html?v=0.7.9';
+      window.location.href = 'index.html?v=0.7.10';
     }, 1500);
   }
 });

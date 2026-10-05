@@ -22,7 +22,7 @@ if (demoStart) {
       alert("Seu tempo de demonstração (15 minutos) expirou. Obrigado por experimentar o AGRA!");
       localStorage.removeItem('agra_demo_start');
       window.supabaseClient.auth.signOut().then(() => {
-        window.location.href = 'login.html?v=0.7.9';
+        window.location.href = 'login.html?v=0.7.10';
       });
     }
   };
@@ -68,7 +68,7 @@ document.getElementById('logoutButton')?.addEventListener('click', async () => {
     await window.supabaseClient.auth.signOut();
   }
   localStorage.removeItem('agra_current_user');
-  window.location.href = 'login.html?v=0.7.9';
+  window.location.href = 'login.html?v=0.7.10';
 });
 
 document.getElementById('topAvatar')?.addEventListener('click', () => {
@@ -86,7 +86,7 @@ document.getElementById('logoutButtonProfile')?.addEventListener('click', async 
   }
   localStorage.removeItem('agra_current_user');
   localStorage.removeItem('agra_demo_start');
-  window.location.href = 'login.html?v=0.7.9';
+  window.location.href = 'login.html?v=0.7.10';
 });
 
 
@@ -516,6 +516,16 @@ function renderPropertyData() {
     }
   }
 }
+
+
+document.getElementById('fillFakeDataButton')?.addEventListener('click', () => {
+  document.getElementById('propName').value = 'Fazenda Demonstração';
+  document.getElementById('propArea').value = '150';
+  document.getElementById('fieldName').value = 'Talhão Alpha';
+  document.getElementById('fieldArea').value = '45';
+  document.getElementById('fieldCrop').value = 'Soja';
+  document.getElementById('fieldVariety').value = 'Pioneer 30F53';
+});
 
 onboardingForm?.addEventListener('submit', (e) => {
   e.preventDefault();
