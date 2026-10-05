@@ -77,7 +77,7 @@ await cp(resolve(root, 'bg-login.jpg'), resolve(output, 'bg-login.jpg'));
 const packageJson = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
 const serviceWorkerPath = resolve(output, 'sw.js');
 const serviceWorker = await readFile(serviceWorkerPath, 'utf8');
-await writeFile(serviceWorkerPath, serviceWorker.replace('agra-shell-v1', `agra-shell-v${packageJson.version}`), 'utf8');
+await writeFile(serviceWorkerPath, serviceWorker.replace(/agra-shell-v[0-9.]+/, `agra-shell-v${packageJson.version}`), 'utf8');
 
 // Bundle modules into index.html
 let indexHtml = await readFile(resolve(output, 'index.html'), 'utf8');
