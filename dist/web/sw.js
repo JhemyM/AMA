@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agra-shell-v0.7.1';
+const CACHE_NAME = 'agra-shell-v0.7.2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,26 +9,38 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      // Do not fail installation if a file is missing
+      return Promise.allSettled(APP_SHELL.map(url => cache.add(url).catch(e => console.warn('SW Cache fail:', url))));
+    })
+  );
+  self.skipWaiting(); // Force immediately taking over
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
       keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-    ))
+    )).then(() => self.clients.claim()) // Immediately control all pages to break the 404 loop
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  
+  // Network-First Strategy to prevent caching 404s and force updates
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
-      const copy = response.clone();
-      caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+    fetch(event.request).then((response) => {
+      // ONLY cache valid responses
+      if (response && response.status === 200 && response.type === 'basic') {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+      }
       return response;
-    }).catch(() => caches.match('./index.html')))
+    }).catch(() => {
+      // Offline fallback
+      return caches.match(event.request).then((cached) => cached || caches.match('./index.html'));
+    })
   );
 });
