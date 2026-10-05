@@ -131,7 +131,7 @@ const templates = `
 <template id="tpl-carbon">${carbonHtml}</template>
 `;
 
-indexHtml = indexHtml.replace('</body>', `${templates}\n${injectedScripts}\n</body>`);
+indexHtml = indexHtml.replace('</body>', () => `${templates}\n${injectedScripts}\n</body>`);
 await writeFile(resolve(output, 'index.html'), indexHtml, 'utf8');
 
 console.log(`AGRA web build ready: ${output} (Obfuscated)`);

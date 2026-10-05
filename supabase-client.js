@@ -21,7 +21,7 @@ window.supabaseClient.auth.onAuthStateChange((event, session) => {
   } else {
     const localUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
     // Prevent wiping demo or admin sessions that bypass Supabase
-    if (localUser.id !== 'demo-123' && localUser.id !== 'admin-123') {
+    if (localUser.role !== 'demo' && localUser.role !== 'admin') {
       localStorage.removeItem('agra_current_user');
     }
   }

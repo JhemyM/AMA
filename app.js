@@ -1,8 +1,8 @@
-const sectionLabels = {
+﻿const sectionLabels = {
   dashboard: 'Dashboard',
-  production: 'Produção',
-  fields: 'Talhões',
-  soil: 'Solo e análises',
+  production: 'ProduÃ§Ã£o',
+  fields: 'TalhÃµes',
+  soil: 'Solo e anÃ¡lises',
   weather: 'Clima',
   tasks: 'Atividades',
   inventory: 'Estoque',
@@ -19,7 +19,7 @@ if (demoStart) {
     const elapsed = Date.now() - parseInt(demoStart, 10);
     // 15 minutes = 15 * 60 * 1000 = 900000 ms
     if (elapsed > 900000) {
-      alert("Seu tempo de demonstração (15 minutos) expirou. Obrigado por experimentar o AGRA!");
+      alert("Seu tempo de demonstraÃ§Ã£o (15 minutos) expirou. Obrigado por experimentar o AGRA!");
       localStorage.removeItem('agra_demo_start');
       window.supabaseClient.auth.signOut().then(() => {
         window.location.href = 'login.html?v=0.7.16';
@@ -64,11 +64,23 @@ if (currentDateElement) {
 }
 
 document.getElementById('logoutButton')?.addEventListener('click', async () => {
-  if (window.supabaseClient) {
-    await window.supabaseClient.auth.signOut();
-  }
-  localStorage.removeItem('agra_current_user');
-  window.location.href = 'login.html?v=0.7.16';
+    if (window.supabaseClient) {
+      await window.supabaseClient.auth.signOut();
+    }
+    console.log('EXECUTING LOGOUT HANDLER. Role:', JSON.parse(localStorage.getItem('agra_current_user') || '{}').role); const currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
+    if (currentUser.role === 'demo') {
+      const keysToKeep = ['agra_theme', 'agra_font_size', 'agra_reduced_motion'];
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && !keysToKeep.includes(key)) {
+          localStorage.removeItem(key);
+        }
+      }
+    } else {
+      localStorage.removeItem('agra_current_user');
+      localStorage.removeItem('agra_demo_start');
+    }
+    window.location.href = 'login.html?v=0.7.17';
 });
 
 document.getElementById('topAvatar')?.addEventListener('click', () => {
@@ -81,12 +93,23 @@ document.getElementById('themeToggleButtonProfile')?.addEventListener('click', (
 });
 
 document.getElementById('logoutButtonProfile')?.addEventListener('click', async () => {
-  if (window.supabaseClient) {
-    await window.supabaseClient.auth.signOut();
-  }
-  localStorage.removeItem('agra_current_user');
-  localStorage.removeItem('agra_demo_start');
-  window.location.href = 'login.html?v=0.7.16';
+    if (window.supabaseClient) {
+      await window.supabaseClient.auth.signOut();
+    }
+    console.log('EXECUTING LOGOUT HANDLER. Role:', JSON.parse(localStorage.getItem('agra_current_user') || '{}').role); const currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
+    if (currentUser.role === 'demo') {
+      const keysToKeep = ['agra_theme', 'agra_font_size', 'agra_reduced_motion'];
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && !keysToKeep.includes(key)) {
+          localStorage.removeItem(key);
+        }
+      }
+    } else {
+      localStorage.removeItem('agra_current_user');
+      localStorage.removeItem('agra_demo_start');
+    }
+    window.location.href = 'login.html?v=0.7.17';
 });
 
 
@@ -126,14 +149,14 @@ async function updateWeather(lat, lon) {
     const data = await res.json();
     
     const codeToIcon = (code) => {
-      if (code <= 1) return '☀'; 
-      if (code <= 3) return '⛅'; 
-      if (code <= 48) return '☁'; 
-      if (code <= 67) return '☂'; 
-      if (code <= 77) return '❄'; 
-      if (code <= 82) return '🌧'; 
-      if (code <= 99) return '⛈'; 
-      return '☀';
+      if (code <= 1) return 'â˜€'; 
+      if (code <= 3) return 'â›…'; 
+      if (code <= 48) return 'â˜'; 
+      if (code <= 67) return 'â˜‚'; 
+      if (code <= 77) return 'â„'; 
+      if (code <= 82) return 'ðŸŒ§'; 
+      if (code <= 99) return 'â›ˆ'; 
+      return 'â˜€';
     };
     
     const codeToDesc = (code) => {
@@ -148,17 +171,17 @@ async function updateWeather(lat, lon) {
     };
 
     const current = data.current;
-    document.getElementById('weatherTempMain').textContent = `${Math.round(current.temperature_2m)}°`;
+    document.getElementById('weatherTempMain').textContent = `${Math.round(current.temperature_2m)}Â°`;
     document.getElementById('weatherIconMain').textContent = codeToIcon(current.weather_code);
     document.getElementById('weatherDescMain').textContent = codeToDesc(current.weather_code);
     document.getElementById('weatherHumMain').textContent = `${current.relative_humidity_2m}%`;
     document.getElementById('weatherWindMain').textContent = `${current.wind_speed_10m} km/h`;
-    document.getElementById('weatherLocation').textContent = `Satélite (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
+    document.getElementById('weatherLocation').textContent = `SatÃ©lite (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
 
     const forecastContainer = document.getElementById('weatherForecastMain');
     if (forecastContainer) {
       let html = '';
-      const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+      const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'SÃ¡b'];
       for (let i = 0; i < 4; i++) {
         const date = new Date(data.daily.time[i]);
         date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
@@ -166,7 +189,7 @@ async function updateWeather(lat, lon) {
         const icon = codeToIcon(data.daily.weather_code[i]);
         const max = Math.round(data.daily.temperature_2m_max[i]);
         const min = Math.round(data.daily.temperature_2m_min[i]);
-        html += `<div><span>${dayName}</span><b>${icon}</b><strong>${max}°</strong><small>${min}°</small></div>`;
+        html += `<div><span>${dayName}</span><b>${icon}</b><strong>${max}Â°</strong><small>${min}Â°</small></div>`;
       }
       forecastContainer.innerHTML = html;
     }
@@ -220,10 +243,10 @@ document.getElementById('deleteFarmButton')?.addEventListener('click', () => {
   const props = getProperties();
   if (props.length <= 1) {
     const toast = document.querySelector('#toast');
-    if (toast) { toast.textContent = 'Você não pode excluir a única fazenda.'; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2600); }
+    if (toast) { toast.textContent = 'VocÃª nÃ£o pode excluir a Ãºnica fazenda.'; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2600); }
     return;
   }
-  if(confirm('Tem certeza que deseja excluir esta fazenda? Todos os dados serão perdidos.')) {
+  if(confirm('Tem certeza que deseja excluir esta fazenda? Todos os dados serÃ£o perdidos.')) {
     props.splice(currentPropertyIndex, 1);
     localStorage.setItem('agra_properties', JSON.stringify(props));
     currentPropertyIndex = 0;
@@ -266,7 +289,7 @@ function renderPropertyData() {
   // Update metrics
   document.getElementById('metricArea').innerHTML = `${data.totalArea} <small>ha</small>`;
   document.getElementById('metricTotalArea').textContent = `de ${data.totalArea} ha totais`;
-  document.getElementById('metricFieldsCount').textContent = `${data.fields.length} talhões ativos`;
+  document.getElementById('metricFieldsCount').textContent = `${data.fields.length} talhÃµes ativos`;
   
   // Calculate mock production (e.g. 5 tons per ha for demo purposes)
   const estimatedProduction = data.fields.reduce((acc, field) => acc + (field.area * 5), 0);
@@ -307,7 +330,7 @@ function renderPropertyData() {
         <div class="field-row">
           <div class="field-name">
             <span class="field-color ${color}"></span>
-            <div><strong>${field.name}</strong><small>${field.crop}${field.variety ? ' (' + field.variety + ')' : ''} · ${field.area} ha</small></div>
+            <div><strong>${field.name}</strong><small>${field.crop}${field.variety ? ' (' + field.variety + ')' : ''} Â· ${field.area} ha</small></div>
           </div>
           <div class="progress"><span class="${color === 'yellow' ? 'yellow-fill' : color === 'red' ? 'red-fill' : ''}" style="width: ${field.health}%"></span></div>
           <strong class="${color === 'green' ? 'health-good' : color === 'yellow' ? 'health-warn' : 'health-alert'}">${field.health}</strong>
@@ -342,7 +365,7 @@ function renderPropertyData() {
       const cLower = crop.toLowerCase();
       if (cLower === 'milho' || cLower.includes('cana') || cLower.includes('hortali') || cLower.includes('equino') || cLower.includes('ovino')) colorClass = 'corn';
       else if (cLower.includes('caf') || cLower.includes('feij') || cLower.includes('fruti') || cLower.includes('gado')) colorClass = 'coffee';
-      else if (cLower === 'trigo' || cLower.includes('algod') || cLower.includes('arroz') || cLower.includes('aves') || cLower.includes('suíno')) colorClass = 'wheat';
+      else if (cLower === 'trigo' || cLower.includes('algod') || cLower.includes('arroz') || cLower.includes('aves') || cLower.includes('suÃ­no')) colorClass = 'wheat';
       
       html += `<div class="bar-group"><div class="bar ${colorClass}" style="height: ${pct}%"><span>${vol} t</span></div><small>${crop}</small></div>`;
     });
@@ -381,7 +404,7 @@ function renderPropertyData() {
             let color = field.health >= 75 ? '#22c55e' : field.health >= 60 ? '#f59e0b' : '#ef4444';
             L.circle(coords, {
               color: color, fillColor: color, fillOpacity: 0.6, radius: Math.sqrt(field.area) * 200
-            }).bindPopup(`<b>${field.name}</b><br>Cultura: ${field.crop}${field.variety ? ' (' + field.variety + ')' : ''}<br>Saúde: ${field.health}%`).addTo(dashboardMap);
+            }).bindPopup(`<b>${field.name}</b><br>Cultura: ${field.crop}${field.variety ? ' (' + field.variety + ')' : ''}<br>SaÃºde: ${field.health}%`).addTo(dashboardMap);
             bounds.push(coords);
           }
         }
@@ -408,19 +431,19 @@ function renderPropertyData() {
 
   // Update property summary
   const resourceRing = document.getElementById('dynamicResourceRing');
-  if (resourceRing) resourceRing.innerHTML = `<strong>${avgHealth}%</strong><small>saúde geral</small>`;
+  if (resourceRing) resourceRing.innerHTML = `<strong>${avgHealth}%</strong><small>saÃºde geral</small>`;
   const farmStatusDesc = document.getElementById('dynamicFarmStatusDesc');
   const farmStatus = document.getElementById('dynamicFarmStatus');
   if (farmStatus) {
     if (avgHealth >= 75) {
-      farmStatus.textContent = "Boa condição geral";
-      farmStatusDesc.textContent = "A maioria dos talhões dentro da faixa ideal.";
+      farmStatus.textContent = "Boa condiÃ§Ã£o geral";
+      farmStatusDesc.textContent = "A maioria dos talhÃµes dentro da faixa ideal.";
     } else if (avgHealth >= 60) {
-      farmStatus.textContent = "Atenção necessária";
-      farmStatusDesc.textContent = "Alguns talhões apresentam queda de rendimento.";
+      farmStatus.textContent = "AtenÃ§Ã£o necessÃ¡ria";
+      farmStatusDesc.textContent = "Alguns talhÃµes apresentam queda de rendimento.";
     } else {
       farmStatus.textContent = "Risco na lavoura";
-      farmStatusDesc.textContent = "Múltiplos talhões com índices críticos de saúde.";
+      farmStatusDesc.textContent = "MÃºltiplos talhÃµes com Ã­ndices crÃ­ticos de saÃºde.";
     }
   }
 
@@ -452,11 +475,11 @@ function renderPropertyData() {
             <span class="task-date ${isToday ? 'today' : ''}"><b>${day}</b><small>${month}</small></span>
             <div style="flex:1; min-width:0;">
               <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.title}</strong>
-              <small style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} · ${task.assignee}</small>
+              <small style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} Â· ${task.assignee}</small>
             </div>
             <div style="display:flex; align-items:center; gap:0.25rem; flex-shrink: 0;">
               <span class="tag ${isToday ? 'urgent' : 'planned'}">${isToday ? 'Hoje' : 'Agendado'}</span>
-              <button class="text-button delete-task-btn" data-title="${task.title}" style="color: var(--red-600); padding: 0 0.25rem; font-size: 1.25rem; line-height: 1;" title="Excluir Atividade">×</button>
+              <button class="text-button delete-task-btn" data-title="${task.title}" style="color: var(--red-600); padding: 0 0.25rem; font-size: 1.25rem; line-height: 1;" title="Excluir Atividade">Ã—</button>
             </div>
           </div>
         `;
@@ -486,18 +509,18 @@ function renderPropertyData() {
     
     if (lowestHealthField.health < 70) {
       if (lowestHealthField.crop.toLowerCase().includes('soja')) {
-        recMessage = `O ${lowestHealthField.name} (Soja) está com saúde baixa (${lowestHealthField.health}). Atenção para o controle de pragas!`;
+        recMessage = `O ${lowestHealthField.name} (Soja) estÃ¡ com saÃºde baixa (${lowestHealthField.health}). AtenÃ§Ã£o para o controle de pragas!`;
         searchTerm = 'pragas soja';
       } else if (lowestHealthField.crop.toLowerCase().includes('milho')) {
-        recMessage = `O ${lowestHealthField.name} (Milho) está com saúde ${lowestHealthField.health}. Verifique a umidade do solo e adubação.`;
-        searchTerm = 'irrigação milho';
+        recMessage = `O ${lowestHealthField.name} (Milho) estÃ¡ com saÃºde ${lowestHealthField.health}. Verifique a umidade do solo e adubaÃ§Ã£o.`;
+        searchTerm = 'irrigaÃ§Ã£o milho';
       } else {
-        recMessage = `O ${lowestHealthField.name} apresenta índice crítico (${lowestHealthField.health}). Revise as práticas de conservação do solo.`;
-        searchTerm = 'conservação solo';
+        recMessage = `O ${lowestHealthField.name} apresenta Ã­ndice crÃ­tico (${lowestHealthField.health}). Revise as prÃ¡ticas de conservaÃ§Ã£o do solo.`;
+        searchTerm = 'conservaÃ§Ã£o solo';
       }
     } else {
-      recMessage = `Sua lavoura está excelente! Mantenha a sustentabilidade otimizando o aproveitamento de resíduos.`;
-      searchTerm = 'resíduos';
+      recMessage = `Sua lavoura estÃ¡ excelente! Mantenha a sustentabilidade otimizando o aproveitamento de resÃ­duos.`;
+      searchTerm = 'resÃ­duos';
     }
     
     recText.textContent = recMessage;
@@ -519,9 +542,9 @@ function renderPropertyData() {
 
 
 document.getElementById('fillFakeDataButton')?.addEventListener('click', () => {
-  document.getElementById('propName').value = 'Fazenda Demonstração';
+  document.getElementById('propName').value = 'Fazenda DemonstraÃ§Ã£o';
   document.getElementById('propArea').value = '150';
-  document.getElementById('fieldName').value = 'Talhão Alpha';
+  document.getElementById('fieldName').value = 'TalhÃ£o Alpha';
   document.getElementById('fieldArea').value = '45';
   document.getElementById('fieldCrop').value = 'Soja';
   document.getElementById('fieldVariety').value = 'Pioneer 30F53';
@@ -619,7 +642,7 @@ async function showSection(section) {
         loadedModules.add(section);
       } catch (error) {
         console.error('Failed to load module:', error);
-        showToast('Erro ao carregar o módulo.');
+        showToast('Erro ao carregar o mÃ³dulo.');
       }
     }
     
@@ -670,7 +693,7 @@ document.querySelector('#importDataInput').addEventListener('change', async (eve
     AgraStorage.importBackup(JSON.parse(await file.text()));
     showToast('Backup importado. Recarregue a tela para atualizar os dados.');
   } catch (error) {
-    showToast(error instanceof Error ? error.message : 'Não foi possível importar o backup.');
+    showToast(error instanceof Error ? error.message : 'NÃ£o foi possÃ­vel importar o backup.');
   }
   input.value = '';
 });
@@ -683,13 +706,13 @@ document.querySelector('#emailFeedbackButton').addEventListener('click', () => {
     return;
   }
   if (!feedbackEmail) {
-    showToast('Configure o e-mail do proprietário em feedback-config.js.');
+    showToast('Configure o e-mail do proprietÃ¡rio em feedback-config.js.');
     return;
   }
   const type = document.querySelector('#feedbackType').value;
   const rating = document.querySelector('#feedbackRating').value;
   const subject = encodeURIComponent(`[AGRA] Feedback do piloto - ${type}`);
-  const body = encodeURIComponent(`Avaliação: ${rating}/5\nCategoria: ${type}\nVersão: 0.1.0-alpha.1\n\n${message}`);
+  const body = encodeURIComponent(`AvaliaÃ§Ã£o: ${rating}/5\nCategoria: ${type}\nVersÃ£o: 0.1.0-alpha.1\n\n${message}`);
   window.location.href = `mailto:${feedbackEmail}?subject=${subject}&body=${body}`;
 });
 document.querySelector('#feedbackForm').addEventListener('submit', (event) => {
@@ -719,12 +742,12 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
       const newWorker = reg.installing;
       newWorker.addEventListener('statechange', () => {
         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-          showToast('Atualização aplicada. Recarregando...');
+          showToast('AtualizaÃ§Ã£o aplicada. Recarregando...');
           setTimeout(() => window.location.reload(), 1500);
         }
       });
     });
-  }).catch(() => showToast('Cache offline indisponível nesta sessão.'));
+  }).catch(() => showToast('Cache offline indisponÃ­vel nesta sessÃ£o.'));
 }
 
 window.addEventListener('agra_tasks_updated', () => {
@@ -744,7 +767,7 @@ if (btnCalculateCarbon) {
     const resultBox = document.getElementById('carbonResult');
     const resultText = document.getElementById('carbonResultText');
     
-    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntÃ¡rio.`;
+    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntÃƒÂ¡rio.`;
     resultBox.style.display = 'block';
   });
 }
@@ -779,3 +802,6 @@ showSection = async function(section) {
     btn.classList.toggle('active', btn.getAttribute('data-section') === section);
   });
 };
+
+
+

@@ -50,6 +50,8 @@
     "javascript-obfuscator": "^5.9.0"
   },
   "dependencies": {
-    "mercadopago": "^3.6.1"
+    "acorn": "^8.18.0",
+    "mercadopago": "^3.6.1",
+    "playwright": "^1.63.0"
   }
 }
