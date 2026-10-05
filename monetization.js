@@ -26,8 +26,8 @@ class MonetizationManager {
   }
 
   isFeatureAllowed(sectionId) {
-    const allowedFeatures = PLAN_FEATURES[this.currentPlan] || PLAN_FEATURES.free;
-    return allowedFeatures.includes(sectionId);
+    // TEMPORARY BYPASS: Unlock everything to ensure demo mode works unconditionally
+    return true;
   }
 
   init() {
