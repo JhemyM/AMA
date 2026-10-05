@@ -16,7 +16,8 @@ const webFiles = [
   'app.js',
   'sw.js',
   'manifest.webmanifest',
-  'supabase-client.js'
+  'supabase-client.js',
+  'clear_cache.html'
 ];
 
 const obfConfig = {
