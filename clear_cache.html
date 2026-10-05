@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Limpando Cache do AGRA...</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; background: #1b3329; color: white; }
+    h1 { color: #8fc9a1; }
+  </style>
+</head>
+<body>
+  <h1>Corrigindo o sistema...</h1>
+  <p>Por favor, aguarde enquanto limpamos os dados offline do seu navegador.</p>
+  
+  <script>
+    // 1. Limpar todo o Local Storage
+    localStorage.clear();
+    
+    // 2. Desregistrar e destruir o Service Worker antigo
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        let unregisterPromises = [];
+        for(let registration of registrations) {
+          unregisterPromises.push(registration.unregister());
+        }
+        return Promise.all(unregisterPromises);
+      }).then(function() {
+        // 3. Limpar todos os Caches do navegador
+        if ('caches' in window) {
+          caches.keys().then(function(names) {
+            for (let name of names) {
+              caches.delete(name);
+            }
+          }).then(function() {
+            document.body.innerHTML = '<h1>Concluído! 🎉</h1><p>O aplicativo foi completamente resetado.</p><br><br><a href="./login.html" style="padding: 15px 30px; background: #8fc9a1; color: #1b3329; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.2rem;">Voltar para o AGRA</a>';
+          });
+        }
+      });
+    } else {
+      document.body.innerHTML = '<h1>Concluído!</h1><a href="./login.html">Voltar para o AGRA</a>';
+    }
+  </script>
+</body>
+</html>
