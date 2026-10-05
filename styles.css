@@ -854,3 +854,108 @@ body {
   30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
   40%, 60% { transform: translate3d(4px, 0, 0); }
 }
+
+
+/* Responsive Adjustments & Bottom Nav */
+
+/* 1. Desktop improvements */
+@media (min-width: 1024px) {
+  .app-main {
+    max-width: 1400px; /* Prevent over-stretching on ultrawide */
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+/* 2. Mobile Bottom Nav */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--glass-border);
+  z-index: 1000;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10px 10px; /* Safe area for modern phones */
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.bottom-nav-item .nav-icon {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+
+.bottom-nav-item.active {
+  color: var(--green-600);
+  background: rgba(108, 161, 123, 0.1);
+}
+
+[data-theme="dark"] .bottom-nav-item.active {
+  color: var(--green-400);
+}
+
+/* 3. Mobile Portrait (Phones) */
+@media (max-width: 760px) and (orientation: portrait) {
+  .bottom-nav {
+    display: flex;
+  }
+  .app-shell {
+    padding-bottom: 90px;
+  }
+  .app-main {
+    padding: 16px;
+  }
+}
+
+/* 4. Mobile Landscape (Phones rotated) */
+@media (max-width: 900px) and (orientation: landscape) {
+  .sidebar {
+    width: 80px; /* Compact sidebar */
+    padding: 16px 8px;
+  }
+  .sidebar .logo-text, .sidebar .user-row > div, .sidebar .nav-item span:not(.nav-icon), .sidebar .lock-badge, .sidebar #logoutButton {
+    display: none; /* Hide text, keep icons */
+  }
+  .sidebar .user-row {
+    justify-content: center;
+    padding: 8px 0;
+  }
+  .nav-item {
+    justify-content: center;
+    padding: 12px 0;
+  }
+  .nav-item .nav-icon {
+    margin-right: 0;
+    font-size: 1.5rem;
+  }
+  .app-main {
+    padding: 16px;
+  }
+  /* Ensure dialogs fit vertically */
+  dialog.feedback-dialog {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}

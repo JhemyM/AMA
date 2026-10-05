@@ -19,6 +19,10 @@ window.supabaseClient.auth.onAuthStateChange((event, session) => {
     };
     localStorage.setItem('agra_current_user', JSON.stringify(user));
   } else {
-    localStorage.removeItem('agra_current_user');
+    const localUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
+    // Prevent wiping demo or admin sessions that bypass Supabase
+    if (localUser.id !== 'demo-123' && localUser.id !== 'admin-123') {
+      localStorage.removeItem('agra_current_user');
+    }
   }
 });

@@ -12,23 +12,31 @@ const sectionLabels = {
 
 // Authentication logic has been moved to login.js
 
-// --- DEMO MODE CHECK ---
-const demoStart = localStorage.getItem('agra_demo_start');
-if (demoStart) {
-  const checkDemoStatus = () => {
-    const elapsed = Date.now() - parseInt(demoStart, 10);
-    // 15 minutes = 15 * 60 * 1000 = 900000 ms
-    if (elapsed > 900000) {
-      alert("Seu tempo de demonstração (15 minutos) expirou. Obrigado por experimentar o AGRA!");
-      localStorage.removeItem('agra_demo_start');
-      window.supabaseClient.auth.signOut().then(() => {
-        window.location.href = 'login.html';
-      });
-    }
-  };
-  setInterval(checkDemoStatus, 30000); // Check every 30s
-  checkDemoStatus(); // Check immediately on load
+// --- DEMO MODE TIMER (Self-Contained, No Supabase) ---
+const DEMO_DURATION_MS = 15 * 60 * 1000; // 15 minutes
+let demoStartTime = localStorage.getItem('agra_demo_start');
+if (!demoStartTime) {
+  demoStartTime = Date.now().toString();
+  localStorage.setItem('agra_demo_start', demoStartTime);
 }
+
+function updateDemoTimer() {
+  const elapsed = Date.now() - parseInt(demoStartTime, 10);
+  const remaining = Math.max(0, DEMO_DURATION_MS - elapsed);
+  const mins = Math.floor(remaining / 60000);
+  const secs = Math.floor((remaining % 60000) / 1000);
+  const timerEl = document.getElementById('demoTimer');
+  if (timerEl) timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+  if (remaining <= 0) {
+    alert("Seu tempo de demonstração (15 minutos) expirou. Obrigado por experimentar o AGRA!");
+    localStorage.removeItem('agra_demo_start');
+    localStorage.removeItem('agra_current_user');
+    window.location.href = 'login.html';
+  }
+}
+setInterval(updateDemoTimer, 1000);
+updateDemoTimer();
 
 // --- DYNAMIC USER LOAD ---
 const currentUserStr = localStorage.getItem('agra_current_user');
@@ -63,11 +71,9 @@ if (currentDateElement) {
   currentDateElement.textContent = new Date().toLocaleDateString('pt-BR', options);
 }
 
-document.getElementById('logoutButton')?.addEventListener('click', async () => {
-  if (window.supabaseClient) {
-    await window.supabaseClient.auth.signOut();
-  }
+document.getElementById('logoutButton')?.addEventListener('click', () => {
   localStorage.removeItem('agra_current_user');
+  localStorage.removeItem('agra_demo_start');
   window.location.href = 'login.html';
 });
 
@@ -178,6 +184,9 @@ async function updateWeather(lat, lon) {
 let currentPropertyIndex = parseInt(localStorage.getItem('agra_active_property_index') || '0');
 
 function getProperties() {
+  // In demo mode, use demo-specific storage keys
+  const demoDataStr = localStorage.getItem('agra_demo_properties');
+  if (demoDataStr) return JSON.parse(demoDataStr);
   const dataStr = localStorage.getItem('agra_properties');
   if (dataStr) return JSON.parse(dataStr);
   const oldDataStr = localStorage.getItem('agra_property_data');

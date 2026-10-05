@@ -70,15 +70,14 @@ backToLoginBtn?.addEventListener('click', () => {
 });
 
 const demoLoginBtn = document.querySelector('#demoLoginBtn');
-demoLoginBtn?.addEventListener('click', async () => {
+demoLoginBtn?.addEventListener('click', () => {
   demoLoginBtn.textContent = 'Entrando...';
   demoLoginBtn.disabled = true;
 
-  // Bypass Supabase for demo
-  const user = { email: 'demo@agra.com.br', name: 'Usuário de Demonstração', id: 'demo-123', plan: 'demo' };
-  localStorage.setItem('agra_current_user', JSON.stringify(user));
-  localStorage.setItem('agra_demo_start', Date.now().toString());
-  window.location.href = 'index.html';
+  // Demo mode is a completely separate environment — no Supabase needed
+  // demo.html bootstraps its own user and data
+  localStorage.removeItem('agra_demo_start'); // Reset timer for fresh 15 min
+  window.location.href = 'demo.html';
 });
 
 // Supabase Registration
