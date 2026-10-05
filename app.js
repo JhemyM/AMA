@@ -22,7 +22,7 @@ if (demoStart) {
       alert("Seu tempo de demonstração (15 minutos) expirou. Obrigado por experimentar o AGRA!");
       localStorage.removeItem('agra_demo_start');
       window.supabaseClient.auth.signOut().then(() => {
-        window.location.href = 'login.html?v=0.7.10';
+        window.location.href = 'login.html?v=0.7.11';
       });
     }
   };
@@ -68,7 +68,7 @@ document.getElementById('logoutButton')?.addEventListener('click', async () => {
     await window.supabaseClient.auth.signOut();
   }
   localStorage.removeItem('agra_current_user');
-  window.location.href = 'login.html?v=0.7.10';
+  window.location.href = 'login.html?v=0.7.11';
 });
 
 document.getElementById('topAvatar')?.addEventListener('click', () => {
@@ -86,7 +86,7 @@ document.getElementById('logoutButtonProfile')?.addEventListener('click', async 
   }
   localStorage.removeItem('agra_current_user');
   localStorage.removeItem('agra_demo_start');
-  window.location.href = 'login.html?v=0.7.10';
+  window.location.href = 'login.html?v=0.7.11';
 });
 
 

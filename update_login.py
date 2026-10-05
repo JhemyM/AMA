@@ -1,12 +1,11 @@
 ﻿import re
 
 with open('login.html', 'r', encoding='utf-8') as f:
-    text = f.read()
+    content = f.read()
 
-text = re.sub(r'<div class="brand-mark auth-logo">VC</div>', '<div class="auth-logo"><img src="icons/icon-192.png" alt="AGRA Logo"></div>', text)
-text = text.replace('GestÃ£o', 'Gestão')
+btn_html = """<button type="button" class="secondary-button auth-btn" onclick="window.location.href='clear_cache.html'" style="margin-top: 10px; background: rgba(255, 100, 100, 0.1); border: 1px solid rgba(255, 100, 100, 0.3); color: #ffbbbb;">Resolver Travamento (Limpar App)</button>"""
+
+content = content.replace('<button type="button" class="text-button switch-auth" id="showRegisterBtn">', btn_html + '\n        <button type="button" class="text-button switch-auth" id="showRegisterBtn">')
 
 with open('login.html', 'w', encoding='utf-8') as f:
-    f.write(text)
-
-print("login.html updated.")
+    f.write(content)

@@ -35,6 +35,7 @@
         <div class="form-error" id="loginError" hidden>Credenciais inválidas.</div>
         <button type="submit" class="primary-button auth-btn">Entrar</button>
         <button type="button" class="secondary-button auth-btn" id="demoLoginBtn" style="margin-top: 10px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);">Entrar como Demonstração (15 Minutos)</button>
+        <button type="button" class="secondary-button auth-btn" onclick="window.location.href='clear_cache.html'" style="margin-top: 10px; background: rgba(255, 100, 100, 0.1); border: 1px solid rgba(255, 100, 100, 0.3); color: #ffbbbb;">Resolver Travamento (Limpar App)</button>
         <button type="button" class="text-button switch-auth" id="showRegisterBtn">Não tem conta? <span>Criar agora</span></button>
       </form>
 
@@ -87,7 +88,7 @@
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="supabase-client.js?v=0.7.10"></script>
-  <script defer src="login.js?v=0.7.10"></script>
+  <script defer src="supabase-client.js?v=0.7.11"></script>
+  <script defer src="login.js?v=0.7.11"></script>
 </body>
 </html>
