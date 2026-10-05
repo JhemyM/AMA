@@ -285,6 +285,31 @@ window.AgraEmbrapa = {
       localStorage.setItem('agra_embrapa_saved', JSON.stringify(saved));
     }
 
+    
+    // XP Gamification
+    let xp = parseInt(localStorage.getItem('agra_embrapa_xp') || '0');
+    let readManuals = JSON.parse(localStorage.getItem('agra_embrapa_read') || '[]');
+    
+    function updateLevelBanner() {
+      const readCount = readManuals.length;
+      const totalNeeded = 5;
+      const progress = Math.min((readCount / totalNeeded) * 100, 100); // Wait, typo totalNeeded
+      
+      const countEl = container.querySelector('#embrapaReadCount');
+      if (countEl) countEl.textContent = readCount;
+      
+      const barEl = container.querySelector('#embrapaProgressBar');
+      if (barEl) barEl.style.width = Math.min((readCount / totalNeeded) * 100, 100) + '%';
+      
+      const titleEl = Array.from(container.querySelectorAll('h3')).find(el => el.textContent.includes('Nível'));
+      if (titleEl) {
+        if (readCount >= 15) titleEl.textContent = 'Nível: Especialista Supremo 🏆';
+        else if (readCount >= 10) titleEl.textContent = 'Nível: Produtor Avançado ⭐';
+        else if (readCount >= 5) titleEl.textContent = 'Nível: Estudante Focado 📚';
+        else titleEl.textContent = 'Nível: Produtor Aprendiz 🌱';
+      }
+    }
+
     function renderCatalog() {
       const moduleList = container.querySelector('#embrapaModuleList');
       if (!moduleList) return;
@@ -412,6 +437,16 @@ window.AgraEmbrapa = {
 
     container.querySelector('#manualReadBtn')?.addEventListener('click', () => {
       if (!activeDocId) return;
+      if (!readManuals.includes(activeDocId)) {
+        readManuals.push(activeDocId);
+        xp += 50;
+        localStorage.setItem('agra_embrapa_read', JSON.stringify(readManuals));
+        localStorage.setItem('agra_embrapa_xp', xp);
+        showToast('🎉 +50 XP! Leitura Iniciada.');
+        updateLevelBanner();
+      }
+
+      if (!activeDocId) return;
       const doc = defaultCatalog.find(d => d.id === activeDocId);
       const fullTextContainer = container.querySelector('#manualFullText');
       const readBtn = container.querySelector('#manualReadBtn');
@@ -497,6 +532,7 @@ window.AgraEmbrapa = {
       });
     }
 
+    updateLevelBanner();
     renderCatalog();
   }
 };

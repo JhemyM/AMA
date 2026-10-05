@@ -1,4 +1,6 @@
+﻿import re
 
+html_content = """
 <div class="page-heading" style="margin-bottom: 1.5rem;">
   <div>
     <p class="eyebrow" style="color: var(--green-500); font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">Trilha do Conhecimento 📚</p>
@@ -110,3 +112,7 @@
     </div>
   </form>
 </dialog>
+"""
+
+with open('modules/embrapa.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
