@@ -11,6 +11,13 @@ const PLAN_FEATURES = {
 class MonetizationManager {
   constructor() {
     this.currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
+    
+    // Auto-unlock demo users even if they have an old cached local storage
+    if (this.currentUser.role === 'demo') {
+      this.currentUser.plan = 'demo';
+      localStorage.setItem('agra_current_user', JSON.stringify(this.currentUser));
+    }
+
     if (!this.currentUser.plan) {
       this.currentUser.plan = 'free';
       localStorage.setItem('agra_current_user', JSON.stringify(this.currentUser));

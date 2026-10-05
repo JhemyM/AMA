@@ -80,7 +80,8 @@ demoLoginBtn?.addEventListener('click', () => {
     id: 'demo-user-id',
     name: 'Visitante Demo',
     email: 'demo@agra.com',
-    role: 'demo'
+    role: 'demo',
+    plan: 'demo'
   }));
   
   window.location.href = 'index.html';
