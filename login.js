@@ -74,10 +74,16 @@ demoLoginBtn?.addEventListener('click', () => {
   demoLoginBtn.textContent = 'Entrando...';
   demoLoginBtn.disabled = true;
 
-  // Demo mode is a completely separate environment — no Supabase needed
-  // demo.html bootstraps its own user and data
-  localStorage.removeItem('agra_demo_start'); // Reset timer for fresh 15 min
-  window.location.href = 'demo.html';
+  // Set demo timer and mock user
+  localStorage.setItem('agra_demo_start', Date.now().toString());
+  localStorage.setItem('agra_current_user', JSON.stringify({
+    id: 'demo-user-id',
+    name: 'Visitante Demo',
+    email: 'demo@agra.com',
+    role: 'demo'
+  }));
+  
+  window.location.href = 'index.html';
 });
 
 // Supabase Registration
