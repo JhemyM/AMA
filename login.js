@@ -84,7 +84,7 @@ demoLoginBtn?.addEventListener('click', () => {
     plan: 'demo'
   }));
   
-  window.location.href = 'index.html?v=0.7.15';
+  window.location.href = 'demo.html';
 });
 
 // Supabase Registration
@@ -137,16 +137,6 @@ loginForm?.addEventListener('submit', async (e) => {
   const originalText = submitBtn.textContent;
   submitBtn.textContent = 'Entrando...';
   submitBtn.disabled = true;
-
-  if (email === 'admin@agra.com.br' && password === 'AgraAdmin2026!') {
-    const user = { email: email, name: 'Super Administrador', id: 'admin-123', plan: 'vitalicio' };
-    localStorage.setItem('agra_current_user', JSON.stringify(user));
-    showToast('Login de administrador bem-sucedido!');
-    setTimeout(() => {
-      window.location.href = 'index.html?v=0.7.15';
-    }, 1000);
-    return;
-  }
 
 
   const { data, error } = await window.supabaseClient.auth.signInWithPassword({

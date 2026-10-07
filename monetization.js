@@ -1,33 +1,29 @@
 // monetization.js - AGRA Plan and Features Manager
 
 const PLAN_FEATURES = {
-  free: ['dashboard', 'fields', 'tasks'],
-  pro: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'embrapa', 'carbon'],
-  enterprise: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon'],
-  vitalicio: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon'],
-  demo: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon']
+  base: ['dashboard', 'fields', 'tasks', 'embrapa'],
+  intelligence: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'embrapa', 'carbon'],
+  operation: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon']
 };
 
 class MonetizationManager {
   constructor() {
     this.currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
     
-    // Auto-unlock demo users even if they have an old cached local storage
-    if (this.currentUser.role === 'demo') {
-      this.currentUser.plan = 'demo';
-      localStorage.setItem('agra_current_user', JSON.stringify(this.currentUser));
-    }
+    // SECURITY WARNING: Client-side validation of plans is unsafe.
+    // TODO: Entitlements must be validated by the backend/Supabase API.
+    // We proceed here for UX, but the backend must reject unauthorized writes.
 
-    if (!this.currentUser.plan) {
-      this.currentUser.plan = 'free';
+    if (!this.currentUser.plan || !PLAN_FEATURES[this.currentUser.plan]) {
+      this.currentUser.plan = 'base';
       localStorage.setItem('agra_current_user', JSON.stringify(this.currentUser));
     }
     this.currentPlan = this.currentUser.plan;
   }
 
   isFeatureAllowed(sectionId) {
-    // TEMPORARY BYPASS: Unlock everything to ensure demo mode works unconditionally
-    return true;
+    const allowed = PLAN_FEATURES[this.currentPlan] || [];
+    return allowed.includes(sectionId);
   }
 
   init() {
@@ -68,26 +64,26 @@ class MonetizationManager {
           
           <div class="paywall-body" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
             <div class="plan-card" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
-              <h3 style="color: #fff; margin-top: 0;">AGRA Pro</h3>
-              <p class="price" style="font-size: 2rem; font-weight: bold; color: #8fc9a1; margin: 1rem 0;">R$ 147<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/mês</span></p>
+              <h3 style="color: #fff; margin-top: 0;">AGRA Inteligência</h3>
+              <p class="price" style="font-size: 2rem; font-weight: bold; color: #8fc9a1; margin: 1rem 0;">R$ 97<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/mês</span></p>
               <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; color: #e0e0e0;">
-                <li style="margin-bottom: 0.5rem;">✓ Gestão de Produção</li>
-                <li style="margin-bottom: 0.5rem;">✓ Clima e Solo Avançados</li>
-                <li style="margin-bottom: 0.5rem;">✓ Estoque e Embrapa</li>
+                <li style="margin-bottom: 0.5rem;">✓ Recomendações Avançadas</li>
+                <li style="margin-bottom: 0.5rem;">✓ Clima e Solo Integrados</li>
+                <li style="margin-bottom: 0.5rem;">✓ Até 3 Propriedades</li>
               </ul>
-              <button class="primary-button checkout-btn" data-plan="pro" style="width: 100%;">Assinar Mensal</button>
+              <button class="primary-button checkout-btn" data-plan="intelligence" style="width: 100%;">Assinar Inteligência</button>
             </div>
             
             <div class="plan-card" style="background: linear-gradient(145deg, rgba(212,175,55,0.1), rgba(0,0,0,0)); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(212, 175, 55, 0.5); box-shadow: 0 0 30px rgba(212,175,55,0.1);">
-              <div style="position: absolute; top: -10px; right: 20px; background: #d4af37; color: #000; font-size: 0.7rem; font-weight: bold; padding: 4px 8px; border-radius: 8px;">MAIS VANTAJOSO</div>
-              <h3 style="color: #d4af37; margin-top: 0;">AGRA Vitalício</h3>
-              <p class="price" style="font-size: 2rem; font-weight: bold; color: #d4af37; margin: 1rem 0;">R$ 1.497<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/único</span></p>
+              <div style="position: absolute; top: -10px; right: 20px; background: #d4af37; color: #000; font-size: 0.7rem; font-weight: bold; padding: 4px 8px; border-radius: 8px;">EQUIPES</div>
+              <h3 style="color: #d4af37; margin-top: 0;">AGRA Operação</h3>
+              <p class="price" style="font-size: 2rem; font-weight: bold; color: #d4af37; margin: 1rem 0;">R$ 297<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/mês</span></p>
               <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; color: #e0e0e0;">
-                <li style="margin-bottom: 0.5rem;">✓ Acesso <b>Para Sempre</b></li>
-                <li style="margin-bottom: 0.5rem;">✓ Gestão de Equipes</li>
-                <li style="margin-bottom: 0.5rem;">✓ Nenhuma mensalidade</li>
+                <li style="margin-bottom: 0.5rem;">✓ Todas as funções de Inteligência</li>
+                <li style="margin-bottom: 0.5rem;">✓ Gestão de Equipe e Estoque</li>
+                <li style="margin-bottom: 0.5rem;">✓ Auditoria e Integrações API</li>
               </ul>
-              <button class="primary-button checkout-btn" data-plan="vitalicio" style="width: 100%; background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%); border: none; color: #fff;">Garantir Acesso</button>
+              <button class="primary-button checkout-btn" data-plan="operation" style="width: 100%; background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%); border: none; color: #fff;">Assinar Operação</button>
             </div>
           </div>
         </div>

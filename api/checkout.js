@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   try {
     const { plan } = req.body;
 
-    // A chave de acesso DEVE estar cadastrada nas variÃ¡veis de ambiente da Vercel
+    // A chave de acesso DEVE estar cadastrada nas variáveis de ambiente da Vercel
     const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
     if (!MP_ACCESS_TOKEN) {
       console.warn("Mercado Pago Access Token nao configurado.");
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
       itemTitle = 'AGRA Vitalicio - Acesso Completo';
       itemPrice = 1497.00;
     } else {
-      throw new Error('Plano invÃ¡lido');
+      throw new Error('Plano inválido');
     }
 
     // Obtém o domínio dinamicamente para redirecionar de volta para o ambiente certo (Vercel)

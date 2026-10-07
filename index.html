@@ -52,6 +52,7 @@
         <button class="nav-item" data-section="team" type="button"><span class="nav-icon">♙</span>Equipe</button>
         <span class="nav-label">Conhecimento</span>
         <button class="nav-item" data-section="embrapa" type="button"><span class="nav-icon">📚</span>Manuais Embrapa</button>
+        <button class="nav-item" data-section="carbon" type="button" style="color: #4ad17c;"><span class="nav-icon">🌱</span>Sustentabilidade & Carbono</button>
       </nav>
 
       <div class="sidebar-footer">
@@ -86,6 +87,27 @@
           <article class="panel field-panel"><div class="panel-heading"><div><h2>Saúde dos talhões</h2><p>Índice geral por área monitorada</p></div><button class="text-button" type="button" data-section="fields">Ver todos <span>→</span></button></div><div class="field-list" id="dynamicFieldList"></div></article>
 
           <article class="panel task-panel"><div class="panel-heading"><div><h2>Próximas atividades</h2><p>O que precisa de atenção</p></div><button class="text-button" type="button" data-section="tasks">Ver agenda <span>→</span></button></div><div class="task-list" id="dashboardTaskList"></div></article>
+          
+          <article class="panel market-panel"><div class="panel-heading"><div><h2>Cotações Agrícolas</h2><p>Preços base (Mercado Físico)</p></div></div>
+            <div class="market-list" id="dashboardMarketList" style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;">
+              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:rgba(255,255,255,0.4); border-radius:8px; border:1px solid var(--border);"><strong>Soja <small style="color:var(--muted);font-weight:normal;">(sc 60kg)</small></strong><div style="text-align:right;"><span>R$ 132,50</span> <small style="color:#22c55e; font-weight:600;">+1.2%</small></div></div>
+              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:rgba(255,255,255,0.4); border-radius:8px; border:1px solid var(--border);"><strong>Milho <small style="color:var(--muted);font-weight:normal;">(sc 60kg)</small></strong><div style="text-align:right;"><span>R$ 58,20</span> <small style="color:#ef4444; font-weight:600;">-0.8%</small></div></div>
+              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:rgba(255,255,255,0.4); border-radius:8px; border:1px solid var(--border);"><strong>Boi Gordo <small style="color:var(--muted);font-weight:normal;">(arroba)</small></strong><div style="text-align:right;"><span>R$ 235,00</span> <small style="color:#22c55e; font-weight:600;">+0.5%</small></div></div>
+            </div>
+          </article>
+          
+          <article class="panel carbon-panel" style="background: linear-gradient(135deg, rgba(20,45,33,0.8) 0%, rgba(30,60,45,0.95) 100%); border:none;"><div class="panel-heading"><div style="color:white;"><h2 style="color:white;">Sequestro de Carbono</h2><p style="color:rgba(255,255,255,0.7);">Sustentabilidade da propriedade</p></div><button class="text-button" type="button" data-section="carbon" style="color:#8fc9a1;">Simular <span>→</span></button></div>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                 <span style="color: rgba(255,255,255,0.8); font-weight: 500; font-size:0.9rem;">Captura Estimada Anual</span>
+                 <strong style="color: #4ad17c; font-size: 1.5rem;" id="dashCarbonTotal">-- tCO2e</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                 <span style="color: rgba(255,255,255,0.8); font-weight: 500; font-size:0.9rem;">Potencial de Receita</span>
+                 <strong style="color: #d4af37; font-size: 1.2rem;" id="dashCarbonRev">R$ --</strong>
+              </div>
+            </div>
+          </article>
         </div>
 
         <section class="bottom-strip"><div class="insight-mark">✦</div><div><strong>Recomendação Inteligente baseada nos seus dados</strong><p id="dynamicRecommendationText">Analisando a saúde dos seus talhões...</p></div><button class="outline-button" id="openEmbrapaRecButton" type="button" data-section="embrapa">Ler manual Embrapa <span>→</span></button></section>

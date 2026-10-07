@@ -3,20 +3,20 @@
     const defaultCatalog = [
       {
         "id": "man-001",
-        "title": "PrÃ¡ticas de ConservaÃ§Ã£o do Solo e Ãgua",
-        "abstract": "Um guia abrangente sobre as melhores prÃ¡ticas para evitar erosÃ£o, melhorar a retenÃ§Ã£o de Ã¡gua no solo e garantir a sustentabilidade das Ã¡reas de plantio a longo prazo.",
-        "publicationType": "Manual TÃ©cnico",
+        "title": "Práticas de Conservação do Solo e Ãgua",
+        "abstract": "Um guia abrangente sobre as melhores práticas para evitar erosão, melhorar a retenção de água no solo e garantir a sustentabilidade das áreas de plantio a longo prazo.",
+        "publicationType": "Manual Técnico",
         "publicationYear": 2023,
         "authors": ["Embrapa Solos"],
-        "keywords": ["solo", "Ã¡gua", "conservaÃ§Ã£o", "sustentabilidade"],
+        "keywords": ["solo", "água", "conservação", "sustentabilidade"],
         "category": "solo",
         "officialUrl": "https://www.embrapa.br/solos"
       },
       {
         "id": "man-002",
         "title": "Manejo Integrado de Pragas na Cultura da Soja",
-        "abstract": "InstruÃ§Ãµes detalhadas para identificaÃ§Ã£o e controle biolÃ³gico e quÃ­mico das principais pragas que afetam as lavouras de soja no Brasil.",
-        "publicationType": "Comunicado TÃ©cnico",
+        "abstract": "Instruções detalhadas para identificação e controle biológico e químico das principais pragas que afetam as lavouras de soja no Brasil.",
+        "publicationType": "Comunicado Técnico",
         "publicationYear": 2024,
         "authors": ["Embrapa Soja"],
         "keywords": ["soja", "pragas", "manejo integrado", "defensivos"],
@@ -25,42 +25,42 @@
       },
       {
         "id": "man-003",
-        "title": "IrrigaÃ§Ã£o de PrecisÃ£o: Quando e Quanto Irrigar",
-        "abstract": "Metodologias baseadas em sensores de umidade e dados climÃ¡ticos para otimizar o uso da Ã¡gua nas propriedades rurais, reduzindo custos energÃ©ticos.",
-        "publicationType": "Documento de ReferÃªncia",
+        "title": "Irrigação de Precisão: Quando e Quanto Irrigar",
+        "abstract": "Metodologias baseadas em sensores de umidade e dados climáticos para otimizar o uso da água nas propriedades rurais, reduzindo custos energéticos.",
+        "publicationType": "Documento de Referência",
         "publicationYear": 2025,
-        "authors": ["Embrapa Milho e Sorgo", "Embrapa InstrumentaÃ§Ã£o"],
-        "keywords": ["irrigaÃ§Ã£o", "tecnologia", "clima", "precisÃ£o"],
+        "authors": ["Embrapa Milho e Sorgo", "Embrapa Instrumentação"],
+        "keywords": ["irrigação", "tecnologia", "clima", "precisão"],
         "category": "clima",
         "officialUrl": "https://www.embrapa.br/instrumentacao"
       },
       {
         "id": "man-004",
-        "title": "Aproveitamento de ResÃ­duos na AdubaÃ§Ã£o",
-        "abstract": "Como transformar restos de cultura e resÃ­duos orgÃ¢nicos da fazenda em compostos ricos em nutrientes para reduzir a dependÃªncia de fertilizantes quÃ­micos.",
-        "publicationType": "Manual TÃ©cnico",
+        "title": "Aproveitamento de Resíduos na Adubação",
+        "abstract": "Como transformar restos de cultura e resíduos orgânicos da fazenda em compostos ricos em nutrientes para reduzir a dependência de fertilizantes químicos.",
+        "publicationType": "Manual Técnico",
         "publicationYear": 2022,
         "authors": ["Embrapa Meio Ambiente"],
-        "keywords": ["adubaÃ§Ã£o", "resÃ­duos", "fertilizantes", "orgÃ¢nico"],
+        "keywords": ["adubação", "resíduos", "fertilizantes", "orgânico"],
         "category": "solo",
         "officialUrl": "https://www.embrapa.br/meio-ambiente"
       },
       {
         "id": "man-005",
-        "title": "Cultivares de Milho Resistentes ao Estresse HÃ­drico",
-        "abstract": "AvaliaÃ§Ã£o de genÃ³tipos de milho em condiÃ§Ãµes de dÃ©ficit hÃ­drico e recomendaÃ§Ãµes para o plantio na safrinha.",
-        "publicationType": "Boletim TÃ©cnico",
+        "title": "Cultivares de Milho Resistentes ao Estresse Hídrico",
+        "abstract": "Avaliação de genótipos de milho em condições de déficit hídrico e recomendações para o plantio na safrinha.",
+        "publicationType": "Boletim Técnico",
         "publicationYear": 2026,
         "authors": ["Embrapa Milho e Sorgo"],
-        "keywords": ["milho", "safrinha", "seca", "genÃ©tica"],
+        "keywords": ["milho", "safrinha", "seca", "genética"],
         "category": "milho",
         "officialUrl": "https://www.embrapa.br/milho"
       },
       {
         "id": "man-006",
-        "title": "CorreÃ§Ã£o de Acidez do Solo no Cerrado",
-        "abstract": "TÃ©cnicas de calagem, aplicaÃ§Ã£o de gesso e uso de bioinsumos para melhorar o perfil do solo e otimizar o enraizamento das culturas de grÃ£os.",
-        "publicationType": "Manual TÃ©cnico",
+        "title": "Correção de Acidez do Solo no Cerrado",
+        "abstract": "Técnicas de calagem, aplicação de gesso e uso de bioinsumos para melhorar o perfil do solo e otimizar o enraizamento das culturas de grãos.",
+        "publicationType": "Manual Técnico",
         "publicationYear": 2021,
         "authors": ["Embrapa Cerrados", "Embrapa Solos"],
         "keywords": ["solo", "calagem", "gesso", "cerrado", "acidez"],
@@ -69,140 +69,140 @@
       },
       {
         "id": "man-007",
-        "title": "Monitoramento de DoenÃ§as da Soja via SatÃ©lite",
-        "abstract": "Uso prÃ¡tico do sensoriamento remoto e Ã­ndices de vegetaÃ§Ã£o (NDVI, EVI) para detecÃ§Ã£o precoce de ferrugem asiÃ¡tica e outras anomalias.",
-        "publicationType": "Circular TÃ©cnica",
+        "title": "Monitoramento de Doenças da Soja via Satélite",
+        "abstract": "Uso prático do sensoriamento remoto e índices de vegetação (NDVI, EVI) para detecção precoce de ferrugem asiática e outras anomalias.",
+        "publicationType": "Circular Técnica",
         "publicationYear": 2024,
-        "authors": ["Embrapa InformÃ¡tica AgropecuÃ¡ria"],
-        "keywords": ["soja", "doenÃ§as", "satÃ©lite", "tecnologia"],
+        "authors": ["Embrapa Informática Agropecuária"],
+        "keywords": ["soja", "doenças", "satélite", "tecnologia"],
         "category": "soja",
         "officialUrl": "https://www.embrapa.br/agricultura-digital"
       },
       {
         "id": "man-008",
-        "title": "CaptaÃ§Ã£o e Armazenamento de Ãgua da Chuva na Propriedade",
-        "abstract": "Projetos prÃ¡ticos e dimensionamento de cisternas e barragens subterrÃ¢neas para mitigar os impactos das secas sazonais.",
+        "title": "Captação e Armazenamento de Ãgua da Chuva na Propriedade",
+        "abstract": "Projetos práticos e dimensionamento de cisternas e barragens subterrâneas para mitigar os impactos das secas sazonais.",
         "publicationType": "Cartilha",
         "publicationYear": 2020,
-        "authors": ["Embrapa SemiÃ¡rido"],
-        "keywords": ["clima", "Ã¡gua", "chuva", "armazenamento", "seca"],
+        "authors": ["Embrapa Semiárido"],
+        "keywords": ["clima", "água", "chuva", "armazenamento", "seca"],
         "category": "clima",
         "officialUrl": "https://www.embrapa.br/semiarido"
       },
       {
         "id": "man-009",
-        "title": "ConsÃ³rcio Milho-BraquiÃ¡ria (Sistema Santa FÃ©)",
-        "abstract": "Como implementar o consÃ³rcio de milho com forrageiras para aumento da produÃ§Ã£o de palhada e viabilizaÃ§Ã£o do plantio direto.",
+        "title": "Consórcio Milho-Braquiária (Sistema Santa Fé)",
+        "abstract": "Como implementar o consórcio de milho com forrageiras para aumento da produção de palhada e viabilização do plantio direto.",
         "publicationType": "Documentos",
         "publicationYear": 2018,
-        "authors": ["Embrapa Arroz e FeijÃ£o"],
-        "keywords": ["milho", "consÃ³rcio", "pastagem", "palhada"],
+        "authors": ["Embrapa Arroz e Feijão"],
+        "keywords": ["milho", "consórcio", "pastagem", "palhada"],
         "category": "milho",
         "officialUrl": "https://www.embrapa.br/arroz-e-feijao"
       },
       {
         "id": "man-010",
-        "title": "InoculaÃ§Ã£o e Co-inoculaÃ§Ã£o da Soja",
-        "abstract": "BenefÃ­cios econÃ´micos e ambientais do uso de bactÃ©rias fixadoras de nitrogÃªnio (Bradyrhizobium) associadas ao Azospirillum.",
-        "publicationType": "Folder TÃ©cnico",
+        "title": "Inoculação e Co-inoculação da Soja",
+        "abstract": "Benefícios econômicos e ambientais do uso de bactérias fixadoras de nitrogênio (Bradyrhizobium) associadas ao Azospirillum.",
+        "publicationType": "Folder Técnico",
         "publicationYear": 2023,
         "authors": ["Embrapa Agrobiologia"],
-        "keywords": ["soja", "inoculante", "nitrogÃªnio", "bactÃ©rias"],
+        "keywords": ["soja", "inoculante", "nitrogênio", "bactérias"],
         "category": "soja",
         "officialUrl": "https://www.embrapa.br/agrobiologia"
       },
       {
         "id": "man-011",
-        "title": "PrevisÃ£o ClimÃ¡tica Trimestral e Tomada de DecisÃ£o",
-        "abstract": "Como interpretar os boletins do El NiÃ±o e La NiÃ±a para planejar a janela ideal de plantio e a compra antecipada de insumos.",
+        "title": "Previsão Climática Trimestral e Tomada de Decisão",
+        "abstract": "Como interpretar os boletins do El Niño e La Niña para planejar a janela ideal de plantio e a compra antecipada de insumos.",
         "publicationType": "Boletim Informativo",
         "publicationYear": 2025,
         "authors": ["Embrapa Clima Temperado"],
-        "keywords": ["clima", "previsÃ£o", "el niÃ±o", "la niÃ±a", "plantio"],
+        "keywords": ["clima", "previsão", "el niño", "la niña", "plantio"],
         "category": "clima",
         "officialUrl": "https://www.embrapa.br/clima-temperado"
       },
       {
         "id": "man-012",
-        "title": "RotaÃ§Ã£o de Culturas e Controle de Nematoides",
-        "abstract": "As melhores sequÃªncias de culturas para diminuir as populaÃ§Ãµes de nematoides formadores de galhas e das lesÃµes radiculares.",
+        "title": "Rotação de Culturas e Controle de Nematoides",
+        "abstract": "As melhores sequências de culturas para diminuir as populações de nematoides formadores de galhas e das lesões radiculares.",
         "publicationType": "Manual",
         "publicationYear": 2022,
-        "authors": ["Embrapa AgropecuÃ¡ria Oeste"],
-        "keywords": ["solo", "nematoides", "rotaÃ§Ã£o", "sanidade"],
+        "authors": ["Embrapa Agropecuária Oeste"],
+        "keywords": ["solo", "nematoides", "rotação", "sanidade"],
         "category": "solo",
         "officialUrl": "https://www.embrapa.br/agropecuaria-oeste"
       },
       {
         "id": "man-013",
-        "title": "Colheita Mecanizada de Milho: ReduÃ§Ã£o de Perdas",
-        "abstract": "Ajuste fino de colhedoras, controle de umidade do grÃ£o e velocidade ideal de operaÃ§Ã£o para maximizar a rentabilidade da colheita.",
-        "publicationType": "Documento TÃ©cnico",
+        "title": "Colheita Mecanizada de Milho: Redução de Perdas",
+        "abstract": "Ajuste fino de colhedoras, controle de umidade do grão e velocidade ideal de operação para maximizar a rentabilidade da colheita.",
+        "publicationType": "Documento Técnico",
         "publicationYear": 2019,
         "authors": ["Embrapa Milho e Sorgo"],
-        "keywords": ["milho", "colheita", "maquinÃ¡rio", "perdas"],
+        "keywords": ["milho", "colheita", "maquinário", "perdas"],
         "category": "milho",
         "officialUrl": "https://www.embrapa.br/milho"
       },
       {
         "id": "man-014",
-        "title": "AdubaÃ§Ã£o Foliar na Cultura da Soja",
-        "abstract": "RecomendaÃ§Ãµes tÃ©cnicas sobre a viabilidade, doses e momentos exatos de aplicaÃ§Ã£o de micronutrientes como Cobalto e MolibdÃªnio via folha.",
-        "publicationType": "Artigo TÃ©cnico",
+        "title": "Adubação Foliar na Cultura da Soja",
+        "abstract": "Recomendações técnicas sobre a viabilidade, doses e momentos exatos de aplicação de micronutrientes como Cobalto e Molibdênio via folha.",
+        "publicationType": "Artigo Técnico",
         "publicationYear": 2021,
         "authors": ["Embrapa Soja"],
-        "keywords": ["soja", "adubaÃ§Ã£o foliar", "nutriÃ§Ã£o", "micronutrientes"],
+        "keywords": ["soja", "adubação foliar", "nutrição", "micronutrientes"],
         "category": "soja",
         "officialUrl": "https://www.embrapa.br/soja"
       },
       {
         "id": "man-015",
         "title": "Mapeamento da Variabilidade Espacial do Solo",
-        "abstract": "Uso de amostragem em grade e condutividade elÃ©trica aparente para criaÃ§Ã£o de mapas de aplicaÃ§Ã£o de corretivos em taxa variÃ¡vel.",
-        "publicationType": "Manual TÃ©cnico",
+        "abstract": "Uso de amostragem em grade e condutividade elétrica aparente para criação de mapas de aplicação de corretivos em taxa variável.",
+        "publicationType": "Manual Técnico",
         "publicationYear": 2023,
-        "authors": ["Embrapa InstrumentaÃ§Ã£o", "Embrapa Solos"],
-        "keywords": ["solo", "precisÃ£o", "mapeamento", "taxa variÃ¡vel"],
+        "authors": ["Embrapa Instrumentação", "Embrapa Solos"],
+        "keywords": ["solo", "precisão", "mapeamento", "taxa variável"],
         "category": "solo",
         "officialUrl": "https://www.embrapa.br/instrumentacao"
       },
       {
         "id": "man-016",
-        "title": "EvapotranspiraÃ§Ã£o: CÃ¡lculo Baseado no Clima",
-        "abstract": "Modelos simplificados para calcular o consumo diÃ¡rio de Ã¡gua da lavoura utilizando os dados bÃ¡sicos da estaÃ§Ã£o meteorolÃ³gica.",
-        "publicationType": "Comunicado TÃ©cnico",
+        "title": "Evapotranspiração: Cálculo Baseado no Clima",
+        "abstract": "Modelos simplificados para calcular o consumo diário de água da lavoura utilizando os dados básicos da estação meteorológica.",
+        "publicationType": "Comunicado Técnico",
         "publicationYear": 2017,
         "authors": ["Embrapa Agricultura Digital"],
-        "keywords": ["clima", "Ã¡gua", "evapotranspiraÃ§Ã£o", "cÃ¡lculo"],
+        "keywords": ["clima", "água", "evapotranspiração", "cálculo"],
         "category": "clima",
         "officialUrl": "https://www.embrapa.br/agricultura-digital"
       },
       {
         "id": "man-017",
-        "title": "Cultivo do AlgodÃ£o: Boas PrÃ¡ticas",
-        "abstract": "Manejo nutricional e fitossanitÃ¡rio do algodoeiro no cerrado.",
-        "publicationType": "Manual TÃ©cnico",
+        "title": "Cultivo do Algodão: Boas Práticas",
+        "abstract": "Manejo nutricional e fitossanitário do algodoeiro no cerrado.",
+        "publicationType": "Manual Técnico",
         "publicationYear": 2023,
-        "authors": ["Embrapa AlgodÃ£o"],
-        "keywords": ["algodÃ£o", "cerrado", "manejo"],
-        "category": "algodÃ£o",
+        "authors": ["Embrapa Algodão"],
+        "keywords": ["algodão", "cerrado", "manejo"],
+        "category": "algodão",
         "officialUrl": "https://www.embrapa.br/algodao"
       },
       {
         "id": "man-018",
-        "title": "DoenÃ§as do Feijoeiro",
-        "abstract": "Guia de identificaÃ§Ã£o e controle das principais doenÃ§as do feijÃ£o comum.",
-        "publicationType": "Comunicado TÃ©cnico",
+        "title": "Doenças do Feijoeiro",
+        "abstract": "Guia de identificação e controle das principais doenças do feijão comum.",
+        "publicationType": "Comunicado Técnico",
         "publicationYear": 2022,
-        "authors": ["Embrapa Arroz e FeijÃ£o"],
-        "keywords": ["feijÃ£o", "doenÃ§as", "controle"],
-        "category": "feijÃ£o",
+        "authors": ["Embrapa Arroz e Feijão"],
+        "keywords": ["feijão", "doenças", "controle"],
+        "category": "feijão",
         "officialUrl": "https://www.embrapa.br/arroz-e-feijao"
       },
       {
         "id": "man-019",
-        "title": "Cana-de-AÃ§Ãºcar: EficiÃªncia EnergÃ©tica",
-        "abstract": "Como melhorar a produtividade da cana-de-aÃ§Ãºcar visando sustentabilidade.",
+        "title": "Cana-de-Açúcar: Eficiência Energética",
+        "abstract": "Como melhorar a produtividade da cana-de-açúcar visando sustentabilidade.",
         "publicationType": "Documento",
         "publicationYear": 2024,
         "authors": ["Embrapa Agroenergia"],
@@ -213,30 +213,30 @@
       {
         "id": "man-020",
         "title": "Manejo de Pastagens Intensivas",
-        "abstract": "EstratÃ©gias de pastejo rotacionado e adubaÃ§Ã£o para pecuÃ¡ria de corte e leite.",
-        "publicationType": "Manual TÃ©cnico",
+        "abstract": "Estratégias de pastejo rotacionado e adubação para pecuária de corte e leite.",
+        "publicationType": "Manual Técnico",
         "publicationYear": 2023,
         "authors": ["Embrapa Gado de Corte"],
-        "keywords": ["pastagem", "gado", "rotaÃ§Ã£o"],
+        "keywords": ["pastagem", "gado", "rotação"],
         "category": "pastagem",
         "officialUrl": "https://www.embrapa.br/gado-de-corte"
       },
       {
         "id": "man-021",
-        "title": "Piscicultura: Manejo da Ãgua e AlimentaÃ§Ã£o",
-        "abstract": "Guias prÃ¡ticos para manutenÃ§Ã£o de viveiros, parÃ¢metros de Ã¡gua e nutriÃ§Ã£o de peixes.",
-        "publicationType": "Guia PrÃ¡tico",
+        "title": "Piscicultura: Manejo da Ãgua e Alimentação",
+        "abstract": "Guias práticos para manutenção de viveiros, parâmetros de água e nutrição de peixes.",
+        "publicationType": "Guia Prático",
         "publicationYear": 2021,
         "authors": ["Embrapa Pesca e Aquicultura"],
-        "keywords": ["peixes", "Ã¡gua", "piscicultura", "aquicultura"],
+        "keywords": ["peixes", "água", "piscicultura", "aquicultura"],
         "category": "piscicultura",
         "officialUrl": "https://www.embrapa.br/pesca-e-aquicultura"
       },
       {
         "id": "man-022",
         "title": "Sanidade Bovina: Gado de Corte e Leite",
-        "abstract": "Protocolos sanitÃ¡rios e de vacinaÃ§Ã£o para prevenir doenÃ§as em bovinos de corte e de leite.",
-        "publicationType": "Comunicado TÃ©cnico",
+        "abstract": "Protocolos sanitários e de vacinação para prevenir doenças em bovinos de corte e de leite.",
+        "publicationType": "Comunicado Técnico",
         "publicationYear": 2022,
         "authors": ["Embrapa Gado de Corte", "Embrapa Gado de Leite"],
         "keywords": ["gado", "bovinos", "leite", "corte", "sanidade"],
@@ -245,11 +245,11 @@
       },
       {
         "id": "man-023",
-        "title": "Avicultura Caipira: InstalaÃ§Ãµes e Biosseguridade",
-        "abstract": "Estruturas, manejo de ambiÃªncia e prevenÃ§Ã£o de doenÃ§as para galinhas poedeiras e frangos de corte.",
+        "title": "Avicultura Caipira: Instalações e Biosseguridade",
+        "abstract": "Estruturas, manejo de ambiência e prevenção de doenças para galinhas poedeiras e frangos de corte.",
         "publicationType": "Manual",
         "publicationYear": 2020,
-        "authors": ["Embrapa SuÃ­nos e Aves"],
+        "authors": ["Embrapa Suínos e Aves"],
         "keywords": ["aves", "frango", "galinha", "biosseguridade"],
         "category": "aves",
         "officialUrl": "https://www.embrapa.br/suinos-e-aves"
@@ -257,12 +257,12 @@
       {
         "id": "man-024",
         "title": "Suinocultura: Manejo de Dejetos e Sustentabilidade",
-        "abstract": "PrÃ¡ticas para o uso de dejetos suÃ­nos como biofertilizantes e biogÃ¡s na propriedade.",
-        "publicationType": "Boletim TÃ©cnico",
+        "abstract": "Práticas para o uso de dejetos suínos como biofertilizantes e biogás na propriedade.",
+        "publicationType": "Boletim Técnico",
         "publicationYear": 2023,
-        "authors": ["Embrapa SuÃ­nos e Aves"],
-        "keywords": ["suÃ­nos", "dejetos", "porcos", "biogÃ¡s"],
-        "category": "suÃ­nos",
+        "authors": ["Embrapa Suínos e Aves"],
+        "keywords": ["suínos", "dejetos", "porcos", "biogás"],
+        "category": "suínos",
         "officialUrl": "https://www.embrapa.br/suinos-e-aves"
       }
     ];
@@ -301,12 +301,12 @@
       const barEl = container.querySelector('#embrapaProgressBar');
       if (barEl) barEl.style.width = Math.min((readCount / totalNeeded) * 100, 100) + '%';
       
-      const titleEl = Array.from(container.querySelectorAll('h3')).find(el => el.textContent.includes('NÃ­vel'));
+      const titleEl = Array.from(container.querySelectorAll('h3')).find(el => el.textContent.includes('Nível'));
       if (titleEl) {
-        if (readCount >= 15) titleEl.textContent = 'NÃ­vel: Especialista Supremo ðŸ†';
-        else if (readCount >= 10) titleEl.textContent = 'NÃ­vel: Produtor AvanÃ§ado â­';
-        else if (readCount >= 5) titleEl.textContent = 'NÃ­vel: Estudante Focado ðŸ“š';
-        else titleEl.textContent = 'NÃ­vel: Produtor Aprendiz ðŸŒ±';
+        if (readCount >= 15) titleEl.textContent = 'Nível: Especialista Supremo ðŸ†';
+        else if (readCount >= 10) titleEl.textContent = 'Nível: Produtor Avançado â­';
+        else if (readCount >= 5) titleEl.textContent = 'Nível: Estudante Focado 📚';
+        else titleEl.textContent = 'Nível: Produtor Aprendiz 🌱';
       }
     }
 
@@ -325,7 +325,7 @@
                               doc.keywords.some(k => normalizeStr(k).includes(normalizedSearch)) ||
                               normalizeStr(doc.abstract).includes(normalizedSearch);
                               
-        const livestockCategories = ['gado', 'aves', 'suÃ­nos', 'piscicultura', 'pastagem'];
+        const livestockCategories = ['gado', 'aves', 'suínos', 'piscicultura', 'pastagem'];
         let matchesCategory = currentCategory === 'all' || doc.category === currentCategory ||
           (currentCategory === 'gado' && livestockCategories.includes(doc.category)) ||
           (currentCategory === 'soja' && (doc.category === 'soja' || doc.category === 'milho'));
@@ -375,7 +375,7 @@
           <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'" data-index="${index}">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
               <div class="field-name" style="align-items: flex-start;">
-                <span class="field-color accent-blue" style="border-radius: 4px; padding: 4px; display:flex; align-items:center; justify-content:center; color:white;">ðŸ“š</span>
+                <span class="field-color accent-blue" style="border-radius: 4px; padding: 4px; display:flex; align-items:center; justify-content:center; color:white;">📚</span>
                 <div>
                   <strong style="display: block; line-height: 1.3; margin-bottom: 0.25rem;">${doc.title}</strong>
                   <small class="muted">${doc.publicationType} Â· ${doc.publicationYear}</small>
@@ -414,7 +414,7 @@
       
       const saveBtn = container.querySelector('#manualSaveBtn');
       const isSaved = getSavedManuals().includes(doc.id);
-      saveBtn.textContent = isSaved ? 'â­ Salvo' : 'â˜† Salvar';
+      saveBtn.textContent = isSaved ? 'â­ Salvo' : '☆ Salvar';
       saveBtn.classList.toggle('active', isSaved);
       
       const kwContainer = container.querySelector('#manualKeywords');
@@ -430,7 +430,7 @@
       if (!activeDocId) return;
       toggleSaveManual(activeDocId);
       const isSaved = getSavedManuals().includes(activeDocId);
-      container.querySelector('#manualSaveBtn').textContent = isSaved ? 'â­ Salvo' : 'â˜† Salvar';
+      container.querySelector('#manualSaveBtn').textContent = isSaved ? 'â­ Salvo' : '☆ Salvar';
       showToast(isSaved ? 'Manual salvo offline!' : 'Manual removido dos salvos.');
       renderCatalog();
     });
@@ -442,7 +442,7 @@
         xp += 50;
         localStorage.setItem('agra_embrapa_read', JSON.stringify(readManuals));
         localStorage.setItem('agra_embrapa_xp', xp);
-        showToast('ðŸŽ‰ +50 XP! Leitura Iniciada.');
+        showToast('🎉 +50 XP! Leitura Iniciada.');
         updateLevelBanner();
       }
 
@@ -454,18 +454,18 @@
       if (fullTextContainer && doc) {
         // Generate mock full content for beta
         let mockContent = `
-          <h3 style="margin-bottom: 1rem; color: var(--text);">IntroduÃ§Ã£o</h3>
-          <p style="margin-bottom: 1rem;">Esta publicaÃ§Ã£o aborda os principais aspectos relacionados a <strong>${doc.title}</strong>, um tema vital para o aumento da eficiÃªncia no campo. A pesquisa desenvolvida pela ${doc.authors.join(', ')} visa trazer as melhores prÃ¡ticas validadas na regiÃ£o de testes para a sua propriedade.</p>
+          <h3 style="margin-bottom: 1rem; color: var(--text);">Introdução</h3>
+          <p style="margin-bottom: 1rem;">Esta publicação aborda os principais aspectos relacionados a <strong>${doc.title}</strong>, um tema vital para o aumento da eficiência no campo. A pesquisa desenvolvida pela ${doc.authors.join(', ')} visa trazer as melhores práticas validadas na região de testes para a sua propriedade.</p>
           
-          <h3 style="margin-bottom: 1rem; margin-top: 1.5rem; color: var(--text);">Metodologia e AplicaÃ§Ã£o PrÃ¡tica</h3>
-          <p style="margin-bottom: 1rem;">Recomenda-se iniciar o processo atravÃ©s de uma avaliaÃ§Ã£o prÃ©via das condiÃ§Ãµes atuais da lavoura. As prÃ¡ticas apresentadas devem ser inseridas de maneira gradativa, respeitando as condiÃ§Ãµes climÃ¡ticas locais.</p>
+          <h3 style="margin-bottom: 1rem; margin-top: 1.5rem; color: var(--text);">Metodologia e Aplicação Prática</h3>
+          <p style="margin-bottom: 1rem;">Recomenda-se iniciar o processo através de uma avaliação prévia das condições atuais da lavoura. As práticas apresentadas devem ser inseridas de maneira gradativa, respeitando as condições climáticas locais.</p>
           
           <div style="background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary); margin: 1.5rem 0;">
-            <strong>Dica TÃ©cnica:</strong> Sempre mantenha o registro atualizado no mÃ³dulo de Atividades do AGRA para cruzar os resultados destas recomendaÃ§Ãµes com a sua produtividade final.
+            <strong>Dica Técnica:</strong> Sempre mantenha o registro atualizado no módulo de Atividades do AGRA para cruzar os resultados destas recomendações com a sua produtividade final.
           </div>
           
           <h3 style="margin-bottom: 1rem; margin-top: 1.5rem; color: var(--text);">Resultados Esperados</h3>
-          <p style="margin-bottom: 1rem;">A adoÃ§Ã£o destas prÃ¡ticas tem demonstrado um aumento de atÃ© 15% na retenÃ§Ã£o de recursos na propriedade, ao mesmo tempo que reduz o impacto das variaÃ§Ãµes ambientais nas Ãºltimas safras de testes.</p>
+          <p style="margin-bottom: 1rem;">A adoção destas práticas tem demonstrado um aumento de até 15% na retenção de recursos na propriedade, ao mesmo tempo que reduz o impacto das variações ambientais nas últimas safras de testes.</p>
         `;
         
         fullTextContainer.innerHTML = doc.content || mockContent;

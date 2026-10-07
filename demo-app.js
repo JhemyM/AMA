@@ -743,7 +743,7 @@ if (btnCalculateCarbon) {
     const resultBox = document.getElementById('carbonResult');
     const resultText = document.getElementById('carbonResultText');
     
-    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntÃ¡rio.`;
+    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntário.`;
     resultBox.style.display = 'block';
   });
 }
