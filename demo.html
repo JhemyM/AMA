@@ -209,15 +209,15 @@
     const _realRemove = localStorage.removeItem.bind(localStorage);
 
     localStorage.setItem = function(k, v) {
-      if (k.startsWith('agra_')) _realSet('demo_' + k, v);
+      if (k && typeof k.startsWith === 'function' && k.startsWith('agra_')) _realSet('demo_' + k, v);
       else _realSet(k, v);
     };
     localStorage.getItem = function(k) {
-      if (k.startsWith('agra_')) return _realGet('demo_' + k);
+      if (k && typeof k.startsWith === 'function' && k.startsWith('agra_')) return _realGet('demo_' + k);
       return _realGet(k);
     };
     localStorage.removeItem = function(k) {
-      if (k.startsWith('agra_')) _realRemove('demo_' + k);
+      if (k && typeof k.startsWith === 'function' && k.startsWith('agra_')) _realRemove('demo_' + k);
       else _realRemove(k);
     };
 
