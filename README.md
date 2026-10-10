@@ -1,73 +1,74 @@
 <div align="center">
-  <img src="https://img.icons8.com/color/144/000000/tractor.png" alt="AGRA Logo" width="100"/>
-  <h1>AGRA</h1>
-  <p><b>Aplicativo de Gestão Rural e Agrícola</b></p>
+  <img src=".github/hero_banner.jpg" alt="AGRA Hero Banner" width="100%" style="border-radius: 12px; margin-bottom: 20px;" />
+
+  <img src="https://img.icons8.com/color/144/000000/tractor.png" alt="AGRA Logo" width="80"/>
+  <h1>AGRA Plataforma</h1>
+  <p><b>O Futuro da Gestão Rural Inteligente & Sustentável</b></p>
+  
   <p>
-    <a href="https://github.com/JhemyM/AMA/releases/latest"><img src="https://img.shields.io/github/v/release/JhemyM/AMA?color=5d9a69&label=Versão%20Estável" alt="Release"/></a>
-    <a href="https://agra-app.vercel.app"><img src="https://img.shields.io/badge/Status-Online%20(Vercel)-000000?logo=vercel" alt="Vercel"/></a>
-    <img src="https://img.shields.io/badge/Licen%C3%A7a-Comercial-blue" alt="License"/>
-    <img src="https://img.shields.io/badge/Seguran%C3%A7a-Ofuscado-red" alt="Security"/>
+    <a href="https://github.com/JhemyM/AMA/releases/latest"><img src="https://img.shields.io/github/v/release/JhemyM/AMA?color=5d9a69&label=Versão%20Estável&style=for-the-badge" alt="Release"/></a>
+    <a href="https://jhemym.github.io/AMA/"><img src="https://img.shields.io/badge/Status-Online%20(GitHub%20Pages)-000000?logo=github&style=for-the-badge" alt="GitHub Pages"/></a>
+    <img src="https://img.shields.io/badge/Licença-Comercial-blue?style=for-the-badge" alt="License"/>
+    <img src="https://img.shields.io/badge/Supabase-Conectado-24b47e?logo=supabase&style=for-the-badge" alt="Supabase"/>
   </p>
 </div>
 
 ---
 
-O **AGRA** é uma plataforma de gestão e inteligência premium para propriedades rurais. Ele transforma dados de produção, solo, água, clima e conhecimento técnico em decisões práticas para produzir melhor, gastar menos e preservar os recursos naturais.
+O **AGRA** é uma plataforma de gestão de fazendas Premium, desenhada para Produtores Rurais que exigem o máximo de performance. Ele transforma dados de solo, água, tarefas operacionais e clima em **inteligência agronômica de alto nível**, ajudando a produzir mais, gastar menos e preservar o ecossistema.
 
-> **Do dado no campo à decisão de manejo, gerando receita e sustentabilidade.**
+> **Do dado no campo à decisão de manejo, operando 100% offline se necessário.**
 
-## 🌟 Principais Recursos
+## ✨ Arquitetura & Inovação
 
-- 📊 **Gestão Operacional:** Dashboard intuitivo para propriedades, talhões, culturas e tarefas com métricas em tempo real.
-- 🔒 **Autenticação Segura (Supabase):** Login, registro e recuperação de senhas por e-mail, protegidos com criptografia robusta.
-- 🌿 **Módulo de Carbono Premium:** Calculadora de sequestro de carbono baseada nas metodologias oficiais, projeção de receita e relatórios de sustentabilidade.
-- 💳 **Pagamentos e Assinaturas:** Sistema de paywall seguro integrado ao SDK do Mercado Pago via Serverless Functions.
-- 📚 **Catálogo Embrapa:** Integração profunda com manuais de manejo de baixo carbono (ILPF, Plantio Direto, etc).
-- 📱 **Multiplataforma (PWA & Desktop):** Utilize pelo navegador com suporte offline ou baixe o executável para Windows.
+### 📶 100% Offline-First (Sincronização "Seamless")
+Fazendas frequentemente não possuem cobertura de internet. O AGRA foi construído para funcionar de forma ultrarrápida sem conexão usando IndexedDB/LocalStorage. Quando a conexão (3G/4G/Starlink) é reestabelecida, nosso **Motor de Sincronização Seamless** injeta todos os dados acumulados silenciosamente no backend.
 
----
+### 🛡️ Segurança Corporativa em 3 Níveis
+1. **Row Level Security (RLS)**: Os dados na nuvem (Supabase) são bloqueados a nível de tabela (PostgreSQL). Nenhuma conta consegue ler a fazenda de outra, mesmo se a API Key for vazada.
+2. **Obfuscação Severa**: O Build da versão Web ofusca violentamente a estrutura do Javascript (`npm run build:web`), protegendo contra engenharia reversa.
+3. **Trava de Assinaturas no Servidor**: Planos "Básicos" são impedidos fisicamente pelo Banco de Dados de acessar ou enviar dados de recursos Premium (como a criação de múltiplas fazendas).
 
-## 📲 Como Instalar e Acessar
+## 🚀 Módulos da Plataforma
 
-Existem diversas formas de usar o AGRA, dependendo da sua necessidade:
+- 📊 **Gestão de Fazendas e Talhões**: Dashboard responsivo com telemetria (Área, Cultura, Umidade, Clima local).
+- 🚜 **Logística de Atividades**: Distribua tarefas diárias por funcionário (Plantio, Pulverização, Colheita).
+- 💰 **Monetização e Paywall**: Integração SDK de pagamentos. Planos "Operação" e "Vitalício".
+- 🌿 **Inventário de Carbono e Sustentabilidade**: Monitore a saúde do solo e o sequestro de carbono usando diretrizes oficiais.
+- 📚 **Biblioteca Técnica (Embrapa)**: Base de conhecimento avançado sobre ILPF, Plantio Direto e correção de acidez nativa na interface.
 
-### 1. Acesso Nuvem (Web / Celular)
-A versão mais atualizada e rápida, hospedada profissionalmente na Vercel:
-👉 **[Acessar a Plataforma AGRA](https://github.com/JhemyM/AMA)** *(Verifique o link oficial da implantação Vercel no topo do repositório)*
+## 🛠️ Stack Tecnológica (Tech Stack)
 
-### 2. Aplicativo Desktop (Windows Portable)
-Ideal para escritórios de fazendas e computadores sem permissão de instalação:
-1. Acesse a [Página de Releases do AGRA no GitHub](https://github.com/JhemyM/AMA/releases/latest).
-2. Baixe o arquivo **`AGRA.0.7.0.exe`** (ou a versão mais recente).
-3. Execute o arquivo e use o sistema normalmente (não requer instalação!).
-
-### 3. Aplicativo Mobile
-O lançamento oficial nas lojas de aplicativos ocorrerá na versão 1.0. Por enquanto, utilize o executável Windows ou o acesso Web PWA.
+| Frontend | Backend & DB | Integrações | Build & Security |
+| :--- | :--- | :--- | :--- |
+| HTML5 Semântico | Supabase (PostgreSQL) | Mercado Pago SDK | Node.js Build Script |
+| Vanilla JS (ES6+) | Row Level Security (RLS) | OpenWeatherMap API | JSObfuscator |
+| Glassmorphism CSS | Serverless Functions | Dexie.js (IndexedDB) | Crypto.randomUUID |
 
 ---
 
-## 🛡️ Segurança e Proteção
+## 📲 Como Instalar e Testar
 
-Este projeto comercial utiliza proteção ativa contra cópias e engenharia reversa.
-O código fonte exposto na branch principal é o **código de desenvolvimento**. Durante a compilação (`npm run build:web`), o sistema aplica:
-- **Obfuscação Severa:** Control flow flattening, string encoding e dead code injection.
-- **Proteção de Ambiente:** As chaves de banco de dados (Supabase) e de pagamentos (Mercado Pago) nunca são expostas. Elas são injetadas exclusivamente nos servidores da Vercel durante o deploy.
+### 🌐 1. Nuvem / Web App (Mais Recomendado)
+A versão mais rápida e atualizada, perfeitamente responsiva para PC, Tablet e Celular.
+👉 **[Acessar a Plataforma AGRA Online](https://jhemym.github.io/AMA/)** 
 
----
-
-## 🤝 Contribuição e Manutenção
-
----
-
-## 🤝 Parcerias Comerciais
-
-O AGRA é uma plataforma comercial proprietária. Caso tenha interesse em parcerias para cooperativas agrícolas, integrações B2B ou licenciamento em larga escala, entre em contato através dos canais comerciais oficiais.
-
-- [Termos de Uso e Licenciamento Institucional](protecao_e_licenciamento.md)
+### 💻 2. Versão Desktop (Windows)
+Ideal para computadores rurais sem internet ou escritórios de balança.
+1. Vá na aba [Releases do GitHub](https://github.com/JhemyM/AMA/releases/latest).
+2. Baixe o `.exe` oficial mais recente.
+3. Não precisa instalar, é só abrir e usar.
 
 ---
+
+## 🤝 Parcerias & Licenciamento
+
+O AGRA é uma plataforma proprietária e de grau comercial. Se você é uma Cooperativa, Usina, Integrador B2B ou deseja licenciar a tecnologia para sua região:
+- [Consulte nossos Termos Institucionais](protecao_e_licenciamento.md)
+
+<br/>
 
 <div align="center">
-  <sub>Construído com design Premium Glassmorphism e tecnologias Serverless.</sub><br>
+  <sub>Construído com obsessão por UI/UX (Premium Glassmorphism) e escalabilidade.</sub><br>
   <sub>Copyright © Jhemy Martins. Todos os direitos reservados.</sub>
 </div>
