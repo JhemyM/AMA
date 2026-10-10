@@ -7,7 +7,7 @@
   
   <p>
     <a href="https://github.com/JhemyM/AMA/releases/latest"><img src="https://img.shields.io/github/v/release/JhemyM/AMA?color=5d9a69&label=Versão%20Estável&style=for-the-badge" alt="Release"/></a>
-    <a href="https://jhemym.github.io/AMA/"><img src="https://img.shields.io/badge/Status-Online%20(GitHub%20Pages)-000000?logo=github&style=for-the-badge" alt="GitHub Pages"/></a>
+    <a href="https://jhemym.github.io/AMA/dist/web/"><img src="https://img.shields.io/badge/Status-Online%20(GitHub%20Pages)-000000?logo=github&style=for-the-badge" alt="GitHub Pages"/></a>
     <img src="https://img.shields.io/badge/Licença-Comercial-blue?style=for-the-badge" alt="License"/>
     <img src="https://img.shields.io/badge/Supabase-Conectado-24b47e?logo=supabase&style=for-the-badge" alt="Supabase"/>
   </p>
@@ -51,7 +51,7 @@ Fazendas frequentemente não possuem cobertura de internet. O AGRA foi construí
 
 ### 🌐 1. Nuvem / Web App (Mais Recomendado)
 A versão mais rápida e atualizada, perfeitamente responsiva para PC, Tablet e Celular.
-👉 **[Acessar a Plataforma AGRA Online](https://jhemym.github.io/AMA/)** 
+👉 **[Acessar a Plataforma AGRA Online](https://jhemym.github.io/AMA/dist/web/)** 
 
 ### 💻 2. Versão Desktop (Windows)
 Ideal para computadores rurais sem internet ou escritórios de balança.

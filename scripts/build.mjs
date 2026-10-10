@@ -16,11 +16,9 @@ const webFiles = [
   'feedback-config.js',
   'monetization.js',
   'app.js',
-  'demo-app.js',
   'sw.js',
   'manifest.webmanifest',
-  'supabase-client.js',
-  'clear_cache.html'
+  'supabase-client.js'
 ];
 
 const obfConfig = {

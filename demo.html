@@ -198,46 +198,62 @@
 
   <!-- ============================================================
        DEMO MODE: NO Supabase, NO monetization.
-       This page is completely self-contained.
+       This page is completely self-contained via LocalStorage Proxy.
        ============================================================ -->
   <script>
+    window.__DEMO_MODE__ = true;
+    
+    // Sandbox LocalStorage so production app.js doesn't touch real user data
+    const _realSet = localStorage.setItem.bind(localStorage);
+    const _realGet = localStorage.getItem.bind(localStorage);
+    const _realRemove = localStorage.removeItem.bind(localStorage);
+
+    localStorage.setItem = function(k, v) {
+      if (k.startsWith('agra_')) _realSet('demo_' + k, v);
+      else _realSet(k, v);
+    };
+    localStorage.getItem = function(k) {
+      if (k.startsWith('agra_')) return _realGet('demo_' + k);
+      return _realGet(k);
+    };
+    localStorage.removeItem = function(k) {
+      if (k.startsWith('agra_')) _realRemove('demo_' + k);
+      else _realRemove(k);
+    };
+
     // === DEMO BOOTSTRAP ===
-    // Inject demo user data directly — no Supabase needed
-    const DEMO_USER = { email: 'demo@agra.com.br', name: 'Usuário de Demonstração', id: 'demo-123', plan: 'demo' };
+    const DEMO_USER = { email: 'demo@agra.com.br', name: 'Demonstração', id: 'demo-123', plan: 'demo' };
     localStorage.setItem('agra_current_user', JSON.stringify(DEMO_USER));
 
-    // Pre-populate demo property if none exists
-    const DEMO_STORAGE_KEY = 'agra_demo_properties';
-    if (!localStorage.getItem(DEMO_STORAGE_KEY)) {
+    if (!localStorage.getItem('agra_properties')) {
       const demoData = [
         {
+          id: crypto.randomUUID ? crypto.randomUUID() : 'demo-prop',
           propertyName: 'Fazenda São José',
           totalArea: 120,
           fields: [
-            { name: 'Talhão Norte', area: 35, crop: 'Soja', variety: 'TMG 2381 IPRO', health: 82 },
-            { name: 'Talhão Sul', area: 28, crop: 'Milho', variety: 'DKB 290 PRO3', health: 71 },
-            { name: 'Talhão Leste', area: 20, crop: 'Café', variety: 'Catuaí Vermelho', health: 65 },
-            { name: 'Pivô Central', area: 37, crop: 'Soja', variety: 'Brasmax Desafio', health: 90 }
+            { id: 'f1', name: 'Talhão Norte', area: 35, crop: 'Soja', variety: 'TMG 2381 IPRO', health: 82 },
+            { id: 'f2', name: 'Talhão Sul', area: 28, crop: 'Milho', variety: 'DKB 290 PRO3', health: 71 },
+            { id: 'f3', name: 'Talhão Leste', area: 20, crop: 'Café', variety: 'Catuaí Vermelho', health: 65 },
+            { id: 'f4', name: 'Pivô Central', area: 37, crop: 'Soja', variety: 'Brasmax Desafio', health: 90 }
           ]
         }
       ];
-      localStorage.setItem(DEMO_STORAGE_KEY, JSON.stringify(demoData));
+      localStorage.setItem('agra_properties', JSON.stringify(demoData));
+      localStorage.setItem('agra_active_property_index', '0');
+      localStorage.setItem('agra_property_data', JSON.stringify(demoData[0]));
     }
-
-    // Override property storage functions to use demo-specific keys
-    window.__DEMO_MODE__ = true;
   </script>
 
   <!-- Dexie for IndexedDB -->
   <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script defer src="database_sync.js?v=4"></script>
+  <script defer src="database_sync.js?v=5"></script>
   <!-- Load storage BEFORE app (it provides getProperties/saveProperties) -->
-  <script defer src="storage.js?v=4"></script>
-  <script defer src="feedback-config.js?v=4"></script>
-  <script defer src="feedback-config.local.js?v=4"></script>
-  <!-- NO monetization.js — all features unlocked -->
-  <script defer src="demo-app.js?v=4"></script>
+  <script defer src="storage.js?v=5"></script>
+  <script defer src="feedback-config.js?v=5"></script>
+  <!-- NO monetization.js — all features unlocked in demo -->
+  <script defer src="app.js?v=5"></script>
 </body>
 </html>
