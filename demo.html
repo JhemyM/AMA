@@ -243,6 +243,21 @@
       localStorage.setItem('agra_active_property_index', '0');
       localStorage.setItem('agra_property_data', JSON.stringify(demoData[0]));
     }
+
+    // --- Demo Timer Logic ---
+    let timeLeft = 15 * 60; // 15 minutes
+    const timerInterval = setInterval(() => {
+      timeLeft--;
+      const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const s = (timeLeft % 60).toString().padStart(2, '0');
+      const t = document.getElementById('demoTimer');
+      if (t) t.textContent = `${m}:${s}`;
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        alert('Tempo de demonstração esgotado! Crie sua conta para continuar.');
+        window.location.href = 'login.html';
+      }
+    }, 1000);
   </script>
 
   <!-- Dexie for IndexedDB -->

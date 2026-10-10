@@ -28,10 +28,10 @@ if (currentUserStr) {
     ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
     : firstName.substring(0, 2).toUpperCase();
 
-  document.getElementById('greetingName').textContent = firstName;
-  document.getElementById('sidebarName').textContent = currentUser.name;
-  document.getElementById('sidebarAvatar').textContent = initials;
-  document.getElementById('topAvatar').textContent = initials;
+  const el_greetingName = document.getElementById('greetingName'); if(el_greetingName) el_greetingName.textContent = firstName;
+  const el_sidebarName = document.getElementById('sidebarName'); if(el_sidebarName) el_sidebarName.textContent = currentUser.name;
+  const el_sidebarAvatar = document.getElementById('sidebarAvatar'); if(el_sidebarAvatar) el_sidebarAvatar.textContent = initials;
+  const el_topAvatar = document.getElementById('topAvatar'); if(el_topAvatar) el_topAvatar.textContent = initials;
   
   // Populate profile dialog
   const modalAvatar = document.getElementById('modalAvatar');
@@ -144,12 +144,12 @@ async function updateWeather(lat, lon) {
     };
 
     const current = data.current;
-    document.getElementById('weatherTempMain').textContent = `${Math.round(current.temperature_2m)}°`;
-    document.getElementById('weatherIconMain').textContent = codeToIcon(current.weather_code);
-    document.getElementById('weatherDescMain').textContent = codeToDesc(current.weather_code);
-    document.getElementById('weatherHumMain').textContent = `${current.relative_humidity_2m}%`;
-    document.getElementById('weatherWindMain').textContent = `${current.wind_speed_10m} km/h`;
-    document.getElementById('weatherLocation').textContent = `Satélite (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
+    const el_weatherTempMain = document.getElementById('weatherTempMain'); if(el_weatherTempMain) el_weatherTempMain.textContent = `${Math.round(current.temperature_2m)}°`;
+    const el_weatherIconMain = document.getElementById('weatherIconMain'); if(el_weatherIconMain) el_weatherIconMain.textContent = codeToIcon(current.weather_code);
+    const el_weatherDescMain = document.getElementById('weatherDescMain'); if(el_weatherDescMain) el_weatherDescMain.textContent = codeToDesc(current.weather_code);
+    const el_weatherHumMain = document.getElementById('weatherHumMain'); if(el_weatherHumMain) el_weatherHumMain.textContent = `${current.relative_humidity_2m}%`;
+    const el_weatherWindMain = document.getElementById('weatherWindMain'); if(el_weatherWindMain) el_weatherWindMain.textContent = `${current.wind_speed_10m} km/h`;
+    const el_weatherLocation = document.getElementById('weatherLocation'); if(el_weatherLocation) el_weatherLocation.textContent = `Satélite (${lat.toFixed(2)}, ${lon.toFixed(2)})`;
 
     const forecastContainer = document.getElementById('weatherForecastMain');
     if (forecastContainer) {
@@ -257,16 +257,16 @@ function renderPropertyData() {
   // Update property names
   const sidebarPropName = document.getElementById('sidebarPropertyName');
   if (sidebarPropName) sidebarPropName.textContent = data.propertyName;
-  document.getElementById('topPropertyName').textContent = data.propertyName;
+  const el_topPropertyName = document.getElementById('topPropertyName'); if(el_topPropertyName) el_topPropertyName.textContent = data.propertyName;
   
   // Update metrics
-  document.getElementById('metricArea').innerHTML = `${data.totalArea} <small>ha</small>`;
-  document.getElementById('metricTotalArea').textContent = `de ${data.totalArea} ha totais`;
-  document.getElementById('metricFieldsCount').textContent = `${data.fields.length} talhões ativos`;
+  const el_metricArea = document.getElementById('metricArea'); if(el_metricArea) el_metricArea.innerHTML = `${data.totalArea} <small>ha</small>`;
+  const el_metricTotalArea = document.getElementById('metricTotalArea'); if(el_metricTotalArea) el_metricTotalArea.textContent = `de ${data.totalArea} ha totais`;
+  const el_metricFieldsCount = document.getElementById('metricFieldsCount'); if(el_metricFieldsCount) el_metricFieldsCount.textContent = `${data.fields.length} talhões ativos`;
   
   // Calculate mock production (e.g. 5 tons per ha for demo purposes)
   const estimatedProduction = data.fields.reduce((acc, field) => acc + (field.area * 5), 0);
-  document.getElementById('metricProduction').innerHTML = `${estimatedProduction.toFixed(1).replace('.', ',')} <small>t</small>`;
+  const el_metricProduction = document.getElementById('metricProduction'); if(el_metricProduction) el_metricProduction.innerHTML = `${estimatedProduction.toFixed(1).replace('.', ',')} <small>t</small>`;
   
   // Ensure fields have persistent health and calculate overall farm metrics
   let totalHealth = 0;
@@ -656,7 +656,7 @@ document.querySelector('#newActivityButton')?.addEventListener('click', () => {
   showToast(navigator.onLine ? 'Atividade registrada e pronta para sincronizar.' : `Atividade salva offline (${pendingCount} pendente).`);
 });
 
-document.querySelector('#exportDataButton').addEventListener('click', () => {
+document.querySelector('#exportDataButton')?.addEventListener('click', () => {
   const backup = AgraStorage.exportBackup();
   const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
   const link = document.createElement('a');
@@ -667,7 +667,7 @@ document.querySelector('#exportDataButton').addEventListener('click', () => {
   showToast('Backup local exportado.');
 });
 
-document.querySelector('#importDataInput').addEventListener('change', async (event) => {
+document.querySelector('#importDataInput')?.addEventListener('change', async (event) => {
   const input = event.currentTarget;
   const file = input.files?.[0];
   if (!file) return;
@@ -680,8 +680,8 @@ document.querySelector('#importDataInput').addEventListener('change', async (eve
   input.value = '';
 });
 
-document.querySelector('#feedbackButton').addEventListener('click', () => feedbackDialog.showModal());
-document.querySelector('#emailFeedbackButton').addEventListener('click', () => {
+document.querySelector('#feedbackButton')?.addEventListener('click', () => feedbackDialog.showModal());
+document.querySelector('#emailFeedbackButton')?.addEventListener('click', () => {
   const message = document.querySelector('#feedbackMessage').value.trim();
   if (!message) {
     showToast('Escreva o feedback antes de preparar o e-mail.');
@@ -697,7 +697,7 @@ document.querySelector('#emailFeedbackButton').addEventListener('click', () => {
   const body = encodeURIComponent(`Avaliação: ${rating}/5\nCategoria: ${type}\nVersão: 0.1.0-alpha.1\n\n${message}`);
   window.location.href = `mailto:${feedbackEmail}?subject=${subject}&body=${body}`;
 });
-document.querySelector('#feedbackForm').addEventListener('submit', (event) => {
+document.querySelector('#feedbackForm')?.addEventListener('submit', (event) => {
   event.preventDefault();
   AgraStorage.enqueue({
     type: 'feedback.created',
