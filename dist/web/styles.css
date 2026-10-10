@@ -6,8 +6,12 @@
   --forest-2: rgba(30, 65, 45, 0.9);
   --ink: #0a110e;
   --muted: #6e8477;
+  --text: var(--ink);
+  --text-muted: var(--muted);
   --line: rgba(228, 233, 228, 0.3);
+  --border: rgba(228, 233, 228, 0.6);
   --surface: rgba(255, 255, 255, 0.75);
+  --surface-hover: rgba(255, 255, 255, 0.9);
   --canvas: transparent;
   --mint: #d8ebd8;
   --blue: #2c7285;
@@ -556,7 +560,9 @@ body {
   --ink: #e4e9e4;
   --muted: #8ea396;
   --line: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.15);
   --surface: rgba(18, 30, 23, 0.85);
+  --surface-hover: rgba(25, 40, 31, 0.95);
   
   --glass-bg: rgba(22, 36, 28, 0.75);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -591,9 +597,17 @@ body {
 
 [data-theme="dark"] h1, 
 [data-theme="dark"] h2, 
+[data-theme="dark"] h3,
 [data-theme="dark"] strong, 
-[data-theme="dark"] .metric-card>strong {
+[data-theme="dark"] .metric-card>strong,
+[data-theme="dark"] .panel-heading p,
+[data-theme="dark"] p {
   color: #fff !important;
+}
+
+[data-theme="dark"] small,
+[data-theme="dark"] span:not(.tag):not(.lock-badge) {
+  color: var(--muted) !important;
 }
 
 [data-theme="dark"] .breadcrumb strong {

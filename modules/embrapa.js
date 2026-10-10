@@ -375,21 +375,42 @@ window.AgraEmbrapa = {
 
       filtered.forEach((doc, index) => {
         const isSaved = savedIds.includes(doc.id);
+        
+        // Define color based on category
+        let badgeColor = 'var(--blue)';
+        let badgeBg = 'rgba(44, 114, 133, 0.15)';
+        if(doc.category === 'soja' || doc.category === 'milho') { badgeColor = 'var(--amber)'; badgeBg = 'rgba(204, 160, 82, 0.15)'; }
+        if(doc.category === 'gado' || doc.category === 'pastagem') { badgeColor = 'var(--orange)'; badgeBg = 'rgba(206, 111, 78, 0.15)'; }
+        if(doc.category === 'solo' || doc.category === 'clima') { badgeColor = 'var(--forest-2)'; badgeBg = 'rgba(30, 65, 45, 0.15)'; }
+        
+        // Tags
+        const tags = doc.keywords.slice(0, 2).map(k => `<span style="font-size: 0.65rem; background: var(--surface-hover); color: var(--muted); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--line);">${k}</span>`).join('');
+        
         moduleList.innerHTML += `
-          <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'" data-id="${doc.id}" data-index="${index}">
+          <article class="panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 32px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='none'; this.style.boxShadow=''" data-id="${doc.id}" data-index="${index}">
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: ${badgeColor};"></div>
+            
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-              <div class="field-name" style="align-items: flex-start;">
-                <span class="field-color accent-blue" style="border-radius: 4px; padding: 4px; display:flex; align-items:center; justify-content:center; color:white;">📚</span>
+              <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                <div style="width: 40px; height: 40px; border-radius: 8px; background: ${badgeBg}; color: ${badgeColor}; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                  📚
+                </div>
                 <div>
-                  <strong style="display: block; line-height: 1.3; margin-bottom: 0.25rem;">${doc.title}</strong>
-                  <small class="muted">${doc.publicationType} Â· ${doc.publicationYear}</small>
+                  <strong style="display: block; line-height: 1.3; margin-bottom: 0.25rem; font-size: 1.05rem; color: var(--text);">${doc.title}</strong>
+                  <small class="muted" style="display: block; margin-bottom: 0.5rem;">${doc.publicationType} · ${doc.publicationYear}</small>
+                  <div style="display: flex; gap: 0.25rem; flex-wrap: wrap;">${tags}</div>
                 </div>
               </div>
-              ${isSaved ? '<span title="Salvo">â­</span>' : ''}
+              ${isSaved ? '<div style="background: rgba(255,193,7,0.15); color: #ffc107; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;" title="Salvo">⭐</div>' : ''}
             </div>
-            <p style="font-size: 0.875rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; margin-top: auto;">
+            
+            <p style="font-size: 0.875rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; margin-top: auto; padding-top: 0.5rem; border-top: 1px dashed var(--line);">
               ${doc.abstract}
             </p>
+            
+            <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+              <span style="color: var(--blue); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Ler Manual →</span>
+            </div>
           </article>
         `;
       });

@@ -3,7 +3,8 @@
 const PLAN_FEATURES = {
   base: ['dashboard', 'fields', 'tasks', 'embrapa'],
   intelligence: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'embrapa', 'carbon'],
-  operation: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon']
+  operation: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon'],
+  lifetime: ['dashboard', 'fields', 'tasks', 'production', 'soil', 'weather', 'inventory', 'team', 'embrapa', 'carbon']
 };
 
 class MonetizationManager {
@@ -50,7 +51,7 @@ class MonetizationManager {
 
   injectPaywallModal() {
     const modalHtml = `
-      <dialog class="feedback-dialog" id="paywallModal" aria-labelledby="paywallTitle" style="max-width: 800px; width: 90%;">
+      <dialog class="feedback-dialog" id="paywallModal" aria-labelledby="paywallTitle" style="max-width: 1000px; width: 95%;">
         <div class="dialog-heading" style="padding: 24px 24px 0;">
           <div>
             <p class="eyebrow" style="color: #8fc9a1;">Recursos Premium</p>
@@ -84,6 +85,18 @@ class MonetizationManager {
                 <li style="margin-bottom: 0.5rem;">✓ Auditoria e Integrações API</li>
               </ul>
               <button class="primary-button checkout-btn" data-plan="operation" style="width: 100%; background: linear-gradient(135deg, #d4af37 0%, #aa8529 100%); border: none; color: #fff;">Assinar Operação</button>
+            </div>
+
+            <div class="plan-card" style="background: linear-gradient(145deg, rgba(143,201,161,0.1), rgba(0,0,0,0)); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(143, 201, 161, 0.5); box-shadow: 0 0 30px rgba(143,201,161,0.1);">
+              <div style="position: absolute; top: -10px; right: 20px; background: #8fc9a1; color: #000; font-size: 0.7rem; font-weight: bold; padding: 4px 8px; border-radius: 8px;">VITALÍCIO</div>
+              <h3 style="color: #8fc9a1; margin-top: 0;">AGRA Vitalício</h3>
+              <p class="price" style="font-size: 2rem; font-weight: bold; color: #8fc9a1; margin: 1rem 0;">R$ 1.997<span style="font-size: 1rem; color: rgba(255,255,255,0.6);">/único</span></p>
+              <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem; color: #e0e0e0;">
+                <li style="margin-bottom: 0.5rem;">✓ Acesso definitivo a todas as funções</li>
+                <li style="margin-bottom: 0.5rem;">✓ Atualizações gratuitas para sempre</li>
+                <li style="margin-bottom: 0.5rem;">✓ Suporte prioritário 24/7</li>
+              </ul>
+              <button class="primary-button checkout-btn" data-plan="lifetime" style="width: 100%; background: #8fc9a1; border: none; color: #000; font-weight: bold;">Garantir Acesso Vitalício</button>
             </div>
           </div>
         </div>

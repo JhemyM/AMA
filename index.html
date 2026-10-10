@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#1b3329">
   <title>AGRA | Gestão rural inteligente</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles-base.css?v=0.7.17">
-  <link rel="stylesheet" href="styles.css?v=0.7.17">
+  <link rel="stylesheet" href="styles-base.css?v=0.7.19">
+  <link rel="stylesheet" href="styles.css?v=0.7.19">
   <script>
     if (!localStorage.getItem('agra_current_user')) {
       window.location.href = 'login.html';
@@ -90,9 +90,9 @@
           
           <article class="panel market-panel"><div class="panel-heading"><div><h2>Cotações Agrícolas</h2><p>Preços base (Mercado Físico)</p></div></div>
             <div class="market-list" id="dashboardMarketList" style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;">
-              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:rgba(255,255,255,0.4); border-radius:8px; border:1px solid var(--border);"><strong>Soja <small style="color:var(--muted);font-weight:normal;">(sc 60kg)</small></strong><div style="text-align:right;"><span>R$ 132,50</span> <small style="color:#22c55e; font-weight:600;">+1.2%</small></div></div>
-              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:rgba(255,255,255,0.4); border-radius:8px; border:1px solid var(--border);"><strong>Milho <small style="color:var(--muted);font-weight:normal;">(sc 60kg)</small></strong><div style="text-align:right;"><span>R$ 58,20</span> <small style="color:#ef4444; font-weight:600;">-0.8%</small></div></div>
-              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:rgba(255,255,255,0.4); border-radius:8px; border:1px solid var(--border);"><strong>Boi Gordo <small style="color:var(--muted);font-weight:normal;">(arroba)</small></strong><div style="text-align:right;"><span>R$ 235,00</span> <small style="color:#22c55e; font-weight:600;">+0.5%</small></div></div>
+              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:var(--surface-hover); border-radius:8px; border:1px solid var(--border);"><strong>Soja <small style="color:var(--muted);font-weight:normal;">(sc 60kg)</small></strong><div style="text-align:right;"><span>R$ 132,50</span> <small style="color:#22c55e; font-weight:600;">+1.2%</small></div></div>
+              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:var(--surface-hover); border-radius:8px; border:1px solid var(--border);"><strong>Milho <small style="color:var(--muted);font-weight:normal;">(sc 60kg)</small></strong><div style="text-align:right;"><span>R$ 58,20</span> <small style="color:#ef4444; font-weight:600;">-0.8%</small></div></div>
+              <div style="display:flex; justify-content:space-between; padding:0.75rem; background:var(--surface-hover); border-radius:8px; border:1px solid var(--border);"><strong>Boi Gordo <small style="color:var(--muted);font-weight:normal;">(arroba)</small></strong><div style="text-align:right;"><span>R$ 235,00</span> <small style="color:#22c55e; font-weight:600;">+0.5%</small></div></div>
             </div>
           </article>
           
@@ -291,10 +291,13 @@
 
 
   <div class="toast" id="toast" role="status">Atividade registrada com sucesso.</div>
+  <!-- Dexie for IndexedDB -->
+  <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="supabase-client.js?v=0.7.17"></script>
   <script defer src="storage.js?v=0.7.17"></script>
+  <script defer src="database_sync.js?v=0.7.17"></script>
   <script defer src="feedback-config.js?v=0.7.17"></script>
   <script defer src="feedback-config.local.js?v=0.7.17"></script>
   <script defer src="monetization.js?v=0.7.17"></script>

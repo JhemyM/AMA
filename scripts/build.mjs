@@ -6,14 +6,17 @@ const root = resolve(import.meta.dirname, '..');
 const output = resolve(root, 'dist', 'web');
 const webFiles = [
   'index.html',
+  'demo.html',
   'login.html',
   'login.js',
   'styles-base.css',
   'styles.css',
   'storage.js',
+  'database_sync.js',
   'feedback-config.js',
   'monetization.js',
   'app.js',
+  'demo-app.js',
   'sw.js',
   'manifest.webmanifest',
   'supabase-client.js',
@@ -133,5 +136,11 @@ const templates = `
 
 indexHtml = indexHtml.replace('</body>', () => `${templates}\n${injectedScripts}\n</body>`);
 await writeFile(resolve(output, 'index.html'), indexHtml, 'utf8');
+
+try {
+  let demoHtml = await readFile(resolve(output, 'demo.html'), 'utf8');
+  demoHtml = demoHtml.replace('</body>', () => `${templates}\n${injectedScripts}\n</body>`);
+  await writeFile(resolve(output, 'demo.html'), demoHtml, 'utf8');
+} catch (e) {}
 
 console.log(`AGRA web build ready: ${output} (Obfuscated)`);

@@ -1,7 +1,7 @@
 {
   "name": "agra-platform",
   "private": true,
-  "version": "0.7.15",
+  "version": "0.7.22",
   "description": "Nucleo do AGRA para gestao rural sustentavel.",
   "type": "module",
   "repository": {

@@ -41,8 +41,8 @@ window.AgraTasks = {
             <small style="font-size: 0.75rem; text-transform: uppercase;">${month}</small>
           </span>
           <div style="flex: 1; min-width:0;">
-            <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.title}</strong>
-            <small class="muted" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} · ${task.assignee}</small>
+            <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="${window.escapeHTML ? window.escapeHTML(task.title) : task.title}">${window.escapeHTML ? window.escapeHTML(task.title) : task.title}</strong>
+            <small class="muted" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="${window.escapeHTML ? window.escapeHTML(task.field) : task.field} · ${window.escapeHTML ? window.escapeHTML(task.assignee) : task.assignee}">${window.escapeHTML ? window.escapeHTML(task.field) : task.field} · ${window.escapeHTML ? window.escapeHTML(task.assignee) : task.assignee}</small>
           </div>
           <div style="display:flex; align-items:center; gap: 0.25rem; flex-shrink: 0;">
             <span class="tag ${tagClass}">${tagLabel}</span>
@@ -100,6 +100,7 @@ window.AgraTasks = {
     const tasks = JSON.parse(localStorage.getItem('agra_tasks_data') || '[]');
     
     const newTask = {
+      id: crypto.randomUUID(),
       title: container.querySelector('#newTaskTitleInput').value,
       assignee: container.querySelector('#newTaskAssignee').value,
       date: container.querySelector('#newTaskDate').value,

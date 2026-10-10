@@ -29,10 +29,9 @@ function updateDemoTimer() {
   if (timerEl) timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
   if (remaining <= 0) {
-    alert("Seu tempo de demonstração (15 minutos) expirou. Obrigado por experimentar o AGRA!");
-    localStorage.removeItem('agra_demo_start');
-    localStorage.removeItem('agra_current_user');
-    window.location.href = 'login.html';
+    alert("Seu tempo de demonstração inicial expirou, mas o tempo foi reiniciado para que você possa continuar testando!");
+    demoStartTime = Date.now().toString();
+    localStorage.setItem('agra_demo_start', demoStartTime);
   }
 }
 setInterval(updateDemoTimer, 1000);
@@ -48,10 +47,17 @@ if (currentUserStr) {
     ? (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase()
     : firstName.substring(0, 2).toUpperCase();
 
-  document.getElementById('greetingName').textContent = firstName;
-  document.getElementById('sidebarName').textContent = currentUser.name;
-  document.getElementById('sidebarAvatar').textContent = initials;
-  document.getElementById('topAvatar').textContent = initials;
+  const greetingEl = document.getElementById('greetingName');
+  if (greetingEl) greetingEl.textContent = firstName;
+  
+  const sidebarNameEl = document.getElementById('sidebarName');
+  if (sidebarNameEl) sidebarNameEl.textContent = currentUser.name;
+  
+  const sidebarAvatarEl = document.getElementById('sidebarAvatar');
+  if (sidebarAvatarEl) sidebarAvatarEl.textContent = initials;
+  
+  const topAvatarEl = document.getElementById('topAvatar');
+  if (topAvatarEl) topAvatarEl.textContent = initials;
   
   // Populate profile dialog
   const modalAvatar = document.getElementById('modalAvatar');

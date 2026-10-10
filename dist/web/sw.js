@@ -1,10 +1,13 @@
-const CACHE_NAME = 'agra-shell-v0.7.15';
+const CACHE_NAME = 'agra-shell-v0.7.22';
 const APP_SHELL = [
   './',
   './index.html',
+  './demo.html',
   './styles.css',
+  './styles-base.css',
   './storage.js',
   './app.js',
+  './demo-app.js',
   './manifest.webmanifest'
 ];
 
@@ -28,12 +31,6 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-  
-  // Intercept old demo.html clicks and forcibly redirect to index.html
-  if (event.request.url.includes('demo.html')) {
-    event.respondWith(Response.redirect('./index.html', 302));
-    return;
-  }
   
   // Network-First Strategy to prevent caching 404s and force updates
   event.respondWith(

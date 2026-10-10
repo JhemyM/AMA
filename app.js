@@ -16,6 +16,9 @@ const sectionLabels = {
 
 
 // --- DYNAMIC USER LOAD ---
+window.escapeHTML = str => (str ? String(str).replace(/[&<>'"]/g, tag => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag])) : '');
+const escapeHTML = window.escapeHTML;
+
 const currentUserStr = localStorage.getItem('agra_current_user');
 if (currentUserStr) {
   const currentUser = JSON.parse(currentUserStr);
@@ -48,11 +51,12 @@ if (currentDateElement) {
   currentDateElement.textContent = new Date().toLocaleDateString('pt-BR', options);
 }
 
-document.getElementById('logoutButton')?.addEventListener('click', async () => {
+async function handleUserLogout() {
     if (window.supabaseClient) {
       await window.supabaseClient.auth.signOut();
     }
-    console.log('EXECUTING LOGOUT HANDLER. Role:', JSON.parse(localStorage.getItem('agra_current_user') || '{}').role); const currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
+    const currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
+    console.log('EXECUTING LOGOUT HANDLER. Role:', currentUser.role);
     if (currentUser.role === 'demo') {
       const keysToKeep = ['agra_theme', 'agra_font_size', 'agra_reduced_motion'];
       for (let i = localStorage.length - 1; i >= 0; i--) {
@@ -66,7 +70,9 @@ document.getElementById('logoutButton')?.addEventListener('click', async () => {
       localStorage.removeItem('agra_demo_start');
     }
     window.location.href = 'login.html?v=0.7.17';
-});
+}
+
+document.getElementById('logoutButton')?.addEventListener('click', handleUserLogout);
 
 document.getElementById('topAvatar')?.addEventListener('click', () => {
   const dialog = document.getElementById('profileDialog');
@@ -77,25 +83,7 @@ document.getElementById('themeToggleButtonProfile')?.addEventListener('click', (
   document.getElementById('themeToggle')?.click();
 });
 
-document.getElementById('logoutButtonProfile')?.addEventListener('click', async () => {
-    if (window.supabaseClient) {
-      await window.supabaseClient.auth.signOut();
-    }
-    console.log('EXECUTING LOGOUT HANDLER. Role:', JSON.parse(localStorage.getItem('agra_current_user') || '{}').role); const currentUser = JSON.parse(localStorage.getItem('agra_current_user') || '{}');
-    if (currentUser.role === 'demo') {
-      const keysToKeep = ['agra_theme', 'agra_font_size', 'agra_reduced_motion'];
-      for (let i = localStorage.length - 1; i >= 0; i--) {
-        const key = localStorage.key(i);
-        if (key && !keysToKeep.includes(key)) {
-          localStorage.removeItem(key);
-        }
-      }
-    } else {
-      localStorage.removeItem('agra_current_user');
-      localStorage.removeItem('agra_demo_start');
-    }
-    window.location.href = 'login.html?v=0.7.17';
-});
+document.getElementById('logoutButtonProfile')?.addEventListener('click', handleUserLogout);
 
 
 // -------------------------
@@ -134,14 +122,14 @@ async function updateWeather(lat, lon) {
     const data = await res.json();
     
     const codeToIcon = (code) => {
-      if (code <= 1) return 'â˜€'; 
-      if (code <= 3) return 'â›…'; 
+      if (code <= 1) return '☀️'; 
+      if (code <= 3) return '⛅'; 
       if (code <= 48) return 'â˜'; 
-      if (code <= 67) return 'â˜‚'; 
+      if (code <= 67) return '🌧️'; 
       if (code <= 77) return 'â„'; 
-      if (code <= 82) return 'ðŸŒ§'; 
-      if (code <= 99) return 'â›ˆ'; 
-      return 'â˜€';
+      if (code <= 82) return '🌦️'; 
+      if (code <= 99) return '⛈️'; 
+      return '☀️';
     };
     
     const codeToDesc = (code) => {
@@ -156,7 +144,7 @@ async function updateWeather(lat, lon) {
     };
 
     const current = data.current;
-    document.getElementById('weatherTempMain').textContent = `${Math.round(current.temperature_2m)}Â°`;
+    document.getElementById('weatherTempMain').textContent = `${Math.round(current.temperature_2m)}°`;
     document.getElementById('weatherIconMain').textContent = codeToIcon(current.weather_code);
     document.getElementById('weatherDescMain').textContent = codeToDesc(current.weather_code);
     document.getElementById('weatherHumMain').textContent = `${current.relative_humidity_2m}%`;
@@ -174,7 +162,7 @@ async function updateWeather(lat, lon) {
         const icon = codeToIcon(data.daily.weather_code[i]);
         const max = Math.round(data.daily.temperature_2m_max[i]);
         const min = Math.round(data.daily.temperature_2m_min[i]);
-        html += `<div><span>${dayName}</span><b>${icon}</b><strong>${max}Â°</strong><small>${min}Â°</small></div>`;
+        html += `<div><span>${dayName}</span><b>${icon}</b><strong>${max}°</strong><small>${min}°</small></div>`;
       }
       forecastContainer.innerHTML = html;
     }
@@ -315,7 +303,7 @@ function renderPropertyData() {
         <div class="field-row">
           <div class="field-name">
             <span class="field-color ${color}"></span>
-            <div><strong>${field.name}</strong><small>${field.crop}${field.variety ? ' (' + field.variety + ')' : ''} Â· ${field.area} ha</small></div>
+            <div><strong>${field.name}</strong><small>${field.crop}${field.variety ? ' (' + field.variety + ')' : ''} · ${field.area} ha</small></div>
           </div>
           <div class="progress"><span class="${color === 'yellow' ? 'yellow-fill' : color === 'red' ? 'red-fill' : ''}" style="width: ${field.health}%"></span></div>
           <strong class="${color === 'green' ? 'health-good' : color === 'yellow' ? 'health-warn' : 'health-alert'}">${field.health}</strong>
@@ -459,8 +447,8 @@ function renderPropertyData() {
           <div class="task-row">
             <span class="task-date ${isToday ? 'today' : ''}"><b>${day}</b><small>${month}</small></span>
             <div style="flex:1; min-width:0;">
-              <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.title}</strong>
-              <small style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${task.field} Â· ${task.assignee}</small>
+              <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="${escapeHTML(task.title)}">${escapeHTML(task.title)}</strong>
+              <small style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;" title="${escapeHTML(task.field)} · ${escapeHTML(task.assignee)}">${escapeHTML(task.field)} · ${escapeHTML(task.assignee)}</small>
             </div>
             <div style="display:flex; align-items:center; gap:0.25rem; flex-shrink: 0;">
               <span class="tag ${isToday ? 'urgent' : 'planned'}">${isToday ? 'Hoje' : 'Agendado'}</span>
@@ -554,10 +542,11 @@ onboardingForm?.addEventListener('submit', (e) => {
   const fieldVariety = document.getElementById('fieldVariety').value;
   
   const propertyData = {
+    id: crypto.randomUUID(),
     propertyName,
     totalArea,
     fields: [
-      { name: fieldName, area: fieldArea, crop: fieldCrop, variety: fieldVariety, health: Math.floor(Math.random() * 40) + 50 }
+      { id: crypto.randomUUID(), name: fieldName, area: fieldArea, crop: fieldCrop, variety: fieldVariety, health: Math.floor(Math.random() * 40) + 50 }
     ]
   };
   
@@ -760,7 +749,7 @@ if (btnCalculateCarbon) {
     const resultBox = document.getElementById('carbonResult');
     const resultText = document.getElementById('carbonResultText');
     
-    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntÃÂ¡rio.`;
+    resultText.innerHTML = `Sequestro estimado de <strong>${co2e.toLocaleString('pt-BR')} toneladas</strong> de CO2e por ano.<br>Potencial financeiro: <strong style="color:#d4af37;">R$ ${revenue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</strong> por ano no mercado voluntário.`;
     resultBox.style.display = 'block';
   });
 }
