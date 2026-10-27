@@ -13,3 +13,5 @@ data/embrapa/documents/
 feedback-config.local.js
 .DS_Store
 *.exe
+# Credenciais locais (nunca versionar)
+credenciais_agra.txt
